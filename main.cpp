@@ -2,7 +2,9 @@
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
-    return 0;
 
-    Lexer
+    std::string fileName = "C:\\Users\\bennet.vella\\Desktop\\Compilers\\SampleCode.txt"
+    Lexer newLexer = new Lexer (fileName);
+
+    return 0;
 }

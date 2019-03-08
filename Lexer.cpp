@@ -13,7 +13,7 @@ Lexer::Lexer(std::string p_fileName) {
         std::cout << "[Lexer] Reading program text ... ";
         std::string line;
         while (std::getline(programFile, line)) {
-            m_inputProgram.append(line_+'\n');
+            m_inputProgram.append(line + '\n');
         }
         std::cout << "done." << std::endl;
     }
@@ -24,19 +24,19 @@ Lexer::Lexer(std::string p_fileName) {
 }
 
 Lexer::Token Lexer::GetToken() {
-    // std::cout << m_charIndex << ".." << m_inputProgram.length() << std::endl;
-    if ((unsigned int) m_charIndex == m_inputProgram.length()-1) return Lexer::Token(TOK_EOF)
+    std::cout << m_charIndex << ".." << m_inputProgram.length() << std::endl;
+    if ((unsigned int) m_charIndex == m_inputProgram.length() - 1) return Lexer::Token(TOK_EOF)
 
     char lastChar = m_inputProgram[m_charIndex];
 
-    while (lastChar == ' ' || lastChar == '\n')
-    {
-        if (lastChar == '\n') m_lineNumber ++;
-        m_charIndex ++;
+    while (lastChar == ' ' || lastChar == '\n') {
+        if (lastChar == '\n') m_lineNumber++;
+        m_charIndex++;
         lastChar = m_inputProgram[m_charIndex];
     }
 
     // Are these comments?
-    if (lastChar == '/')
-    {
-        m_charIndex
+    if (lastChar == '/') {
+        //m_charIndex
+    }
+}

@@ -13,11 +13,11 @@ public :
     virtual ~Lexer();
 
     enum TOK_TYPE {
-        TOK_EOF = 1 , TOK_DEF = 2 , TOK_RETURN = 3 , TOK_EXTERN = 4 ,
-        TOK_ID = 5 , TOK_NUMBER = 6 , TOK_NUM_ERROR = 7 , TOK_IF = 8 ,
-        TOK_PUNC = 9 , TOK_SRCLANG_TYPE = 10 , TOK_SYNTAX_ERR = 11 ,
-        TOK_BOOLOP = 12 , TOK_ASSIGNOP = 13 , TOK_ARITHMETICOP = 14 ,
-        TOK_STMT_DELIMITER = 15 , TOK_OPEN_SCOPE = 16 , TOK_CLOSE_SCOPE = 17
+        TOK_EOF = 1, TOK_DEF = 2, TOK_RETURN = 3, TOK_EXTERN = 4,
+        TOK_ID = 5, TOK_NUMBER = 6, TOK_NUM_ERROR = 7, TOK_IF = 8,
+        TOK_PUNC = 9, TOK_SRCLANG_TYPE = 10, TOK_SYNTAX_ERR = 11,
+        TOK_BOOLOP = 12, TOK_ASSIGNOP = 13, TOK_ARITHMETICOP = 14,
+        TOK_STMT_DELIMITER = 15, TOK_OPEN_SCOPE = 16, TOK_CLOSE_SCOPE = 17
     };
 
     struct Token {
@@ -25,29 +25,25 @@ public :
         std::string id_name;
         float number_value;
 
-        Token()
-        {
+        Token() {
             token_type = TOK_EOF;
             id_name = "";
             number_value = 0;
         }
 
-        Token(TOK_TYPE p_token_type, std:string p_id_name, float p_number_value)
-        {
+        Token(TOK_TYPE p_token_type, std::string p_id_name, float p_number_value) {
             token_type = p_token_type;
             id_name = p_id_name;
             number_value = p_number_value;
         }
 
-        Token(TOK_TYPE p_token_type)
-        {
+        Token(TOK_TYPE p_token_type) {
             token_type = p_token_type;
             id_name = "";
             number_value = 0;
         }
 
-        Token(TOK_TYPE p_token_type, std:string p_id_name)
-        {
+        Token(TOK_TYPE p_token_type, std::string p_id_name) {
             token_type = p_token_type;
             id_name = p_id_name;
             number_value = 0;
@@ -59,7 +55,9 @@ public :
             number_value = 0;
         }
 
-        std:string ToString() {
+        std:string
+
+        ToString() {
             switch (token_type) {
                 case TOK_EOF :
                     return "[TOK_EOF]";
@@ -98,16 +96,17 @@ public :
             }
         }
 
-
         Token getToken();
 
-        std:string ToString();
+        std:string
 
-    private:
-        std::string m_inputProgram;
-        int m_charIndex;
-        int m_lineNumber;
-    };
+        ToString();
+    }
+
+private:
+    std::string m_inputProgram;
+    int m_charIndex;
+    int m_lineNumber;
 }
 
 #endif //COMPILER_LEXER_H
