@@ -1,0 +1,4 @@
+LEXER
+1 - Are tables / enums used by lexer  going to be declared under the Lexer.h file?
+2 - Do we store a string of m_inputProgram under Lexer.h file and refer to this whenever we pull more tokens?
+3 -

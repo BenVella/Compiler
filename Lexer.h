@@ -1,3 +1,7 @@
+#include <utility>
+
+#include <utility>
+
 //
 // Created by bennet.vella on 08/03/2019.
 //
@@ -5,10 +9,13 @@
 #ifndef COMPILER_LEXER_H
 #define COMPILER_LEXER_H
 
+#include <string>
+#include <iostream>
+#include <vector>
 
 class Lexer {
 public :
-    Lexer(std::string p_fileName);
+    explicit Lexer(std::string p_fileName);
 
     virtual ~Lexer();
 
@@ -33,11 +40,11 @@ public :
 
         Token(TOK_TYPE p_token_type, std::string p_id_name, float p_number_value) {
             token_type = p_token_type;
-            id_name = p_id_name;
+            id_name = std::move(p_id_name);
             number_value = p_number_value;
         }
 
-        Token(TOK_TYPE p_token_type) {
+        explicit Token(TOK_TYPE p_token_type) {
             token_type = p_token_type;
             id_name = "";
             number_value = 0;
@@ -45,7 +52,7 @@ public :
 
         Token(TOK_TYPE p_token_type, std::string p_id_name) {
             token_type = p_token_type;
-            id_name = p_id_name;
+            id_name = std::move(p_id_name);
             number_value = 0;
         }
 
@@ -55,9 +62,7 @@ public :
             number_value = 0;
         }
 
-        std:string
-
-        ToString() {
+        std::string ToString() {
             switch (token_type) {
                 case TOK_EOF :
                     return "[TOK_EOF]";
@@ -93,20 +98,31 @@ public :
                     return "[TOK_OPEN_SCOPE]";
                 case TOK_CLOSE_SCOPE :
                     return "[TOK_CLOSE_SCOPE]";
+                default:
+                    return nullptr;
             }
-        }
+        };
+    };
 
-        Token getToken();
-
-        std:string
-
-        ToString();
-    }
-
+    Token GetNextToken();
 private:
     std::string m_inputProgram;
     int m_charIndex;
     int m_lineNumber;
-}
+
+
+    int m_transitionTable[2][3] = {{ST_ID,ST_ID,ST_ER},
+                                   {ST_ID,ST_ID,ST_ID}};
+
+    enum STATE_TYPE {
+        ST_BAD = 0, ST_ER = 1, ST_ID = 2  // ST_ID = Identifier, ST_ER = Error
+    };
+
+    std::vector<STATE_TYPE> m_acceptedStates = {ST_ID};
+
+    enum CHAR_TYPE {
+        CHAR_USCORE = 0, CHAR_LETTER = 1, CHAR_DIGIT = 2
+    };
+};
 
 #endif //COMPILER_LEXER_H
