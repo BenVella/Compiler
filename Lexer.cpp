@@ -4,6 +4,7 @@
 #include <fstream>
 #include <stack>
 #include "Lexer.h"
+#include "Util.h"
 
 Lexer::Lexer (std::string p_fileName) {
     //Read file
@@ -28,6 +29,18 @@ Lexer::Lexer (std::string p_fileName) {
 
 Lexer::~Lexer () = default;
 
+void Lexer::NextWord() {
+    m_currentState = ST_BAD;
+    m_lexeme = "";
+    m_stack.empty();
+    m_stack.push(ST_BAD);
+}
+
+void Lexer::NextChar(char * p_lastChar) {
+    m_charIndex++;
+    *p_lastChar = m_inputProgram[m_charIndex];
+}
+
 Lexer::Token Lexer::GetNextToken() {
     std::cout << m_charIndex << ".." << m_inputProgram.length() << std::endl;
 
@@ -43,26 +56,27 @@ Lexer::Token Lexer::GetNextToken() {
     }
 
     // Initialize Process
-    int currentState = ST_BAD;
-    std::string lexeme = "";
-    std::stack<int> m_stack;
-    m_stack.empty();
-    m_stack.push(ST_BAD);
+    NextWord();
 
-    while (currentState != ST_ER) {
+    while (m_currentState != ST_ER) {
         NextChar(&lastChar);
-        lexeme += lastChar;
-        if (currentState in m_acceptedStates)
+        m_lexeme += lastChar;
+
+        if (Util::setContains(m_acceptedStates, m_currentState)) m_stack.empty();
+
+        m_stack.push(m_currentState);
+
+
 
         int currentChar;
         if (lastChar == '_') currentChar = CHAR_USCORE;
         else if (isalpha(lastChar)) currentChar = CHAR_LETTER;
         else if (isdigit(lastChar)) currentChar = CHAR_DIGIT;
 
-        currentState = m_transitionTable[currentState][currentChar];
+        m_currentState = m_transitionTable[m_currentState][currentChar];
 
         std::cout << "Printing currentChar: " << CHAR_TYPE (currentChar);
-        std::cout << "Printing currentState: " << STATE_TYPE (currentState);
+        std::cout << "Printing m_currentState: " << STATE_TYPE (m_currentState);
 
         m_charIndex++;
         lastChar = m_inputProgram[m_charIndex];
@@ -88,4 +102,14 @@ Lexer::Token Lexer::GetNextToken() {
         }
     }
     return Lexer::Token(TOK_NUM_ERROR);
+}
+
+Lexer::CLASSIFIER Lexer::classifyChar(char val) {
+    if (val == '_') return CAT_UNDERSCORE;
+    else if ((val <= 'z' && val >= 'a') && (val <= 'Z' || val >= 'A')) return CAT_LETTER;
+    else if (val >= '0' && val <= '9') return CAT_DIGIT;
+    else if (val == '*' || val == '/' || val == 'and') return CAT_MULTIPLICATIVE;
+    else if (val == '+' || val == '-' || val == 'or') return CAT_ADDITIVE;
+    else if (val == '<' || val == '>' || val == )
+    return CAT_ADDITIVE;
 }

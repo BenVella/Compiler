@@ -11,7 +11,8 @@
 
 #include <string>
 #include <iostream>
-#include <vector>
+#include <set>
+#include <map>
 
 class Lexer {
 public :
@@ -105,24 +106,39 @@ public :
     };
 
     Token GetNextToken();
+    void NextWord();
+    void NextChar(char * p_lastChar);
+
 private:
     std::string m_inputProgram;
     int m_charIndex;
     int m_lineNumber;
 
+    int m_currentState;
+    std::string m_lexeme;
+    std::stack<int> m_stack;
 
     int m_transitionTable[2][3] = {{ST_ID,ST_ID,ST_ER},
                                    {ST_ID,ST_ID,ST_ID}};
+
+    enum CLASSIFIER {
+        CAT_LETTER, CAT_DIGIT, CAT_UNDERSCORE, CAT_TYPE, CAT_BOOLEAN,
+        CAT_INTEGER, CAT_FLOAT, CAT_LITERAL, CAT_IDENTIFIER,
+        CAT_MULTIPLICATIVE, CAT_ADDITIVE, CAT_RELATIONAL,
+        CAT_ACTUAL,
+    };
 
     enum STATE_TYPE {
         ST_BAD = 0, ST_ER = 1, ST_ID = 2  // ST_ID = Identifier, ST_ER = Error
     };
 
-    std::vector<STATE_TYPE> m_acceptedStates = {ST_ID};
+    std::set<int> m_acceptedStates = {ST_ID};
 
     enum CHAR_TYPE {
         CHAR_USCORE = 0, CHAR_LETTER = 1, CHAR_DIGIT = 2
     };
+
+    CLASSIFIER classifyChar (char val);
 };
 
 #endif //COMPILER_LEXER_H
