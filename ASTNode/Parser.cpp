@@ -2,8 +2,8 @@
 // Created by bennet.vella on 25/03/2019.
 //
 
+#include <vector>
 #include "Parser.h"
-#include "ASTStatementNode.h"
 
 ASTStatementNode * Parser::ParseReturnStatement() {
     CurrentToken = Lex.GetNextToken();
@@ -11,9 +11,14 @@ ASTStatementNode * Parser::ParseReturnStatement() {
     if (!expr_node)
         return nullptr;
 
-    auto node = new ASTReturnStatementNode();
+    /*auto node = new ASTReturnStatementNode();
     node->LHS = expr_node;
-    return node;
+    return node; */ // ToDo: Uncomment when ASTReturnStatementNode has been implemented.
+    return nullptr; // ToDo remove nullptr and return above node
+}
+
+Parser::~Parser() {
+
 }
 
 ASTExprNode * Parser::ParseExpression() {
@@ -23,7 +28,15 @@ ASTExprNode * Parser::ParseExpression() {
     return ParseBinaryExpr(0,std::move(LHS));
 }
 
-ASTStatementNode * Parser:ParseStatement() {
+ASTStatementNode *Parser::ParseIdStatement() {
+    return nullptr;
+}
+
+ASTStatementNode *ParseIfStatement() {
+    return nullptr;
+}
+
+ASTStatementNode * Parser::ParseStatement() {
     ASTStatementNode * node = nullptr;
     switch(CurrentToken.token_type) {
         case Lexer::TOK_RETURN:
@@ -38,9 +51,10 @@ ASTStatementNode * Parser:ParseStatement() {
         default:
             break;
     }
-};
+    return nullptr; // Todo remove this
+}
 
-ASTFuncPrototypeNode * Parser::ParsEFunctionPrototype() {
+ASTFuncPrototypeNode * Parser::ParseFunctionPrototype() {
     if (CurrentToken.token_type != Lexer::TOK_ID) {
         Error("Expecting function name");
         return nullptr;
@@ -51,6 +65,7 @@ ASTFuncPrototypeNode * Parser::ParsEFunctionPrototype() {
 
     CurrentToken = Lex.GetNextToken();
 
+    return nullptr; // ToDo remove nullptr;
 }
 
 ASTExprNode * Parser::ParseBinaryExpr(int p_Precedence,ASTExprNode * p_LHS) {
@@ -77,3 +92,24 @@ ASTExprNode * Parser::ParseBinaryExpr(int p_Precedence,ASTExprNode * p_LHS) {
         }
     }
 }
+
+ASTExprNode *Parser::ParseUnaryExpr() {
+    return nullptr;
+}
+
+ASTExprNode *Parser::ParseIdentifierExpr() {
+    return nullptr;
+}
+
+ASTExprNode *Parser::ParseParenthesisExpr() {
+    return nullptr;
+}
+
+ASTExprNode *Parser::ParseNumberExpr() {
+    return nullptr;
+}
+
+ASTExprNode *Parser::Error(const char *Str) {
+    return nullptr;
+}
+

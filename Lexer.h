@@ -12,7 +12,7 @@
 #include <string>
 #include <iostream>
 #include <set>
-#include <map>
+#include <stack>
 
 class Lexer {
 public :
@@ -121,11 +121,8 @@ private:
     int m_transitionTable[2][3] = {{ST_ID,ST_ID,ST_ER},
                                    {ST_ID,ST_ID,ST_ID}};
 
-    enum CLASSIFIER {
-        CAT_LETTER, CAT_DIGIT, CAT_UNDERSCORE, CAT_TYPE, CAT_BOOLEAN,
-        CAT_INTEGER, CAT_FLOAT, CAT_LITERAL, CAT_IDENTIFIER,
-        CAT_MULTIPLICATIVE, CAT_ADDITIVE, CAT_RELATIONAL,
-        CAT_ACTUAL,
+    enum CATEGORY {
+        CAT_UNDEFINED, CAT_TEXT, CAT_DIGIT, CAT_PUNC, CAT_OP
     };
 
     enum STATE_TYPE {
@@ -134,11 +131,7 @@ private:
 
     std::set<int> m_acceptedStates = {ST_ID};
 
-    enum CHAR_TYPE {
-        CHAR_USCORE = 0, CHAR_LETTER = 1, CHAR_DIGIT = 2
-    };
-
-    CLASSIFIER classifyChar (char val);
+    CATEGORY categorizeChar(char val);
 };
 
 #endif //COMPILER_LEXER_H

@@ -7,6 +7,9 @@
 
 #include "ASTStatementNode.h"
 #include "ASTNode.h"
+#include "ASTFunctionNode.h"
+#include <iostream>
+#include <vector>
 
 class ASTProgramNode : public ASTNode {
 public:

@@ -63,19 +63,14 @@ Lexer::Token Lexer::GetNextToken() {
         m_lexeme += lastChar;
 
         if (Util::setContains(m_acceptedStates, m_currentState)) m_stack.empty();
-
         m_stack.push(m_currentState);
 
+        auto charCat = categorizeChar(lastChar);
 
 
-        int currentChar;
-        if (lastChar == '_') currentChar = CHAR_USCORE;
-        else if (isalpha(lastChar)) currentChar = CHAR_LETTER;
-        else if (isdigit(lastChar)) currentChar = CHAR_DIGIT;
+        m_currentState = m_transitionTable[m_currentState][charCat];
 
-        m_currentState = m_transitionTable[m_currentState][currentChar];
-
-        std::cout << "Printing currentChar: " << CHAR_TYPE (currentChar);
+        std::cout << "Printing charCategory: " << CATEGORY (charCat);
         std::cout << "Printing m_currentState: " << STATE_TYPE (m_currentState);
 
         m_charIndex++;
@@ -104,12 +99,10 @@ Lexer::Token Lexer::GetNextToken() {
     return Lexer::Token(TOK_NUM_ERROR);
 }
 
-Lexer::CLASSIFIER Lexer::classifyChar(char val) {
-    if (val == '_') return CAT_UNDERSCORE;
-    else if ((val <= 'z' && val >= 'a') && (val <= 'Z' || val >= 'A')) return CAT_LETTER;
-    else if (val >= '0' && val <= '9') return CAT_DIGIT;
-    else if (val == '*' || val == '/' || val == 'and') return CAT_MULTIPLICATIVE;
-    else if (val == '+' || val == '-' || val == 'or') return CAT_ADDITIVE;
-    else if (val == '<' || val == '>' || val == )
-    return CAT_ADDITIVE;
+Lexer::CATEGORY Lexer::categorizeChar(char val) {
+    if (std::isalpha(val) || val == '_') return CAT_TEXT;
+    else if (std::isdigit(val)) return CAT_DIGIT;
+    else if (val == '*' || val == '/' || val == '+' || val == '-' || val == '<' || val == '>') return CAT_OP;
+    else if (val == ';' || val == '(' || val == ')' || val == '{' || val == '}') return CAT_PUNC;
+    return CAT_UNDEFINED;
 }
