@@ -118,18 +118,35 @@ private:
     std::string m_lexeme;
     std::stack<int> m_stack;
 
-    int m_transitionTable[2][3] = {{ST_ID,ST_ID,ST_ER},
-                                   {ST_ID,ST_ID,ST_ID}};
+    enum STATE_TYPE {
+        ST_START = 0, ST_ER, ST_TEXT,
+        ST_ID, ST_DIGIT, ST_SLASH,
+        ST_OPERATOR, ST_PUNCTUATION, ST_COMMENT
+    };
+
+    std::set<int> m_acceptedStates = {ST_TEXT, ST_ID, ST_DIGIT, ST_SLASH,
+                                      ST_OPERATOR, ST_PUNCTUATION, ST_COMMENT};
+
+    int m_transitionTable[16][8] = {{ST_TEXT,ST_TEXT,ST_ID,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
+                                    {ST_DIGIT,ST_ID,ST_ID,ST_DIGIT,ST_ER,ST_ER,ST_ER,ST_COMMENT},
+                                    {ST_SLASH,ST_ER,ST_ER,ST_ER,ST_COMMENT,ST_ER,ST_ER,ST_COMMENT},
+                                    {ST_OPERATOR,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
+                                    {ST_OPERATOR,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
+                                    {ST_OPERATOR,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
+                                    {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
+                                    {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
+                                    {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
+                                    {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
+                                    {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
+                                    {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
+                                    {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
+                                    {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
+                                    {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
+                                    {ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER}};
 
     enum CATEGORY {
-        CAT_UNDEFINED, CAT_TEXT, CAT_DIGIT, CAT_PUNC, CAT_OP
+        CAT_UNDEFINED, CAT_CUT, CAT_TEXT, CAT_DIGIT, CAT_PUNC, CAT_SLASH, CAT_OP
     };
-
-    enum STATE_TYPE {
-        ST_BAD = 0, ST_ER = 1, ST_ID = 2  // ST_ID = Identifier, ST_ER = Error
-    };
-
-    std::set<int> m_acceptedStates = {ST_ID};
 
     CATEGORY categorizeChar(char val);
 };

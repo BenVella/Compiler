@@ -7,7 +7,11 @@ int main() {
     std::string fileName = R"(C:\Users\bennet.vella\Desktop\Compilers\SampleCode.txt)";
     Lexer* newLexer = new Lexer (fileName);
 
-    auto * newToken = new Lexer::Token(Lexer::TOK_TYPE::TOK_EOF);
-    std::cout << newToken->ToString() << std::endl;
+    auto valTest = newLexer->GetNextToken();
+    while ( valTest.token_type != Lexer::TOK_TYPE::TOK_EOF) {
+        std::cout << valTest.ToString() << std::endl;
+        valTest = newLexer->GetNextToken();
+    }
+
     return 0;
 }

@@ -7,6 +7,10 @@
 #include "Util.h"
 
 Lexer::Lexer (std::string p_fileName) {
+    // Initialize Vars
+    m_charIndex = 0;
+    m_lineNumber = 0;
+
     //Read file
     std::cout << "[Lexer] Loading program form " << p_fileName << std::endl;
     std::ifstream programFile;
@@ -30,15 +34,14 @@ Lexer::Lexer (std::string p_fileName) {
 Lexer::~Lexer () = default;
 
 void Lexer::NextWord() {
-    m_currentState = ST_BAD;
+    m_currentState = ST_START;
     m_lexeme = "";
     m_stack.empty();
-    m_stack.push(ST_BAD);
+    m_stack.push(ST_START);
 }
 
 void Lexer::NextChar(char * p_lastChar) {
-    m_charIndex++;
-    *p_lastChar = m_inputProgram[m_charIndex];
+    *p_lastChar = m_inputProgram[m_charIndex++];
 }
 
 Lexer::Token Lexer::GetNextToken() {
@@ -46,13 +49,13 @@ Lexer::Token Lexer::GetNextToken() {
 
     if ((unsigned int) m_charIndex == m_inputProgram.length() - 1) return Lexer::Token(TOK_EOF);
 
+    NextWord();
     char lastChar = m_inputProgram[m_charIndex];
 
     // Consume all whitespaces and newlines, update index and line number
     while (lastChar == ' ' || lastChar == '\n') {
         if (lastChar == '\n') m_lineNumber++;
-        m_charIndex++;
-        lastChar = m_inputProgram[m_charIndex];
+        lastChar = m_inputProgram[m_charIndex++];
     }
 
     // Initialize Process
@@ -65,13 +68,13 @@ Lexer::Token Lexer::GetNextToken() {
         if (Util::setContains(m_acceptedStates, m_currentState)) m_stack.empty();
         m_stack.push(m_currentState);
 
-        auto charCat = categorizeChar(lastChar);
+        int charCat = categorizeChar(lastChar);
 
 
         m_currentState = m_transitionTable[m_currentState][charCat];
 
-        std::cout << "Printing charCategory: " << CATEGORY (charCat);
-        std::cout << "Printing m_currentState: " << STATE_TYPE (m_currentState);
+        std::cout << "Printing charCategory: " << CATEGORY (charCat) << std::endl;
+        std::cout << "Printing m_currentState: " << STATE_TYPE (m_currentState) << std::endl;
 
         m_charIndex++;
         lastChar = m_inputProgram[m_charIndex];
@@ -100,9 +103,11 @@ Lexer::Token Lexer::GetNextToken() {
 }
 
 Lexer::CATEGORY Lexer::categorizeChar(char val) {
-    if (std::isalpha(val) || val == '_') return CAT_TEXT;
+    if (val == ' ') return CAT_CUT;
+    else if (std::isalpha(val) || val == '_') return CAT_TEXT;
     else if (std::isdigit(val)) return CAT_DIGIT;
-    else if (val == '*' || val == '/' || val == '+' || val == '-' || val == '<' || val == '>') return CAT_OP;
+    else if ( val == '/' ) return CAT_SLASH;
+    else if (val == '*' || val == '+' || val == '-' || val == '<' || val == '>') return CAT_OP;
     else if (val == ';' || val == '(' || val == ')' || val == '{' || val == '}') return CAT_PUNC;
     return CAT_UNDEFINED;
 }
