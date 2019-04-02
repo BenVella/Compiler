@@ -7,7 +7,7 @@
 
 #include "ASTNode.h"
 #include "ASTStatementNode.h"
-#include "Visitor.h"
+#include "../Visitor.h"
 #include "ASTExprNode.h"
 
 class ASTIfStatementNode: public ASTStatementNode {

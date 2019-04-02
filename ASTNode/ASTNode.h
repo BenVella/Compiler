@@ -5,7 +5,7 @@
 #ifndef COMPILER_ASTNODE_H
 #define COMPILER_ASTNODE_H
 
-#include "Visitor.h"
+#include "../Visitor.h"
 
 class ASTNode {
 public:

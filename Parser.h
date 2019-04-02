@@ -5,11 +5,11 @@
 #ifndef COMPILER_PARSER_H
 #define COMPILER_PARSER_H
 
-#include "../Lexer.h"
-#include "ASTExprNode.h"
-#include "ASTStatementNode.h"
-#include "ASTFuncPrototypeNode.h"
-#include "ASTReturnStatementNode.h"
+#include "Lexer.h"
+#include "ASTNode/ASTExprNode.h"
+#include "ASTNode/ASTStatementNode.h"
+#include "ASTNode/ASTFuncPrototypeNode.h"
+#include "ASTNode/ASTReturnStatementNode.h"
 
 class Parser {
 public:
