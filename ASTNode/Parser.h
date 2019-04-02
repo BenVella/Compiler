@@ -14,11 +14,10 @@
 class Parser {
 public:
     ASTNode * Parse();
-
     virtual ~Parser();
 
 private:
-    Lexer Lex;
+    Lexer m_Lexer;
     Lexer::Token CurrentToken;
 
     ASTExprNode * Error (const char *Str);
@@ -36,6 +35,7 @@ private:
     ASTStatementNode * ParseStatement();
 
     ASTStatementNode *ParseIdStatement();
+    ASTStatementNode *ParseIfStatement();
 };
 
 #endif //COMPILER_PARSER_H

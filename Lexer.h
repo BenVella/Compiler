@@ -21,11 +21,13 @@ public :
     virtual ~Lexer();
 
     enum TOK_TYPE {
-        TOK_EOF = 1, TOK_DEF = 2, TOK_RETURN = 3, TOK_EXTERN = 4,
-        TOK_ID = 5, TOK_NUMBER = 6, TOK_NUM_ERROR = 7, TOK_IF = 8,
-        TOK_PUNC = 9, TOK_SRCLANG_TYPE = 10, TOK_SYNTAX_ERR = 11,
-        TOK_BOOLOP = 12, TOK_ASSIGNOP = 13, TOK_ARITHMETICOP = 14,
-        TOK_STMT_DELIMITER = 15, TOK_OPEN_SCOPE = 16, TOK_CLOSE_SCOPE = 17
+        TOK_EOF, TOK_DEF, TOK_EXTERN, TOK_ID,
+        TOK_NUMBER, TOK_NUM_ERROR, TOK_PUNC, TOK_SRCLANG_TYPE,
+        TOK_SYNTAX_ERR, TOK_BOOLOP, TOK_ASSIGNOP, TOK_ARITHMETICOP,
+        TOK_STMT_DELIMITER, TOK_OPEN_SCOPE, TOK_CLOSE_SCOPE,
+        TOK_COMMENT, TOK_KEY_FLOAT, TOK_KEY_INT, TOK_KEY_BOOL,
+        TOK_KEY_VAR, TOK_KEY_PRINT, TOK_KEY_RETURN, TOK_KEY_IF,
+        TOK_KEY_FOR, TOK_KEY_FN
     };
 
     struct Token {
@@ -60,51 +62,40 @@ public :
         Token(TOK_TYPE p_token_type, float p_number_value) {
             token_type = p_token_type;
             id_name = "";
-            number_value = 0;
+            number_value = p_number_value;
         }
 
         std::string ToString() {
             switch (token_type) {
-                case TOK_EOF :
-                    return "[TOK_EOF]";
-                case TOK_DEF :
-                    return "[TOK_DEF]";
-                case TOK_RETURN :
-                    return "[TOK_RETURN]";
-                case TOK_EXTERN :
-                    return "[TOK_EXTERN]";
-                case TOK_ID :
-                    return "[TOK_ID]";
-                case TOK_NUMBER :
-                    return "[TOK_NUMBER]";
-                case TOK_NUM_ERROR :
-                    return "[TOK_NUM_ERROR]";
-                case TOK_IF :
-                    return "[TOK_IF]";
-                case TOK_PUNC :
-                    return "[TOK_PUNC]";
-                case TOK_SRCLANG_TYPE :
-                    return "[TOK_SRCLANG_TYPE]";
-                case TOK_SYNTAX_ERR :
-                    return "[TOK_SYNTAX_ERR]";
-                case TOK_BOOLOP :
-                    return "[TOK_BOOLOP]";
-                case TOK_ASSIGNOP :
-                    return "[TOK_ASSIGNOP]";
-                case TOK_ARITHMETICOP :
-                    return "[TOK_ARITHMETICOP]";
-                case TOK_STMT_DELIMITER :
-                    return "[TOK_STMT_DELIMITER]";
-                case TOK_OPEN_SCOPE :
-                    return "[TOK_OPEN_SCOPE]";
-                case TOK_CLOSE_SCOPE :
-                    return "[TOK_CLOSE_SCOPE]";
-                default:
-                    return nullptr;
+                case TOK_EOF :                      return "[TOK_EOF]";
+                case TOK_DEF :                      return "[TOK_DEF]";
+                case TOK_EXTERN :                   return "[TOK_EXTERN]";
+                case TOK_ID :                       return "[TOK_ID]";
+                case TOK_NUMBER :                   return "[TOK_NUMBER]";
+                case TOK_NUM_ERROR :                return "[TOK_NUM_ERROR]";
+                case TOK_PUNC :                     return "[TOK_PUNC]";
+                case TOK_SRCLANG_TYPE :             return "[TOK_SRCLANG_TYPE]";
+                case TOK_SYNTAX_ERR :               return "[TOK_SYNTAX_ERR]";
+                case TOK_BOOLOP :                   return "[TOK_BOOLOP]";
+                case TOK_ASSIGNOP :                 return "[TOK_ASSIGNOP]";
+                case TOK_ARITHMETICOP :             return "[TOK_ARITHMETICOP]";
+                case TOK_STMT_DELIMITER :           return "[TOK_STMT_DELIMITER]";
+                case TOK_OPEN_SCOPE :               return "[TOK_OPEN_SCOPE]";
+                case TOK_CLOSE_SCOPE :              return "[TOK_CLOSE_SCOPE]";
+                case TOK_COMMENT :                  return "[TOK_COMMENT]";
+                case TOK_KEY_FLOAT :                return "[TOK_KEY_FLOAT]";
+                case TOK_KEY_INT :                  return "[TOK_KEY_INT]";
+                case TOK_KEY_BOOL :                 return "[TOK_KEY_BOOL]";
+                case TOK_KEY_VAR :                  return "[TOK_KEY_VAR]";
+                case TOK_KEY_PRINT :                return "[TOK_KEY_PRINT]";
+                case TOK_KEY_RETURN :               return "[TOK_KEY_RETURN]";
+                case TOK_KEY_IF :                   return "[TOK_KEY_IF]";
+                case TOK_KEY_FOR :                  return "[TOK_KEY_FOR]";
+                case TOK_KEY_FN :                   return "[TOK_KEY_FN]";
+                default:                            return nullptr;
             }
         };
     };
-
     Token GetNextToken();
     void NextWord();
     void NextChar(char * p_lastChar);
@@ -118,37 +109,77 @@ private:
     std::string m_lexeme;
     std::stack<int> m_stack;
 
+    std::set<std::string> m_keywords = {"float", "int", "bool", "var", "print", "return", "if", "for", "fn"};
+
     enum STATE_TYPE {
-        ST_START = 0, ST_ER, ST_TEXT,
-        ST_ID, ST_DIGIT, ST_SLASH,
-        ST_OPERATOR, ST_PUNCTUATION, ST_COMMENT
+        ST_START, ST_ER, ST_TEXT,
+        ST_ID, ST_DIGIT, ST_OPERATOR,
+        ST_PUNCTUATION, ST_SLASH,
+        ST_BACKSLASH, ST_LINE_COMMENT,
+        ST_BLOCK_COMMENT, ST_BLOCK_TRY_END, ST_BLOCK_END
     };
 
-    std::set<int> m_acceptedStates = {ST_TEXT, ST_ID, ST_DIGIT, ST_SLASH,
-                                      ST_OPERATOR, ST_PUNCTUATION, ST_COMMENT};
-
-    int m_transitionTable[16][8] = {{ST_TEXT,ST_TEXT,ST_ID,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
-                                    {ST_DIGIT,ST_ID,ST_ID,ST_DIGIT,ST_ER,ST_ER,ST_ER,ST_COMMENT},
-                                    {ST_SLASH,ST_ER,ST_ER,ST_ER,ST_COMMENT,ST_ER,ST_ER,ST_COMMENT},
-                                    {ST_OPERATOR,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
-                                    {ST_OPERATOR,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
-                                    {ST_OPERATOR,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
-                                    {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
-                                    {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
-                                    {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
-                                    {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
-                                    {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
-                                    {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
-                                    {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
-                                    {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
-                                    {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_COMMENT},
-                                    {ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER}};
-
+    inline const char* ToString(STATE_TYPE v)
+    {
+        switch (v)
+        {
+            case ST_START:                  return "ST_START";
+            case ST_ER:                     return "ST_ER";
+            case ST_TEXT:                   return "ST_TEXT";
+            case ST_ID:                     return "ST_ID";
+            case ST_DIGIT:                  return "ST_DIGIT";
+            case ST_OPERATOR:               return "ST_OPERATOR";
+            case ST_PUNCTUATION:            return "ST_PUNCTUATION";
+            case ST_SLASH:                  return "ST_SLASH";
+            case ST_BACKSLASH:              return "ST_BACKSLASH";
+            case ST_LINE_COMMENT:           return "ST_LINE_COMMENT";
+            case ST_BLOCK_COMMENT:          return "ST_BLOCK_COMMENT";
+            case ST_BLOCK_TRY_END:          return "ST_BLOCK_TRY_END";
+            case ST_BLOCK_END:              return "ST_BLOCK_END";
+            default:                        return "[Unknown STATE_TYPE]";
+        }
+    }
     enum CATEGORY {
-        CAT_UNDEFINED, CAT_CUT, CAT_TEXT, CAT_DIGIT, CAT_PUNC, CAT_SLASH, CAT_OP
+        CAT_ERROR, CAT_SPACE, CAT_NEWLINE,
+        CAT_TEXT, CAT_DIGIT, CAT_OP, CAT_PUNC,
+        CAT_STAR, CAT_SLASH, CAT_BACKSLASH
     };
+
+    inline const char* ToString(CATEGORY v)
+    {
+        switch (v)
+        {
+            case CAT_ERROR:                 return "CAT_ERROR";
+            case CAT_SPACE:                 return "CAT_SPACE";
+            case CAT_NEWLINE:               return "CAT_NEWLINE";
+            case CAT_TEXT:                  return "CAT_TEXT";
+            case CAT_DIGIT:                 return "CAT_DIGIT";
+            case CAT_OP:                    return "CAT_OP";
+            case CAT_PUNC:                  return "CAT_PUNC";
+            case CAT_STAR:                  return "CAT_STAR";
+            case CAT_SLASH:                 return "CAT_SLASH";
+            case CAT_BACKSLASH:             return "CAT_BACKSLASH";
+            default:                        return "[Unknown CATEGORY]";
+        }
+    }
+
+    std::set<int> m_acceptedStates = {ST_TEXT, ST_ID, ST_DIGIT, ST_OPERATOR, ST_PUNCTUATION,ST_SLASH,
+                                      ST_BACKSLASH, ST_LINE_COMMENT, ST_BLOCK_END};
+
+    int m_transitionTable[10][13] = {
+            {ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER},
+            {ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_LINE_COMMENT,ST_BLOCK_COMMENT,ST_BLOCK_COMMENT,ST_ER},
+            {ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_BLOCK_COMMENT,ST_BLOCK_COMMENT,ST_ER},
+            {ST_TEXT,ST_ER,ST_TEXT,ST_ID,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_LINE_COMMENT,ST_BLOCK_COMMENT,ST_BLOCK_COMMENT,ST_ER},
+            {ST_DIGIT,ST_ER,ST_ID,ST_ID,ST_DIGIT,ST_ER,ST_ER,ST_ER,ST_ER,ST_LINE_COMMENT,ST_BLOCK_COMMENT,ST_BLOCK_COMMENT,ST_ER},
+            {ST_OPERATOR,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_LINE_COMMENT,ST_BLOCK_COMMENT,ST_BLOCK_COMMENT,ST_ER},
+            {ST_PUNCTUATION,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_LINE_COMMENT,ST_BLOCK_COMMENT,ST_BLOCK_COMMENT,ST_ER},
+            {ST_OPERATOR,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_BLOCK_COMMENT,ST_LINE_COMMENT,ST_BLOCK_TRY_END,ST_BLOCK_COMMENT,ST_ER},
+            {ST_SLASH,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_LINE_COMMENT,ST_ER,ST_LINE_COMMENT,ST_BLOCK_COMMENT,ST_BLOCK_END,ST_ER},
+            {ST_BACKSLASH,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_ER,ST_LINE_COMMENT,ST_BLOCK_COMMENT,ST_BLOCK_COMMENT,ST_ER}};
 
     CATEGORY categorizeChar(char val);
+    Lexer::Token StateToToken (STATE_TYPE st);
 };
 
 #endif //COMPILER_LEXER_H

@@ -12,7 +12,7 @@ Lexer::Lexer (std::string p_fileName) {
     m_lineNumber = 0;
 
     //Read file
-    std::cout << "[Lexer] Loading program form " << p_fileName << std::endl;
+    std::cout << "[Lexer] Loading program from " << p_fileName << std::endl;
     std::ifstream programFile;
     programFile.open(p_fileName.c_str());
     m_inputProgram = "";
@@ -23,7 +23,7 @@ Lexer::Lexer (std::string p_fileName) {
         while (std::getline(programFile, line)) {
             m_inputProgram.append(line + '\n');
         }
-        std::cout << "done." << std::endl;
+        std::cout << "Program Read.  Source Code: " << std::endl << m_inputProgram << std::endl;
     }
     else {
         std::cout << "[Lexer] File does not exist!!" << std::endl;
@@ -45,17 +45,18 @@ void Lexer::NextChar(char * p_lastChar) {
 }
 
 Lexer::Token Lexer::GetNextToken() {
-    std::cout << m_charIndex << ".." << m_inputProgram.length() << std::endl;
+    // ToDo : Uncommemnt the below value for debugging purposes only
+    //std::cout << "Char Index: " << m_charIndex << "/" << m_inputProgram.length() << "(total)" << std::endl;
 
-    if ((unsigned int) m_charIndex == m_inputProgram.length() - 1) return Lexer::Token(TOK_EOF);
+    if ((unsigned int) m_charIndex >= m_inputProgram.length() - 1) return Lexer::Token(TOK_EOF);
 
     NextWord();
     char lastChar = m_inputProgram[m_charIndex];
 
-    // Consume all whitespaces and newlines, update index and line number
-    while (lastChar == ' ' || lastChar == '\n') {
+    // Consume all whitespaces newlines and tabs, update index and line number
+    while (lastChar == ' ' || lastChar == '\n' || lastChar == '\t') {
         if (lastChar == '\n') m_lineNumber++;
-        lastChar = m_inputProgram[m_charIndex++];
+        lastChar = m_inputProgram[++m_charIndex];
     }
 
     // Initialize Process
@@ -71,43 +72,61 @@ Lexer::Token Lexer::GetNextToken() {
         int charCat = categorizeChar(lastChar);
 
 
-        m_currentState = m_transitionTable[m_currentState][charCat];
+        m_currentState = m_transitionTable[charCat][m_currentState];
 
-        std::cout << "Printing charCategory: " << CATEGORY (charCat) << std::endl;
-        std::cout << "Printing m_currentState: " << STATE_TYPE (m_currentState) << std::endl;
-
-        m_charIndex++;
-        lastChar = m_inputProgram[m_charIndex];
+        //ToDo : Uncomment the below value, for debugging purposes
+        /*std::cout << "Character: " << lastChar << " ; Categ: " << Lexer::ToString(CATEGORY (charCat))
+            << " ; State: " << Lexer::ToString(STATE_TYPE (m_currentState)) << std::endl;*/
     }
 
-    // Are these comments?
-    if (lastChar == '/') {
-        m_charIndex++;
-        lastChar = m_inputProgram[m_charIndex];
-        if (lastChar == '/') {
-            // Acquire comment and advance line number
-            std::string commentLine = "";
-            while (lastChar != '\n') {
-                m_charIndex++;
-                lastChar = m_inputProgram[m_charIndex];
-                commentLine += lastChar;
-            }
-            if (lastChar == '\n') m_lineNumber++;
-            m_charIndex++;
-            return Lexer::Token(TOK_ID,"Comment: " + commentLine); // ToDo : Review the return type for a comment
-        } else { // Not two consecutive slashes - could be division
-            return Lexer::Token(TOK_ARITHMETICOP,"/");   // ToDo: Review the return type for different operands
-        }
+    // We hit an ST_ER, rollback to last accepted state
+    while (!Util::setContains(m_acceptedStates, m_currentState) && m_currentState != ST_START) {
+        m_currentState = m_stack.top();
+        m_stack.pop();
+        m_lexeme.pop_back();
+        m_charIndex--;
     }
-    return Lexer::Token(TOK_NUM_ERROR);
+
+    if (Util::setContains(m_acceptedStates, m_currentState)) {
+        return StateToToken(STATE_TYPE (m_currentState));
+    }
+
+    return Lexer::Token(TOK_SYNTAX_ERR);
 }
 
 Lexer::CATEGORY Lexer::categorizeChar(char val) {
-    if (val == ' ') return CAT_CUT;
+    if (val == ' ' || val == '\t' || val == '\r') return CAT_SPACE;
+    else if (val == '\n') return CAT_NEWLINE;
     else if (std::isalpha(val) || val == '_') return CAT_TEXT;
     else if (std::isdigit(val)) return CAT_DIGIT;
+    else if (val == ';' || val == ':' || val == '.' || val == ',' || val == '\'' || val == '(' || val == ')' || val == '{' || val == '}') return CAT_PUNC;
     else if ( val == '/' ) return CAT_SLASH;
-    else if (val == '*' || val == '+' || val == '-' || val == '<' || val == '>') return CAT_OP;
-    else if (val == ';' || val == '(' || val == ')' || val == '{' || val == '}') return CAT_PUNC;
-    return CAT_UNDEFINED;
+    else if (val == '*' || val == '+' || val == '-' || val == '<' || val == '>' || val == '=') return CAT_OP;
+    else { std::cout << "Missing category for value: '" << std::endl << val << std::endl; return CAT_ERROR; }
+}
+
+Lexer::Token Lexer::StateToToken(STATE_TYPE st) {
+    switch (st) {
+        case ST_TEXT:
+            if (Util::setContains(m_keywords,m_lexeme)) {
+                if (m_lexeme == "float") return Lexer::Token(TOK_KEY_FLOAT);
+                else if (m_lexeme == "int") return Lexer::Token(TOK_KEY_INT);
+                else if (m_lexeme == "bool") return Lexer::Token(TOK_KEY_BOOL);
+                else if (m_lexeme == "var") return Lexer::Token(TOK_KEY_VAR);
+                else if (m_lexeme == "print") return Lexer::Token(TOK_KEY_PRINT);
+                else if (m_lexeme == "return") return Lexer::Token(TOK_KEY_RETURN);
+                else if (m_lexeme == "if") return Lexer::Token(TOK_KEY_IF);
+                else if (m_lexeme == "for") return Lexer::Token(TOK_KEY_FOR);
+                else if (m_lexeme == "fn") return Lexer::Token(TOK_KEY_FN);
+            } else
+                return Lexer::Token(TOK_ID,m_lexeme);
+        case ST_ID:                             return Lexer::Token(TOK_ID,m_lexeme);
+        case ST_DIGIT:                          return Lexer::Token(TOK_NUMBER,std::stof(m_lexeme,0));
+        case ST_SLASH:                          return Lexer::Token(TOK_PUNC,m_lexeme);
+        case ST_OPERATOR:                       return Lexer::Token(TOK_ARITHMETICOP,m_lexeme);
+        case ST_PUNCTUATION:                    return Lexer::Token(TOK_PUNC,m_lexeme);
+        case ST_LINE_COMMENT:                   return Lexer::Token(TOK_COMMENT,m_lexeme);
+        case ST_BLOCK_COMMENT:                  return Lexer::Token(TOK_COMMENT,m_lexeme);
+    }
+    return Lexer::Token();
 }

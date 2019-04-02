@@ -6,7 +6,7 @@
 #include "Parser.h"
 
 ASTStatementNode * Parser::ParseReturnStatement() {
-    CurrentToken = Lex.GetNextToken();
+    CurrentToken = m_Lexer.GetNextToken();
     auto expr_node = ParseExpression();
     if (!expr_node)
         return nullptr;
@@ -32,17 +32,17 @@ ASTStatementNode *Parser::ParseIdStatement() {
     return nullptr;
 }
 
-ASTStatementNode *ParseIfStatement() {
+ASTStatementNode * Parser::ParseIfStatement() {
     return nullptr;
 }
 
 ASTStatementNode * Parser::ParseStatement() {
     ASTStatementNode * node = nullptr;
     switch(CurrentToken.token_type) {
-        case Lexer::TOK_RETURN:
+        case Lexer::TOK_KEY_RETURN:
             node = ParseReturnStatement();
             break;
-        case Lexer::TOK_IF:
+        case Lexer::TOK_KEY_IF:
             node = ParseIfStatement();
             break;
         case Lexer::TOK_ID:
@@ -63,7 +63,7 @@ ASTFuncPrototypeNode * Parser::ParseFunctionPrototype() {
     std::string functionName = CurrentToken.id_name;
     auto functionParameters = std::vector<std::string>();
 
-    CurrentToken = Lex.GetNextToken();
+    CurrentToken = m_Lexer.GetNextToken();
 
     return nullptr; // ToDo remove nullptr;
 }
@@ -74,7 +74,7 @@ ASTExprNode * Parser::ParseBinaryExpr(int p_Precedence,ASTExprNode * p_LHS) {
             float op_prec = CurrentToken.number_value;
             std::string op_sym = CurrentToken.id_name;
 
-            CurrentToken = Lex.GetNextToken();
+            CurrentToken = m_Lexer.GetNextToken();
 
             auto RHS = ParseUnaryExpr();
 

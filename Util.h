@@ -7,10 +7,12 @@
 
 
 #include <set>
+#include <iostream>
 
 class Util {
 public:
     static bool setContains(std::set<int> p_set, int p_val);
+    static bool setContains(std::set<std::string> p_set, std::string p_val);
 };
 
 
