@@ -5,20 +5,24 @@
 #include <vector>
 #include "Parser.h"
 
+Parser::Parser(Lexer * p_Lexer) {
+    m_Lexer = p_Lexer;
+}
+
+Parser::~Parser() {
+
+}
+
 ASTStatementNode * Parser::ParseReturnStatement() {
     CurrentToken = m_Lexer.GetNextToken();
     auto expr_node = ParseExpression();
     if (!expr_node)
         return nullptr;
 
-    /*auto node = new ASTReturnStatementNode();
+    auto node = new ASTReturnNode();
     node->LHS = expr_node;
-    return node; */ // ToDo: Uncomment when ASTReturnStatementNode has been implemented.
-    return nullptr; // ToDo remove nullptr and return above node
-}
-
-Parser::~Parser() {
-
+    return node;  /*// ToDo: Uncomment when ASTReturnNode has been implemented.
+    return nullptr; // ToDo remove nullptr and return above node*/
 }
 
 ASTExprNode * Parser::ParseExpression() {
@@ -111,5 +115,19 @@ ASTExprNode *Parser::ParseNumberExpr() {
 
 ASTExprNode *Parser::Error(const char *Str) {
     return nullptr;
+}
+
+ASTNode *Parser::Parse() {
+    CurrentToken = m_Lexer->GetNextToken();
+
+    ASTNode root;
+
+    switch (CurrentToken.token_type) {
+        case Lexer::TOK_EOF:
+            return nullptr;
+        case Lexer::TOK_KEY_FN:
+            return ASTFuncPrototypeNode();
+
+    }
 }
 

@@ -7,17 +7,18 @@
 
 #include "Lexer.h"
 #include "ASTNode/ASTExprNode.h"
-#include "ASTNode/ASTStatementNode.h"
+#include "ASTNode/ASTStatementNode/ASTStatementNode.h"
 #include "ASTNode/ASTFuncPrototypeNode.h"
-#include "ASTNode/ASTReturnStatementNode.h"
+#include "ASTNode/ASTStatementNode/ASTReturnNode.h"
 
 class Parser {
 public:
     ASTNode * Parse();
+    Parser(Lexer * p_Lexer);
     virtual ~Parser();
 
 private:
-    Lexer m_Lexer;
+    Lexer* m_Lexer;
     Lexer::Token CurrentToken;
 
     ASTExprNode * Error (const char *Str);

@@ -6,12 +6,12 @@
 #define COMPILER_ASTVARIABLEEXPRNODE_H
 
 #include <string>
-#include "ASTExprNode.h"
+#include "../ASTExprNode.h"
 
-class ASTVariableExprNode: public ASTExprNode {
+class ASTVariableNode: public ASTExprNode {
 public:
-    ASTVariableExprNode (const std::string &Name);
-    virtual ~ASTVariableExprNode();
+    ASTVariableNode (const std::string &Name);
+    virtual ~ASTVariableNode();
 
     std::string Name;
 

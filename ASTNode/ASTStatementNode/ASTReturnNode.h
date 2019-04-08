@@ -6,13 +6,13 @@
 #define COMPILER_ASTRETURNSTATEMENTNODE_H
 
 
-#include "ASTExprNode.h"
+#include "../ASTExprNode.h"
 #include "ASTStatementNode.h"
 
-class ASTReturnStatementNode: public ASTStatementNode {
+class ASTReturnNode: public ASTStatementNode {
 public:
-    ASTReturnStatementNode();
-    virtual ~ASTReturnStatementNode();
+    ASTReturnNode();
+    virtual ~ASTReturnNode();
 
     ASTExprNode * LHS = nullptr;
 

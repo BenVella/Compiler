@@ -5,7 +5,7 @@
 #ifndef COMPILER_ASTSTATEMENTNODE_H
 #define COMPILER_ASTSTATEMENTNODE_H
 
-#include "ASTNode.h"
+#include "../ASTNode.h"
 
 class ASTStatementNode: public ASTNode  {
 public:

@@ -18,6 +18,8 @@ class Lexer {
 public :
     explicit Lexer(std::string p_fileName);
 
+    Lexer();
+
     virtual ~Lexer();
 
     enum TOK_TYPE {

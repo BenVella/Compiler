@@ -5,15 +5,15 @@
 #ifndef COMPILER_ASTIFSTATEMENTNODE_H
 #define COMPILER_ASTIFSTATEMENTNODE_H
 
-#include "ASTNode.h"
+#include "../ASTNode.h"
 #include "ASTStatementNode.h"
-#include "../Visitor.h"
-#include "ASTExprNode.h"
+#include "../../Visitor.h"
+#include "../ASTExprNode.h"
 
-class ASTIfStatementNode: public ASTStatementNode {
+class ASTIfNode: public ASTStatementNode {
 public:
-    ASTIfStatementNode();
-    virtual ~ASTIfStatementNode();
+    ASTIfNode();
+    virtual ~ASTIfNode();
 
     ASTExprNode * condition = nullptr;
     ASTNode * LHS = nullptr;

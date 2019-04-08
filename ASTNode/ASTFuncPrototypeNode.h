@@ -9,7 +9,11 @@
 #include "ASTNode.h"
 
 class ASTFuncPrototypeNode: public ASTNode {
+    ASTFuncPrototypeNode();
+    virtual ~ASTFuncPrototypeNode();
 
+    virtual void PrintInfo (int p_level) = 0;
+    virtual void Accept (Visitor * v) = 0;
 };
 
 

@@ -6,9 +6,10 @@
 #define COMPILER_ASTFUNCTIONNODE_H
 
 
-#include "ASTNode.h"
+#include "../ASTNode.h"
+#include "ASTStatementNode.h"
 
-class ASTFunctionNode: public ASTNode {
+class ASTFunctionNode: public ASTStatementNode {
 
 };
 

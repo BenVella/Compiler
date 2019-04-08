@@ -130,3 +130,4 @@ Lexer::Token Lexer::StateToToken(STATE_TYPE st) {
     }
     return Lexer::Token();
 }
+

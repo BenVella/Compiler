@@ -5,9 +5,9 @@
 #ifndef COMPILER_ASTPROGRAMNODE_H
 #define COMPILER_ASTPROGRAMNODE_H
 
-#include "ASTStatementNode.h"
+#include "ASTStatementNode/ASTStatementNode.h"
 #include "ASTNode.h"
-#include "ASTFunctionNode.h"
+#include "ASTStatementNode/ASTFunctionNode.h"
 #include <iostream>
 #include <vector>
 
