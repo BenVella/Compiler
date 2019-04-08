@@ -19,8 +19,8 @@ public:
     ASTNode * LHS = nullptr;
     ASTNode * RHS = nullptr;
 
-    virtual void Accept (Visitor * v);
-    virtual void PrintInfo (int p_level) override;
+    void Accept (Visitor * v) override;
+    void PrintInfo (int p_level) override;
 };
 
 #endif //COMPILER_ASTIFSTATEMENTNODE_H

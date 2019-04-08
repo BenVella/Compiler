@@ -8,8 +8,8 @@
 #include "Lexer.h"
 #include "ASTNode/ASTExprNode.h"
 #include "ASTNode/ASTStatementNode/ASTStatementNode.h"
-#include "ASTNode/ASTFuncPrototypeNode.h"
 #include "ASTNode/ASTStatementNode/ASTReturnNode.h"
+#include "ASTNode/ASTStatementNode/ASTFunctionNode.h"
 
 class Parser {
 public:
@@ -32,7 +32,7 @@ private:
     ASTStatementNode * ParseReturnStatement();
 
 
-    ASTFuncPrototypeNode * ParseFunctionPrototype();
+    ASTFunctionNode * ParseFunctionPrototype();
     ASTStatementNode * ParseStatement();
 
     ASTStatementNode *ParseIdStatement();

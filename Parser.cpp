@@ -14,7 +14,7 @@ Parser::~Parser() {
 }
 
 ASTStatementNode * Parser::ParseReturnStatement() {
-    CurrentToken = m_Lexer.GetNextToken();
+    CurrentToken = m_Lexer->GetNextToken();
     auto expr_node = ParseExpression();
     if (!expr_node)
         return nullptr;
@@ -67,7 +67,7 @@ ASTFuncPrototypeNode * Parser::ParseFunctionPrototype() {
     std::string functionName = CurrentToken.id_name;
     auto functionParameters = std::vector<std::string>();
 
-    CurrentToken = m_Lexer.GetNextToken();
+    CurrentToken = m_Lexer->GetNextToken();
 
     return nullptr; // ToDo remove nullptr;
 }
@@ -78,7 +78,7 @@ ASTExprNode * Parser::ParseBinaryExpr(int p_Precedence,ASTExprNode * p_LHS) {
             float op_prec = CurrentToken.number_value;
             std::string op_sym = CurrentToken.id_name;
 
-            CurrentToken = m_Lexer.GetNextToken();
+            CurrentToken = m_Lexer->GetNextToken();
 
             auto RHS = ParseUnaryExpr();
 
@@ -120,13 +120,13 @@ ASTExprNode *Parser::Error(const char *Str) {
 ASTNode *Parser::Parse() {
     CurrentToken = m_Lexer->GetNextToken();
 
-    ASTNode root;
+    ASTNode * root;
 
     switch (CurrentToken.token_type) {
         case Lexer::TOK_EOF:
             return nullptr;
         case Lexer::TOK_KEY_FN:
-            return ASTFuncPrototypeNode();
+            ASTFuncPrototypeNode();
 
     }
 }

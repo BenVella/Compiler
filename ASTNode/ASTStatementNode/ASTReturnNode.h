@@ -16,8 +16,8 @@ public:
 
     ASTExprNode * LHS = nullptr;
 
-    virtual void Accept (Visitor * v);
-    virtual void PrintInfo (int p_level) override;
+    void Accept (Visitor * v);
+    void PrintInfo (int p_level) override;
 };
 
 #endif //COMPILER_ASTRETURNSTATEMENTNODE_H

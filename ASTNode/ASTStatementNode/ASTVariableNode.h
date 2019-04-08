@@ -10,12 +10,13 @@
 
 class ASTVariableNode: public ASTExprNode {
 public:
-    ASTVariableNode (const std::string &Name);
+    explicit ASTVariableNode (const std::string &Name);
     virtual ~ASTVariableNode();
 
     std::string Name;
 
-    virtual void Accept (class Visitor * v);
+    void PrintInfo (int p_level) override;
+    void Accept (class Visitor * v) override;
 };
 
 #endif //COMPILER_ASTVARIABLEEXPRNODE_H
