@@ -118,12 +118,15 @@ Lexer::Token Lexer::StateToToken(STATE_TYPE st) {
                 else if (m_lexeme == "if") return Lexer::Token(TOK_KEY_IF);
                 else if (m_lexeme == "for") return Lexer::Token(TOK_KEY_FOR);
                 else if (m_lexeme == "fn") return Lexer::Token(TOK_KEY_FN);
+                else if (m_lexeme == "true") return Lexer::Token(TOK_KEY_FN);
+                else if (m_lexeme == "false") return Lexer::Token(TOK_KEY_FN);
+                else if (m_lexeme == "not") return Lexer::Token(TOK_KEY_FN);
             } else
                 return Lexer::Token(TOK_ID,m_lexeme);
         case ST_ID:                             return Lexer::Token(TOK_ID,m_lexeme);
         case ST_DIGIT:                          return Lexer::Token(TOK_NUMBER,std::stof(m_lexeme,0));
         case ST_SLASH:                          return Lexer::Token(TOK_PUNC,m_lexeme);
-        case ST_OPERATOR:                       return Lexer::Token(TOK_ARITHMETICOP,m_lexeme);
+        case ST_OPERATOR:                       return Lexer::Token(TOK_ARITHMETICOP,m_lexeme); //ToDo - Provide a precedence value for arithmetic ops
         case ST_PUNCTUATION:                    return Lexer::Token(TOK_PUNC,m_lexeme);
         case ST_LINE_COMMENT:                   return Lexer::Token(TOK_COMMENT,m_lexeme);
         case ST_BLOCK_COMMENT:                  return Lexer::Token(TOK_COMMENT,m_lexeme);

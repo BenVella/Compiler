@@ -16,7 +16,7 @@ public:
 
     ASTExprNode * LHS = nullptr;
 
-    void Accept (Visitor * v);
+    void Accept (Visitor * v) override;
     void PrintInfo (int p_level) override;
 };
 

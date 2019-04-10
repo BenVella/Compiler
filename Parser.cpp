@@ -4,6 +4,7 @@
 
 #include <vector>
 #include "Parser.h"
+#include "ASTNode/ASTProgramNode.h"
 
 Parser::Parser(Lexer * p_Lexer) {
     m_Lexer = p_Lexer;
@@ -13,6 +14,16 @@ Parser::~Parser() {
 
 }
 
+ASTNode *Parser::Parse() {
+    ASTNode * root = new ASTProgramNode();
+
+    CurrentToken = m_Lexer->GetNextToken();
+
+
+    //
+}
+
+
 ASTStatementNode * Parser::ParseReturnStatement() {
     CurrentToken = m_Lexer->GetNextToken();
     auto expr_node = ParseExpression();
@@ -21,8 +32,7 @@ ASTStatementNode * Parser::ParseReturnStatement() {
 
     auto node = new ASTReturnNode();
     node->LHS = expr_node;
-    return node;  /*// ToDo: Uncomment when ASTReturnNode has been implemented.
-    return nullptr; // ToDo remove nullptr and return above node*/
+    return node;
 }
 
 ASTExprNode * Parser::ParseExpression() {
@@ -37,17 +47,28 @@ ASTStatementNode *Parser::ParseIdStatement() {
 }
 
 ASTStatementNode * Parser::ParseIfStatement() {
-    return nullptr;
+    CurrentToken = m_Lexer->GetNextToken();
+    if (CurrentToken.token_type == Lexer::TOK_PUNC && CurrentToken.id_name == "(") {
+        auto condition = ParseExpression();
+
+        CurrentToken = m_Lexer->GetNextToken();
+        if (CurrentToken.token_type == Lexer::TOK_PUNC && CurrentToken.id_name == ")") {
+            auto thenBlock = ParseBlock();
+        }
+    } else {
+        Error ("Expecting open bracket for if-condition-start");
+    }
+
 }
 
 ASTStatementNode * Parser::ParseStatement() {
     ASTStatementNode * node = nullptr;
     switch(CurrentToken.token_type) {
-        case Lexer::TOK_KEY_RETURN:
-            node = ParseReturnStatement();
-            break;
         case Lexer::TOK_KEY_IF:
             node = ParseIfStatement();
+            break;
+        case Lexer::TOK_KEY_RETURN:
+            node = ParseReturnStatement();
             break;
         case Lexer::TOK_ID:
             node = ParseIdStatement();
@@ -55,10 +76,10 @@ ASTStatementNode * Parser::ParseStatement() {
         default:
             break;
     }
-    return nullptr; // Todo remove this
+    return node;
 }
 
-ASTFuncPrototypeNode * Parser::ParseFunctionPrototype() {
+ASTFunctionNode * Parser::ParseFunctionPrototype() {
     if (CurrentToken.token_type != Lexer::TOK_ID) {
         Error("Expecting function name");
         return nullptr;
@@ -92,13 +113,14 @@ ASTExprNode * Parser::ParseBinaryExpr(int p_Precedence,ASTExprNode * p_LHS) {
 
                 }
             }
-
         }
     }
 }
 
 ASTExprNode *Parser::ParseUnaryExpr() {
-    return nullptr;
+    if (CurrentToken.token_type == Lexer::TOK_KEY_NOT || (CurrentToken.token_type == Lexer::TOK_ARITHMETICOP && CurrentToken.id_name == "-")) {
+        auto
+    }
 }
 
 ASTExprNode *Parser::ParseIdentifierExpr() {
@@ -116,18 +138,3 @@ ASTExprNode *Parser::ParseNumberExpr() {
 ASTExprNode *Parser::Error(const char *Str) {
     return nullptr;
 }
-
-ASTNode *Parser::Parse() {
-    CurrentToken = m_Lexer->GetNextToken();
-
-    ASTNode * root;
-
-    switch (CurrentToken.token_type) {
-        case Lexer::TOK_EOF:
-            return nullptr;
-        case Lexer::TOK_KEY_FN:
-            ASTFuncPrototypeNode();
-
-    }
-}
-

@@ -18,6 +18,19 @@ public:
     virtual void Visit(ASTVariableNode * e) = 0;
     virtual void Visit(ASTFunctionNode * e) = 0;
 
+    ASTNode::Accept(Visitor &v) { v.Visit(this); }
+
+    ASTSStatementNode::Accept(Visitor &v) { v.Visit(this); }
+
+    ASTExprNode::Accept(Visitor &v) { v.Visit(this); }
+
+    ASTIfNode::Accept(Visitor &v) { v.Visit(this); }
+
+    ASTReturnNode::Accept(Visitor &v) { v.Visit(this); }
+
+    ASTVariableNode::Accept(Visitor &v) { v.Visit(this); }
+
+    ASTFunctionNode::Accept(Visitor &v) { v.Visit(this); }
 };
 
 

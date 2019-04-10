@@ -18,6 +18,14 @@ public:
 
     std::vector<ASTFunctionNode *> * functions;
     std::vector<ASTStatementNode *> * main_impl;
+
+    void Accept(Visitor* v) override;
+    void PrintInfo (int p_level) override;
 };
+
+ASTProgramNode::ASTProgramNode() {
+    functions = new std::vector<ASTFunctionNode *>();
+    main_impl = new std::vector<ASTStatementNode *>();
+}
 
 #endif //COMPILER_ASTPROGRAMNODE_H

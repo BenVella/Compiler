@@ -15,6 +15,6 @@ public:
     void Initialise();
 
     virtual void Accept(Visitor* v) = 0;
-    virtual void PrintInfo (int p_level);
+    virtual void PrintInfo (int p_level) = 0;
 };
 #endif //COMPILER_ASTNODE_H

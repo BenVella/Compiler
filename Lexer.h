@@ -29,7 +29,7 @@ public :
         TOK_STMT_DELIMITER, TOK_OPEN_SCOPE, TOK_CLOSE_SCOPE,
         TOK_COMMENT, TOK_KEY_FLOAT, TOK_KEY_INT, TOK_KEY_BOOL,
         TOK_KEY_VAR, TOK_KEY_PRINT, TOK_KEY_RETURN, TOK_KEY_IF,
-        TOK_KEY_FOR, TOK_KEY_FN
+        TOK_KEY_FOR, TOK_KEY_FN, TOK_KEY_TRUE, TOK_KEY_FALSE, TOK_KEY_NOT
     };
 
     struct Token {
@@ -94,6 +94,9 @@ public :
                 case TOK_KEY_IF :                   return "[TOK_KEY_IF]";
                 case TOK_KEY_FOR :                  return "[TOK_KEY_FOR]";
                 case TOK_KEY_FN :                   return "[TOK_KEY_FN]";
+                case TOK_KEY_TRUE :                 return "[TOK_KEY_TRUE]";
+                case TOK_KEY_FALSE :                return "[TOK_KEY_FALSE]";
+                case TOK_KEY_NOT :                  return "[TOK_KEY_NOT]";
                 default:                            return nullptr;
             }
         };
@@ -111,7 +114,10 @@ private:
     std::string m_lexeme;
     std::stack<int> m_stack;
 
-    std::set<std::string> m_keywords = {"float", "int", "bool", "var", "print", "return", "if", "for", "fn"};
+    std::set<std::string> m_keywords = {
+            "float", "int", "bool", "var",
+            "print","return", "if", "for",
+            "fn", "true", "false", "not"};
 
     enum STATE_TYPE {
         ST_START, ST_ER, ST_TEXT,
