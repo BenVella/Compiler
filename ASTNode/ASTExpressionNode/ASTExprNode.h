@@ -6,13 +6,18 @@
 #define COMPILER_ASTEXPRNODE_H
 
 
-#include "ASTNode.h"
-#include "../Visitor.h"
+#include "../ASTNode.h"
+#include "../../Visitor.h"
+#include "ASTSimpleExprNode.h"
 
 class ASTExprNode : public ASTNode {
 public:
     ASTExprNode();
     virtual ~ASTExprNode();
+
+    ASTSimpleExprNode * LHS;
+    ASTSimpleExprNode * RHS;    // Optional
+    std::string m_oper;         // Optional
 
     virtual void PrintInfo (int p_level) = 0;
     virtual void Accept (Visitor * v) = 0;

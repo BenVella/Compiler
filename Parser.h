@@ -6,7 +6,7 @@
 #define COMPILER_PARSER_H
 
 #include "Lexer.h"
-#include "ASTNode/ASTExprNode.h"
+#include "ASTNode/ASTExpressionNode/ASTExprNode.h"
 #include "ASTNode/ASTStatementNode/ASTStatementNode.h"
 #include "ASTNode/ASTStatementNode/ASTReturnNode.h"
 #include "ASTNode/ASTStatementNode/ASTFunctionNode.h"

@@ -6,7 +6,7 @@
 #define COMPILER_ASTVARIABLEEXPRNODE_H
 
 #include <string>
-#include "../ASTExprNode.h"
+#include "../ASTExpressionNode/ASTExprNode.h"
 
 class ASTVariableNode: public ASTExprNode {
 public:

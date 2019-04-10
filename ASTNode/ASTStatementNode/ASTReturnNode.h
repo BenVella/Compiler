@@ -6,7 +6,7 @@
 #define COMPILER_ASTRETURNSTATEMENTNODE_H
 
 
-#include "../ASTExprNode.h"
+#include "../ASTExpressionNode/ASTExprNode.h"
 #include "ASTStatementNode.h"
 
 class ASTReturnNode: public ASTStatementNode {

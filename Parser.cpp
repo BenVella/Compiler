@@ -53,7 +53,7 @@ ASTStatementNode * Parser::ParseIfStatement() {
 
         CurrentToken = m_Lexer->GetNextToken();
         if (CurrentToken.token_type == Lexer::TOK_PUNC && CurrentToken.id_name == ")") {
-            auto thenBlock = ParseBlock();
+            // auto thenBlock = ParseBlock();   // ToDo create a block node?
         }
     } else {
         Error ("Expecting open bracket for if-condition-start");
@@ -76,7 +76,7 @@ ASTStatementNode * Parser::ParseStatement() {
         default:
             break;
     }
-    return node;
+    return node; //nullptr is not set
 }
 
 ASTFunctionNode * Parser::ParseFunctionPrototype() {
