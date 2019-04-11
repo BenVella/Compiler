@@ -7,14 +7,15 @@
 
 #include <string>
 #include "ASTExprNode.h"
+#include "ASTNumberExprNode.h"
 
 class ASTUnaryExprNode : public ASTExprNode {
 public:
     ASTUnaryExprNode();
     virtual ~ASTUnaryExprNode();
 
-    std::string m_val;
-    ASTExprNode * LHS;
+    std::string unary;      // negation or not
+    ASTExprNode * LHS;      // May be number or variable
 
     void PrintInfo (int p_level) override;
     void Accept (Visitor * v) override;

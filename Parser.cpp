@@ -119,8 +119,28 @@ ASTExprNode * Parser::ParseBinaryExpr(int p_Precedence,ASTExprNode * p_LHS) {
 
 ASTExprNode *Parser::ParseUnaryExpr() {
     if (CurrentToken.token_type == Lexer::TOK_KEY_NOT || (CurrentToken.token_type == Lexer::TOK_ARITHMETICOP && CurrentToken.id_name == "-")) {
-        auto
+
     }
+}
+
+ASTStatementNode * Parser::ParseAssignmentStatement() {
+    CurrentToken = m_Lexer->GetNextToken();
+    if (CurrentToken.token_type == Lexer::TOK_ID) {
+        std::string var_name = CurrentToken.id_name;
+        CurrentToken = m_Lexer->GetNextToken();
+    } else {
+        Error("Expecting Id Token for Assignment Start");
+        return nullptr;
+    }
+
+    if (CurrentToken.token_type != Lexer::TOK_ASSIGNOP) {
+        Error("Expecting '=' while parsing an assignment statement");
+        return nullptr;
+    }
+    CurrentToken = m_Lexer->GetNextToken();
+    auto expr_node = ParseExpression();
+    auto ass_node = new ASTAssignmentStatementNode(var_name.c_str(), expr_node);
+    return ass_node;
 }
 
 ASTExprNode *Parser::ParseIdentifierExpr() {

@@ -13,9 +13,9 @@ public:
     ASTBinaryExprNode();
     virtual ~ASTBinaryExprNode();
 
-    std::string m_val;
-    ASTExprNode * LHS;
-    ASTExprNode * RHS;
+    std::string op;         // - + * /
+    ASTExprNode * LHS;      // Number, Unary or Variable
+    ASTExprNode * RHS;      // Number, Unary or Variable
 
     void PrintInfo (int p_level) override;
     void Accept (Visitor * v) override;

@@ -7,7 +7,7 @@
 
 
 #include "../ASTNode.h"
-#include "../../Visitor.h"
+#include "../../Visitor/Visitor.h"
 #include "ASTSimpleExprNode.h"
 
 class ASTExprNode : public ASTNode {
@@ -19,8 +19,8 @@ public:
     ASTSimpleExprNode * RHS;    // Optional
     std::string m_oper;         // Optional
 
-    virtual void PrintInfo (int p_level) = 0;
-    virtual void Accept (Visitor * v) = 0;
+    void PrintInfo (int p_level) override;
+    void Accept (Visitor * v) override;
 };
 
 #endif //COMPILER_ASTEXPRNODE_H

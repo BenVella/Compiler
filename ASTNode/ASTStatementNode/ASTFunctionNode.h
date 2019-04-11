@@ -8,13 +8,17 @@
 
 #include "../ASTNode.h"
 #include "ASTStatementNode.h"
+#include "ASTBlockNode.h"
 
 class ASTFunctionNode: public ASTStatementNode {
 public:
     ASTFunctionNode();
     virtual ~ASTFunctionNode();
 
-
+    std::string m_identifier;
+    // std::vector< TODO Use a hashmap object to store parameters?
+    std::string m_type;
+    ASTBlockNode * block;
 
     void PrintInfo (int p_level) override;
     void Accept (Visitor * v) override;

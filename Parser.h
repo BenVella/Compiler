@@ -30,6 +30,7 @@ private:
     ASTExprNode * ParseBinaryExpr(int p_Precedence, ASTExprNode * p_LHS);
 
     ASTStatementNode * ParseReturnStatement();
+    ASTStatementNode * ParseAssignmentStatement();
 
 
     ASTFunctionNode * ParseFunctionPrototype();

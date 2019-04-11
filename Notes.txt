@@ -1,4 +1,13 @@
+GENERAL
+1 - Visitor class errors in declaration
+2 - Circular reference errors not identifying class names
+
 LEXER
-1 - Are tables / enums used by lexer  going to be declared under the Lexer.h file?
-2 - Do we store a string of m_inputProgram under Lexer.h file and refer to this whenever we pull more tokens?
-3 -
+1 - Introduce precedence on Lexer ArithmeticOp
+
+PARSER
+1 -
+
+EXPR
+1 - Create a Binary, Unary, Number, Variable expression nodes.
+2 - Combine them using Factor, Term, Simple and Full Expression classes?
