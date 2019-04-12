@@ -14,7 +14,7 @@ public:
     ASTFactorExprNode();
     virtual ~ASTFactorExprNode();
 
-    std::string m_value;         // Optional
+    ASTExprNode * node;         // Accepts a (bool/int/float) / Identifier
 
     void PrintInfo (int p_level);
     void Accept (Visitor * v);

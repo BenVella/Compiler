@@ -11,10 +11,10 @@
 
 class ASTReturnNode: public ASTStatementNode {
 public:
-    ASTReturnNode();
-    virtual ~ASTReturnNode();
+    ASTReturnNode(ASTExprNode * p_node);
+    virtual ~ASTReturnNode() {}
 
-    ASTExprNode * LHS = nullptr;
+    ASTExprNode * LHS;
 
     void Accept (Visitor * v) override;
     void PrintInfo (int p_level) override;

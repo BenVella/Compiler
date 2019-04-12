@@ -5,7 +5,16 @@
 #ifndef COMPILER_VISITOR_H
 #define COMPILER_VISITOR_H
 
-#include "../ASTNode/ASTNode.h"
+/*#include "../ASTNode/ASTNode.h"
+#include "../ASTNode/ASTProgramNode.h"
+#include "../ASTNode/ASTStatementNode/ASTStatementNode.h"
+#include "../ASTNode/ASTStatementNode/ASTIfNode.h"
+#include "../ASTNode/ASTStatementNode/ASTReturnNode.h"
+#include "../ASTNode/ASTStatementNode/ASTVariableNode.h"
+#include "../ASTNode/ASTExpressionNode/ASTFactorExprNode.h"
+#include "../ASTNode/ASTExpressionNode/ASTTermExprNode.h"
+#include "../ASTNode/ASTExpressionNode/ASTUnaryExprNode.h"
+#include "../ASTNode/ASTExpressionNode/ASTBinaryExprNode.h"*/
 
 class Visitor {
 /*public:

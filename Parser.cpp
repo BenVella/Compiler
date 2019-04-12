@@ -32,8 +32,7 @@ ASTStatementNode * Parser::ParseReturnStatement() {
     if (!expr_node)
         return nullptr;
 
-    auto node = new ASTReturnNode();
-    node->LHS = expr_node;
+    auto node = new ASTReturnNode(expr_node);
     return node;
 }
 

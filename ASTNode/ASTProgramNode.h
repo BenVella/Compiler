@@ -5,10 +5,9 @@
 #ifndef COMPILER_ASTPROGRAMNODE_H
 #define COMPILER_ASTPROGRAMNODE_H
 
-#include "ASTStatementNode/ASTStatementNode.h"
 #include "ASTNode.h"
 #include "ASTStatementNode/ASTFunctionNode.h"
-#include <iostream>
+#include "ASTStatementNode/ASTStatementNode.h"
 #include <vector>
 
 class ASTProgramNode : public ASTNode {
@@ -22,10 +21,5 @@ public:
     void Accept(Visitor* v) override;
     void PrintInfo (int p_level) override;
 };
-
-ASTProgramNode::ASTProgramNode() {
-    functions = new std::vector<ASTFunctionNode *>();
-    main_impl = new std::vector<ASTStatementNode *>();
-}
 
 #endif //COMPILER_ASTPROGRAMNODE_H

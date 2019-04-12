@@ -9,6 +9,7 @@
 #include "../ASTNode.h"
 #include "ASTStatementNode.h"
 #include "ASTBlockNode.h"
+#include <string>
 
 class ASTFunctionNode: public ASTStatementNode {
 public:

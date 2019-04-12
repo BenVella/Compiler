@@ -9,8 +9,8 @@
 
 class ASTStatementNode: public ASTNode  {
 public:
-    ASTStatementNode();
-    virtual ~ASTStatementNode();
+    ASTStatementNode() {}
+    virtual ~ASTStatementNode() {}
 
     virtual void PrintInfo (int p_level) = 0;
     virtual void Accept (Visitor * v) = 0;
