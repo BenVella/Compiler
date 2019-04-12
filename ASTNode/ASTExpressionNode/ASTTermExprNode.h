@@ -5,10 +5,12 @@
 #ifndef COMPILER_ASTTERMEXPRNODE_H
 #define COMPILER_ASTTERMEXPRNODE_H
 
-#include "ASTSimpleExprNode.h"
-#include "ASTFactorExprNode.h"
+#include <string>
+#include "ASTExprNode.h"
 
-class ASTTermExprNode : public ASTSimpleExprNode {
+class ASTFactorExprNode;
+
+class ASTTermExprNode : public ASTExprNode {
 public:
     ASTTermExprNode();
     virtual ~ASTTermExprNode();

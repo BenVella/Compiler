@@ -5,10 +5,11 @@
 #ifndef COMPILER_ASTEXPRNODE_H
 #define COMPILER_ASTEXPRNODE_H
 
-
+#include <string>
 #include "../ASTNode.h"
 #include "../../Visitor/Visitor.h"
-#include "ASTSimpleExprNode.h"
+
+class ASTSimpleExprNode;
 
 class ASTExprNode : public ASTNode {
 public:

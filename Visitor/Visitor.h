@@ -8,7 +8,7 @@
 #include "../ASTNode/ASTNode.h"
 
 class Visitor {
-public:
+/*public:
     virtual void Visit(ASTNode * e) = 0;
     virtual void Visit(ASTProgramNode * e) = 0;
     virtual void Visit(ASTStatementNode * e) = 0;
@@ -39,7 +39,7 @@ public:
     ASTUnaryExprNode::Accept(Visitor &v) { v.Visit(this); }
     ASTFactorExprNode::Accept(Visitor &v) { v.Visit(this); }
     ASTTermExprNode::Accept(Visitor &v) { v.Visit(this); }
-    ASTSimpleExprNode::Accept(Visitor &v) { v.Visit(this); }
+    ASTSimpleExprNode::Accept(Visitor &v) { v.Visit(this); }*/
 };
 
 #endif //COMPILER_VISITOR_H

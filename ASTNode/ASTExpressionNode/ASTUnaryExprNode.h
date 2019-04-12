@@ -5,9 +5,7 @@
 #ifndef COMPILER_ASTUNARYEXPRNODE_H
 #define COMPILER_ASTUNARYEXPRNODE_H
 
-#include <string>
 #include "ASTExprNode.h"
-#include "ASTNumberExprNode.h"
 
 class ASTUnaryExprNode : public ASTExprNode {
 public:
@@ -15,7 +13,7 @@ public:
     virtual ~ASTUnaryExprNode();
 
     std::string unary;      // negation or not
-    ASTExprNode * LHS;      // May be number or variable
+    ASTExprNode * LHS;      // May be number / variable / expression
 
     void PrintInfo (int p_level) override;
     void Accept (Visitor * v) override;

@@ -12,7 +12,7 @@ public:
     ASTNumberExprNode();
     virtual ~ASTNumberExprNode();
 
-    float numberValue;
+    ASTExprNode * literalVal;
 
     void PrintInfo (int p_level) override;
     void Accept (Visitor * v) override;

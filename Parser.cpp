@@ -5,6 +5,7 @@
 #include <vector>
 #include "Parser.h"
 #include "ASTNode/ASTProgramNode.h"
+#include "ASTNode/ASTStatementNode/ASTAssignmentStatementNode.h"
 
 Parser::Parser(Lexer * p_Lexer) {
     m_Lexer = p_Lexer;
@@ -21,6 +22,7 @@ ASTNode *Parser::Parse() {
 
 
     //
+    return nullptr;
 }
 
 
@@ -58,7 +60,7 @@ ASTStatementNode * Parser::ParseIfStatement() {
     } else {
         Error ("Expecting open bracket for if-condition-start");
     }
-
+    return nullptr;
 }
 
 ASTStatementNode * Parser::ParseStatement() {
@@ -121,12 +123,14 @@ ASTExprNode *Parser::ParseUnaryExpr() {
     if (CurrentToken.token_type == Lexer::TOK_KEY_NOT || (CurrentToken.token_type == Lexer::TOK_ARITHMETICOP && CurrentToken.id_name == "-")) {
 
     }
+    return nullptr;
 }
 
 ASTStatementNode * Parser::ParseAssignmentStatement() {
     CurrentToken = m_Lexer->GetNextToken();
+    std::string var_name;
     if (CurrentToken.token_type == Lexer::TOK_ID) {
-        std::string var_name = CurrentToken.id_name;
+        var_name = CurrentToken.id_name;
         CurrentToken = m_Lexer->GetNextToken();
     } else {
         Error("Expecting Id Token for Assignment Start");

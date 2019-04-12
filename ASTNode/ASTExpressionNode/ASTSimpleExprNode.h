@@ -5,7 +5,9 @@
 #ifndef COMPILER_ASTSIMPLEEXPRNODE_H
 #define COMPILER_ASTSIMPLEEXPRNODE_H
 
-#include "ASTTermExprNode.h"
+#include "ASTExprNode.h"
+
+class ASTTermExprNode;
 
 class ASTSimpleExprNode : public ASTExprNode {
 public:
@@ -16,7 +18,7 @@ public:
     ASTTermExprNode * RHS_term;         // Optional
     std::string m_additiveOper;         // Optional
 
-    void PrintInfo (int p_level) override;
-    void Accept (Visitor * v) override;
+    void PrintInfo (int p_level);
+    void Accept (Visitor * v);
 };
 #endif //COMPILER_ASTSIMPLEEXPRNODE_H

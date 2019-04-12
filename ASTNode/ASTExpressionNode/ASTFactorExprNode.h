@@ -7,9 +7,9 @@
 
 
 #include <string>
-#include "ASTTermExprNode.h"
+#include "ASTExprNode.h"
 
-class ASTFactorExprNode : public ASTTermExprNode {
+class ASTFactorExprNode : public ASTExprNode {
 public:
     ASTFactorExprNode();
     virtual ~ASTFactorExprNode();

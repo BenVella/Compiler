@@ -1,3 +1,4 @@
+/*
 //
 // Created by bennet.vella on 10/04/2019.
 //
@@ -15,3 +16,4 @@ class PrintInfoVisitor : public Visitor {
     void Visit(ASTBinaryExprNode * p_node);
 };
 #endif //COMPILER_PRINTINFOVISITOR_H
+*/

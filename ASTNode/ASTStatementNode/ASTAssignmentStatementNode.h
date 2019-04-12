@@ -9,6 +9,7 @@
 
 class ASTAssignmentStatementNode : public ASTStatementNode {
 public:
+    std::string identifier;
 
 };
 #endif //COMPILER_ASTASSIGNMENTSTATEMENTNODE_H
