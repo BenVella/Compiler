@@ -9,7 +9,7 @@
 
 class ASTIntegerLiteralExprNode : public ASTExprNode {
 public:
-    ASTIntegerLiteralExprNode();
+    ASTIntegerLiteralExprNode(float p_val);
     virtual ~ASTIntegerLiteralExprNode();
 
     int val;

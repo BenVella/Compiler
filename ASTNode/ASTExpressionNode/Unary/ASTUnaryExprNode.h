@@ -5,15 +5,15 @@
 #ifndef COMPILER_ASTUNARYEXPRNODE_H
 #define COMPILER_ASTUNARYEXPRNODE_H
 
-#include "ASTExprNode.h"
+#include "../ASTExprNode.h"
 
 class ASTUnaryExprNode : public ASTExprNode {
 public:
     ASTUnaryExprNode();
     virtual ~ASTUnaryExprNode();
 
-    std::string unary;      // negation or not
-    ASTExprNode * LHS;      // May be number / variable / expression
+    ASTUnaryExprNode * modifier;      // negation or not (ASTUnaryNegExprNode / ASTUnaryNotExprNode)
+    ASTExprNode * LHS;                // May be number / variable / expression
 
     void PrintInfo (int p_level) override;
     void Accept (Visitor * v) override;

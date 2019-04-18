@@ -21,13 +21,22 @@ private:
     Lexer* m_Lexer;
     Lexer::Token CurrentToken;
 
+    //Helper Functions
+    bool isToken(Lexer::TOK_TYPE p_type);
+    void nextToken();
+
     ASTExprNode * Error (const char *Str);
     ASTExprNode * ParseExpression();
+    ASTExprNode * ParseSimpleExpression();
+    ASTExprNode * ParseTermExpression();
+    ASTExprNode * ParseFactorExpression();
+
     ASTExprNode * ParseNumberExpr();
     ASTExprNode * ParseParenthesisExpr();
     ASTExprNode * ParseIdentifierExpr();
     ASTExprNode * ParseUnaryExpr();
-    ASTExprNode * ParseBinaryExpr(int p_Precedence, ASTExprNode * p_LHS);
+    //ASTExprNode * ParseBinaryExpr(int p_Precedence, ASTExprNode * p_LHS);
+    ASTExprNode * ParseBinaryExpr();
 
     ASTStatementNode * ParseReturnStatement();
     ASTStatementNode * ParseAssignmentStatement();

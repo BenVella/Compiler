@@ -9,7 +9,7 @@
 
 class ASTFloatLiteralExprNode : public ASTExprNode {
 public:
-    ASTFloatLiteralExprNode();
+    ASTFloatLiteralExprNode(float p_val);
     virtual ~ASTFloatLiteralExprNode();
 
     float val;

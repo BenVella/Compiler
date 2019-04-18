@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "Lexer.h"
+#include "Parser.h"
 
 void AppendLexerDetails(Lexer::Token *pToken);
 void PrintTokenDetails();
@@ -14,22 +15,26 @@ int main() {
     std::string fileName = R"(C:\Users\bennet.vella\Desktop\Compilers\SampleCode.txt)";
     Lexer* newLexer = new Lexer (fileName);
 
-    auto valTest = newLexer->GetNextToken();
+    // Standard Parser Evaluation TODO Uncomment if you want Parser operation
+    Parser* newParser = new Parser(newLexer);
+    newParser->Parse();
 
+    // Direct Lexer Evaluation  TODO Uncomment if you want direct Lexer operation
+/*    auto valTest = newLexer->GetNextToken();
     while (valTest.token_type != Lexer::TOK_EOF && valTest.token_type != Lexer::TOK_SYNTAX_ERR) {
         AppendLexerDetails(&valTest);
         valTest = newLexer->GetNextToken();
     }
 
     PrintTokenDetails();
-    OffloadLexerDetails();
+    OffloadLexerDetails();*/
     return 0;
 }
 
 void AppendLexerDetails(Lexer::Token *pToken) {
     m_lexOutput.append(pToken->ToString());
     m_lexOutput.append(" ");
-    m_lexOutput.append(pToken->token_type==Lexer::TOK_NUMBER ? std::to_string(pToken->number_value) : pToken->id_name);
+    m_lexOutput.append(pToken->token_type==Lexer::TOK_INT_NUMBER ? std::to_string(pToken->number_value) : pToken->id_name);
     m_lexOutput.append("\n");
 }
 

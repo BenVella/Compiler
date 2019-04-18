@@ -9,7 +9,7 @@
 
 class ASTNumberExprNode : public ASTExprNode {
 public:
-    ASTNumberExprNode();
+    ASTNumberExprNode(ASTExprNode * p_node);
     virtual ~ASTNumberExprNode();
 
     ASTExprNode * literalVal;

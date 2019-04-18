@@ -99,7 +99,8 @@ Lexer::CATEGORY Lexer::categorizeChar(char val) {
     else if (val == '\n') return CAT_NEWLINE;
     else if (std::isalpha(val) || val == '_') return CAT_TEXT;
     else if (std::isdigit(val)) return CAT_DIGIT;
-    else if (val == ';' || val == ':' || val == '.' || val == ',' || val == '\'' || val == '(' || val == ')' || val == '{' || val == '}') return CAT_PUNC;
+    else if (val == ';' || val == ':' || val == ',' || val == '\'' || val == '(' || val == ')' || val == '{' || val == '}') return CAT_PUNC;
+    else if (val == '.') return CAT_PERIOD;
     else if ( val == '/' ) return CAT_SLASH;
     else if (val == '*' || val == '+' || val == '-' || val == '<' || val == '>' || val == '=') return CAT_OP;
     else { std::cout << "Missing category for value: '" << std::endl << val << std::endl; return CAT_ERROR; }
@@ -124,7 +125,8 @@ Lexer::Token Lexer::StateToToken(STATE_TYPE st) {
             } else
                 return Lexer::Token(TOK_ID,m_lexeme);
         case ST_ID:                             return Lexer::Token(TOK_ID,m_lexeme);
-        case ST_DIGIT:                          return Lexer::Token(TOK_NUMBER,std::stof(m_lexeme,0));
+        case ST_DIGIT:                          return Lexer::Token(TOK_INT_NUMBER,std::stof(m_lexeme, nullptr));
+        case ST_FLOAT_END:                      return Lexer::Token(TOK_FLOAT_NUMBER,std::stof(m_lexeme, nullptr));
         case ST_SLASH:                          return Lexer::Token(TOK_PUNC,m_lexeme);
         case ST_OPERATOR:
             if (m_lexeme == "=") return Lexer::Token(TOK_ASSIGNOP);
@@ -136,7 +138,7 @@ Lexer::Token Lexer::StateToToken(STATE_TYPE st) {
             else if (m_lexeme == "}") return Lexer::Token(TOK_CLOSE_SCOPE);
             else return Lexer::Token(TOK_PUNC,m_lexeme);
         case ST_LINE_COMMENT:                   return Lexer::Token(TOK_COMMENT,m_lexeme);
-        case ST_BLOCK_COMMENT:                  return Lexer::Token(TOK_COMMENT,m_lexeme);
+        case ST_BLOCK_END:                      return Lexer::Token(TOK_COMMENT,m_lexeme);
     }
     return Lexer::Token();
 }
