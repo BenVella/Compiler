@@ -9,14 +9,16 @@
 #include "ASTStatementNode.h"
 #include <vector>
 
-class ASTBlockNode : public ASTNode {
-public:
-    ASTBlockNode();
-    virtual ~ASTBlockNode();
+namespace AST {
+    class ASTBlockNode : public ASTNode {
+    public:
+        ASTBlockNode();
+        virtual ~ASTBlockNode();
 
-    std::vector<ASTStatementNode *> * m_statements;
+        std::vector<ASTStatementNode *> *m_statements;
 
-    void PrintInfo (int p_level) override;
-    void Accept (Visitor * v) override;
-};
+        void PrintInfo(int p_level) override;
+        void Accept(Visitor *v) override;
+    };
+}
 #endif //COMPILER_ASTBLOCKNODE_H

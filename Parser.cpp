@@ -6,13 +6,9 @@
 #include "Parser.h"
 #include "ASTNode/ASTProgramNode.h"
 #include "ASTNode/ASTStatementNode/ASTAssignmentStatementNode.h"
-#include "ASTNode/ASTExpressionNode/Unary/ASTUnaryExprNode.h"
-#include "ASTNode/ASTExpressionNode/Unary/ASTUnaryNotExprNode.h"
-#include "ASTNode/ASTExpressionNode/Unary/ASTUnaryNegExprNode.h"
-#include "ASTNode/ASTExpressionNode/ASTNumberExprNode.h"
 #include "ASTNode/ASTExpressionNode/Literal/ASTIntegerLiteralExprNode.h"
 #include "ASTNode/ASTExpressionNode/Literal/ASTFloatLiteralExprNode.h"
-#include "ASTNode/ASTExpressionNode/ASTBinaryExprNode.h"
+#include "ASTNode/ASTExpressionNode/Literal/ASTBooleanLiteralExprNode.h"
 
 Parser::Parser(Lexer * p_Lexer) {
     m_Lexer = p_Lexer;
@@ -33,7 +29,7 @@ ASTNode *Parser::Parse() {
         case Lexer::TOK_ID:
         case Lexer::TOK_KEY_NOT:
         case Lexer::TOK_PUNC:
-            auto * result = ParseBinaryExpr();
+            auto * result = ParseSimpleExpression();
             break;
     }
 
@@ -41,7 +37,7 @@ ASTNode *Parser::Parse() {
 }
 
 /*
-ASTExprNode * Parser::ParseExpression() {
+Expr * Parser::ParseExpression() {
     auto LHS = ParseUnaryExpr();
     if (!LHS)
         return nullptr;
@@ -49,7 +45,7 @@ ASTExprNode * Parser::ParseExpression() {
 }
 
 
-ASTExprNode * Parser::ParseBinaryExpr(int p_Precedence,ASTExprNode * p_LHS) {
+Expr * Parser::ParseBinaryExpr(int p_Precedence,Expr * p_LHS) {
     while(true) {
         if (isToken(Lexer::TOK_ARITHMETICOP)) {
             float op_prec = CurrentToken.number_value;
@@ -73,8 +69,9 @@ ASTExprNode * Parser::ParseBinaryExpr(int p_Precedence,ASTExprNode * p_LHS) {
     }
 }
 */
+/*
 
-ASTExprNode * Parser::ParseBinaryExpr() {
+Expr * Parser::ParseBinaryExpr() {
 
     auto * mainNode = new ASTBinaryExprNode();
 
@@ -105,9 +102,10 @@ ASTExprNode * Parser::ParseBinaryExpr() {
     return mainNode;
 }
 
-ASTExprNode *Parser::ParseUnaryExpr() {
+
+Expr *Parser::ParseUnaryExpr() {
     // Check if we have a unary expression
-    ASTExprNode * test;
+    Expr * test;
 
     if (isToken(Lexer::TOK_KEY_NOT) || (isToken(Lexer::TOK_ARITHMETICOP) && CurrentToken.id_name == "-")) {
         auto * node = new ASTUnaryExprNode();
@@ -155,6 +153,9 @@ ASTExprNode *Parser::ParseUnaryExpr() {
 
     CurrentToken = m_Lexer->GetNextToken();
 
+    return nullptr;
+    */
+/*
     if (isToken(Lexer::TOK_INT_NUMBER)) {
         auto * intVal = new ASTIntegerLiteralExprNode(CurrentToken.number_value);
         unary->LHS = new ASTNumberExprNode(intVal);
@@ -167,41 +168,73 @@ ASTExprNode *Parser::ParseUnaryExpr() {
         return nullptr;
     }
 
-    return unary;
-}
+    return unary;*/
 
-ASTExprNode * Parser::ParseSimpleExpression () {
-    ParseTermExpression();
 
-}
+ASTSimpleExprNode * Parser::ParseSimpleExpression () {
+    auto * term1 = ParseTermExpression();
 
-ASTExprNode * Parser::ParseTermExpression() {
-    if (isToken(Lexer::TOK_INT_NUMBER)) {
-        auto *fac1 = ParseFactorExpression();
+    if (isToken(Lexer::TOK_ARITHMETICOP) && (CurrentToken.id_name == "+" || CurrentToken.id_name == "-")) {
+        auto * term2 = ParseTermExpression();
+
+        auto * result = new ASTSimpleExprNode();
+        result->m_additiveOper = CurrentToken.id_name;
+        result->LHS_term = term1;
+        result->RHS_term = term2;
 
         nextToken();
 
-        if (isToken(Lexer::TOK_ARITHMETICOP) && (CurrentToken.id_name == "*" || CurrentToken.id_name == "/")) {
-            nextToken();
-            auto *fac2 = ParseFactorExpression();
-
-            auto * result = new ASTBinaryExprNode();
-            result->op = CurrentToken.id_name;
-            result->LHS = fac1;
-            result->RHS = fac2;
-
-            return result;
-        } else {
-            auto * result = new ASTUnaryExprNode();
-            result->LHS = fac1;
-            return result;
-        }
+        return result;
+    } else {
+        auto * result = new ASTSimpleExprNode();
+        result->LHS_term = term1;
+        return result;
     }
 }
 
-ASTExprNode * Parser::ParseFactorExpression() {
+ASTTermExprNode * Parser::ParseTermExpression() {
+    auto *fac1 = ParseFactorExpression();
+
+    if (isToken(Lexer::TOK_ARITHMETICOP) && (CurrentToken.id_name == "*" || CurrentToken.id_name == "/")) {
+
+        auto *fac2 = ParseFactorExpression();
+
+        auto *result = new ASTTermExprNode();
+        result->m_additiveOper = CurrentToken.id_name;
+        result->LHS_factor = fac1;
+        result->RHS_factor = fac2;
+
+        nextToken();
+
+        return result;
+    } else {
+        auto * result = new ASTTermExprNode();
+        result->LHS_factor = fac1;
+        return result;
+    }
+}
+
+ASTFactorExprNode * Parser::ParseFactorExpression() {
     if (isToken(Lexer::TOK_INT_NUMBER)){
         return new ASTIntegerLiteralExprNode(CurrentToken.number_value);
+    } else if (isToken(Lexer::TOK_FLOAT_NUMBER)) {
+        return new ASTFloatLiteralExprNode(CurrentToken.number_value);
+    } else if (isToken(Lexer::TOK_BOOLOP)) {
+        return nullptr;
+        // return new ASTBooleanLiteralExprNode(CurrentToken.id_name); TODO Implement boolean constructor
+    } else if (isToken(Lexer::TOK_ID)) {
+        return new ASTIdentifierExprNode(CurrentToken.id_name);
+    } else if (isToken(Lexer::TOK_KEY_FN)) {
+        return nullptr;
+        // return new ASTFunctionNode(); TODO Implement function return logic
+    } else if (isToken(Lexer::TOK_PUNC) && CurrentToken.id_name == "(") {
+        return nullptr;
+        //return ParseSimpleExpression();
+    } else if (isToken(Lexer::TOK_KEY_NOT) || (isToken(Lexer::TOK_ARITHMETICOP) && CurrentToken.id_name == "-")) {
+        return nullptr;
+        //return ParseUnaryExpr();
+    } else {
+        return nullptr;
     }
 }
 
@@ -221,11 +254,11 @@ ASTStatementNode *Parser::ParseIdStatement() {
 
 ASTStatementNode * Parser::ParseIfStatement() {
     CurrentToken = m_Lexer->GetNextToken();
-    if (isToken(Lexer::TOK_PUNC && CurrentToken.id_name == "(") {
+    if (isToken(Lexer::TOK_PUNC) && CurrentToken.id_name == "(") {
         auto condition = ParseExpression();
 
         CurrentToken = m_Lexer->GetNextToken();
-        if (isToken(Lexer::TOK_PUNC && CurrentToken.id_name == ")") {
+        if (isToken(Lexer::TOK_PUNC) && CurrentToken.id_name == ")") {
             // auto thenBlock = ParseBlock();   // ToDo create a block node?
         }
     } else {
@@ -269,7 +302,7 @@ ASTFunctionNode * Parser::ParseFunctionPrototype() {
 ASTStatementNode * Parser::ParseAssignmentStatement() {
     CurrentToken = m_Lexer->GetNextToken();
     std::string var_name;
-    if (isToken(Lexer::TOK_ID) {
+    if (isToken(Lexer::TOK_ID)) {
         var_name = CurrentToken.id_name;
         CurrentToken = m_Lexer->GetNextToken();
     } else {

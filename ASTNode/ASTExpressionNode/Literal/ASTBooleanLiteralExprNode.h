@@ -5,7 +5,7 @@
 #ifndef COMPILER_ASTBOOLEANLITERALEXPRNODE_H
 #define COMPILER_ASTBOOLEANLITERALEXPRNODE_H
 
-#include "../ASTExprNode.h"
+#include "../Expr.h"
 
 class ASTBooleanLiteralExprNode : public ASTExprNode {
 public:

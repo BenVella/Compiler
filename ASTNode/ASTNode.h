@@ -7,15 +7,14 @@
 
 #include "../Visitor/Visitor.h"
 
-class ASTNode {
-public:
-    ASTNode() {}
-    virtual ~ASTNode() {}
-
-    // void Initialise();   // ToDo: Define or remove this
-
-    virtual void Accept(Visitor* v) = 0;
-    virtual void PrintInfo (int p_level) = 0;
-};
+namespace AST {
+    class ASTNode {
+    public:
+        ASTNode() {}
+        virtual ~ASTNode() {}
+        virtual void Accept(Visitor *v) = 0;
+        virtual void PrintInfo(int p_level) = 0;
+    };
+}
 
 #endif //COMPILER_ASTNODE_H

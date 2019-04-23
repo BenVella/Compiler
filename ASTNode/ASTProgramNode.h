@@ -10,16 +10,18 @@
 #include "ASTStatementNode/ASTStatementNode.h"
 #include <vector>
 
-class ASTProgramNode : public ASTNode {
-public:
-    ASTProgramNode();
-    virtual ~ASTProgramNode();
+namespace AST {
+    class ASTProgramNode : public ASTNode {
+    public:
+        ASTProgramNode();
+        virtual ~ASTProgramNode();
 
-    std::vector<ASTFunctionNode *> * functions;
-    std::vector<ASTStatementNode *> * main_impl;
+        std::vector<ASTFunctionNode *> *functions;
+        std::vector<ASTStatementNode *> *main_impl;
 
-    void Accept(Visitor* v) override;
-    void PrintInfo (int p_level) override;
-};
+        void Accept(Visitor *v) override;
+        void PrintInfo(int p_level) override;
+    };
+}
 
 #endif //COMPILER_ASTPROGRAMNODE_H

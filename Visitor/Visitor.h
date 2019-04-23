@@ -10,7 +10,6 @@
 #include "../ASTNode/ASTStatementNode/ASTStatementNode.h"
 #include "../ASTNode/ASTStatementNode/ASTIfNode.h"
 #include "../ASTNode/ASTStatementNode/ASTReturnNode.h"
-#include "../ASTNode/ASTStatementNode/ASTVariableNode.h"
 #include "../ASTNode/ASTExpressionNode/ASTFactorExprNode.h"
 #include "../ASTNode/ASTExpressionNode/ASTTermExprNode.h"
 #include "../ASTNode/ASTExpressionNode/ASTUnaryExprNode.h"
@@ -26,7 +25,7 @@ class Visitor {
     virtual void Visit(ASTIfNode * e) = 0;
     virtual void Visit(ASTReturnNode * e) = 0;
     virtual void Visit(ASTVariableNode * e) = 0;
-    virtual void Visit(ASTExprNode * e) = 0;
+    virtual void Visit(Expr * e) = 0;
     virtual void Visit(ASTFactorExprNode * e) = 0;
     virtual void Visit(ASTSimpleExprNode * e) = 0;
     virtual void Visit(ASTTermExprNode * e) = 0;
@@ -43,7 +42,7 @@ class Visitor {
     ASTFunctionNode::Accept(Visitor &v) { v.Visit(this); }
     ASTBlockNode::Accept(Visitor &v) { v.Visit(this); }
 
-    ASTExprNode::Accept(Visitor &v) { v.Visit(this); }
+    Expr::Accept(Visitor &v) { v.Visit(this); }
     ASTBinaryExprNode::Accept(Visitor &v) { v.Visit(this); }
     ASTUnaryExprNode::Accept(Visitor &v) { v.Visit(this); }
     ASTFactorExprNode::Accept(Visitor &v) { v.Visit(this); }

@@ -7,13 +7,15 @@
 
 #include "../ASTNode.h"
 
-class ASTStatementNode: public ASTNode  {
-public:
-    ASTStatementNode() {}
-    virtual ~ASTStatementNode() {}
+namespace AST {
+    class ASTStatementNode : public ASTNode {
+    public:
+        ASTStatementNode() {}
+        virtual ~ASTStatementNode() {}
 
-    virtual void PrintInfo (int p_level) = 0;
-    virtual void Accept (Visitor * v) = 0;
-};
+        virtual void PrintInfo(int p_level) = 0;
+        virtual void Accept(Visitor *v) = 0;
+    };
+}
 
 #endif //COMPILER_ASTSTATEMENTNODE_H

@@ -5,8 +5,9 @@
 #ifndef COMPILER_PARSER_H
 #define COMPILER_PARSER_H
 
+#include <map>
 #include "Lexer.h"
-#include "ASTNode/ASTExpressionNode/ASTExprNode.h"
+#include "ASTNode/ASTExpressionNode/Expr.h"
 #include "ASTNode/ASTStatementNode/ASTStatementNode.h"
 #include "ASTNode/ASTStatementNode/ASTReturnNode.h"
 #include "ASTNode/ASTStatementNode/ASTFunctionNode.h"
@@ -18,6 +19,8 @@ public:
     virtual ~Parser();
 
 private:
+    typedef std::map<std::string, Var> VarTable;
+
     Lexer* m_Lexer;
     Lexer::Token CurrentToken;
 
@@ -27,15 +30,15 @@ private:
 
     ASTExprNode * Error (const char *Str);
     ASTExprNode * ParseExpression();
-    ASTExprNode * ParseSimpleExpression();
-    ASTExprNode * ParseTermExpression();
-    ASTExprNode * ParseFactorExpression();
+    ASTSimpleExprNode * ParseSimpleExpression();
+    ASTTermExprNode * ParseTermExpression();
+    ASTFactorExprNode * ParseFactorExpression();
 
     ASTExprNode * ParseNumberExpr();
     ASTExprNode * ParseParenthesisExpr();
     ASTExprNode * ParseIdentifierExpr();
     ASTExprNode * ParseUnaryExpr();
-    //ASTExprNode * ParseBinaryExpr(int p_Precedence, ASTExprNode * p_LHS);
+    //Expr * ParseBinaryExpr(int p_Precedence, Expr * p_LHS);
     ASTExprNode * ParseBinaryExpr();
 
     ASTStatementNode * ParseReturnStatement();

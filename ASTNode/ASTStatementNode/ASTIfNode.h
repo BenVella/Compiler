@@ -8,19 +8,19 @@
 #include "../ASTNode.h"
 #include "ASTStatementNode.h"
 #include "../../Visitor/Visitor.h"
-#include "../ASTExpressionNode/ASTExprNode.h"
+#include "../ASTExpressionNode/Expr.h"
+namespace AST {
+    class ASTIfNode : public ASTStatementNode {
+    public:
+        ASTIfNode();
+        virtual ~ASTIfNode();
 
-class ASTIfNode: public ASTStatementNode {
-public:
-    ASTIfNode();
-    virtual ~ASTIfNode();
+        AST::Expr *condition = nullptr;
+        ASTNode *LHS = nullptr;
+        ASTNode *RHS = nullptr;
 
-    ASTExprNode * condition = nullptr;
-    ASTNode * LHS = nullptr;
-    ASTNode * RHS = nullptr;
-
-    void Accept (Visitor * v) override;
-    void PrintInfo (int p_level) override;
-};
-
+        void Accept(Visitor *v) override;
+        void PrintInfo(int p_level) override;
+    };
+}
 #endif //COMPILER_ASTIFSTATEMENTNODE_H

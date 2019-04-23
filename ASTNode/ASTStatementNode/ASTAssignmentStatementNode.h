@@ -5,19 +5,21 @@
 #ifndef COMPILER_ASTASSIGNMENTSTATEMENTNODE_H
 #define COMPILER_ASTASSIGNMENTSTATEMENTNODE_H
 
+#include <string>
 #include "ASTStatementNode.h"
-#include "../ASTExpressionNode/ASTIdentifierExprNode.h"
 
-class ASTAssignmentStatementNode : public ASTStatementNode {
-public:
-    ASTAssignmentStatementNode(std::string p_name, ASTExprNode * p_node);
-    virtual ~ASTAssignmentStatementNode();
+namespace AST {
+    class ASTAssignmentStatementNode : public ASTStatementNode {
+    public:
+        ASTAssignmentStatementNode(std::string p_name, AST::Expr *p_node);
+        virtual ~ASTAssignmentStatementNode();
 
-    ASTIdentifierExprNode * LHS;
-    ASTExprNode * RHS;
+        AST::Expr *LHS;
+        AST::Expr *RHS;
 
-    void PrintInfo (int p_level);
-    void Accept (Visitor * v);
+        void PrintInfo(int p_level);
+        void Accept(Visitor *v);
+    };
+}
 
-};
 #endif //COMPILER_ASTASSIGNMENTSTATEMENTNODE_H

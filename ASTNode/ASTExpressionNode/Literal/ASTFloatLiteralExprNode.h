@@ -5,16 +5,16 @@
 #ifndef COMPILER_ASTFLOATLITERALEXPRNODE_H
 #define COMPILER_ASTFLOATLITERALEXPRNODE_H
 
-#include "../ASTExprNode.h"
+#include "../ASTFactorExprNode.h"
 
-class ASTFloatLiteralExprNode : public ASTExprNode {
+class ASTFloatLiteralExprNode : public ASTFactorExprNode {
 public:
     ASTFloatLiteralExprNode(float p_val);
     virtual ~ASTFloatLiteralExprNode();
 
     float val;
 
-    void PrintInfo (int p_level) override;
-    void Accept (Visitor * v) override;
+    void PrintInfo (int p_level);
+    void Accept (Visitor * v);
 };
 #endif //COMPILER_ASTFLOATLITERALEXPRNODE_H
