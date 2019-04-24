@@ -7,11 +7,13 @@
 
 namespace AST {
     class Expr;
+    class ExprBinOpAdd;
 }
 
 class Visitor {
 public:
     virtual void Visit (AST::Expr& e) = 0;
+    virtual void Visit (AST::ExprBinOpAdd& e) = 0;
 };
 
 #endif //COMPILER_VISITOR_H
