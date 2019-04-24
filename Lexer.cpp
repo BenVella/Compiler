@@ -130,9 +130,11 @@ Lexer::Token Lexer::StateToToken(STATE_TYPE st) {
         case ST_SLASH:
         case ST_OPERATOR:
             if (m_lexeme == "=") return Lexer::Token(TOK_ASSIGNOP);
-            else if (m_lexeme == "*" || m_lexeme == "/") return Lexer::Token(TOK_ARITHMETICOP,m_lexeme,2);
-            else if (m_lexeme == "+" || m_lexeme == "-") return Lexer::Token(TOK_ARITHMETICOP,m_lexeme,1);
-            else return Lexer::Token(TOK_ARITHMETICOP,m_lexeme);
+            else if (m_lexeme == "*") return Lexer::Token(TOK_ARITHMETIC_MULT);
+            else if (m_lexeme == "/") return Lexer::Token(TOK_ARITHMETIC_DIV);
+            else if (m_lexeme == "+") return Lexer::Token(TOK_ARITHMETIC_PLUS);
+            else if (m_lexeme == "-") return Lexer::Token(TOK_ARITHMETIC_MINUS);
+            else return Lexer::Token(TOK_SYNTAX_ERR,m_lexeme);
         case ST_PUNCTUATION:
             if (m_lexeme == "{") return Lexer::Token(TOK_OPEN_SCOPE);
             else if (m_lexeme == "}") return Lexer::Token(TOK_CLOSE_SCOPE);

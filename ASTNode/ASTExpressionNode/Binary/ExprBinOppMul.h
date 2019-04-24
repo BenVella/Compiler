@@ -18,8 +18,7 @@ namespace AST {
             return _pArg1->solve() * _pArg2->solve();
         }
 
-        void Accept(Visitor *v) override {};
-        void PrintInfo(int p_level) override {};
+        void Accept(Visitor& v) override {};
     };
 }
 

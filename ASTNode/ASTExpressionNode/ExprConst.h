@@ -16,8 +16,9 @@ namespace AST {
         virtual ~ExprConst() = default;
         virtual double solve() const { return _value; }
 
-        void Accept(Visitor *v) override {};
-        void PrintInfo(int p_level) override {};
+        virtual void Accept(Visitor& v) override {
+            v.Visit(*this);
+        };
     };
 }
 #endif //COMPILER_ASTEXPRCONST_H

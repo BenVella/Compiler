@@ -11,15 +11,15 @@
 namespace AST {
     class ExprUnOpNeg: public ExprUnOp {
     public:
-        ExprUnOpNeg(Expr *pArg1): ExprUnOp(pArg1) { }
-        virtual ~ExprUnOpNeg() = default;
-        virtual double solve() const
-        {
+        explicit ExprUnOpNeg(Expr *pArg1): ExprUnOp(pArg1) { }
+
+        ~ExprUnOpNeg() override = default;
+
+        double solve() const override {
             return -_pArg1->solve();
         }
 
-        void Accept(Visitor *v) override {};
-        void PrintInfo(int p_level) override {};
+        void Accept(Visitor& v) override {};
     };
 }
 #endif //COMPILER_EXPRUNOPNEG_H

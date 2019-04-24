@@ -17,8 +17,7 @@ namespace AST {
 
         std::vector<Statement *> *m_statements;
 
-        void Accept(Visitor *v) override {};
-        void PrintInfo(int p_level) override {};
+        void Accept(Visitor& v) override {};
     };
 }
 #endif //COMPILER_ASTBLOCKNODE_H

@@ -2,6 +2,7 @@
 #include <fstream>
 #include "Lexer.h"
 #include "Parser.h"
+#include "Visitor/PrintInfoVisitor.h"
 
 void AppendLexerDetails(Lexer::Token *pToken);
 void PrintTokenDetails();
@@ -22,6 +23,7 @@ int main() {
 
     //std::cout << "Finished Main Program" << std::endl;
 
+    PrintInfoVisitor::Visit(progResult->tempExprs[0]);
 
 
     // Direct Lexer Evaluation  TODO Uncomment if you want direct Lexer operation

@@ -10,10 +10,9 @@
 namespace AST {
     class ASTNode {
     public:
-        ASTNode() {}
-        virtual ~ASTNode() {}
-        virtual void Accept(Visitor *v) = 0;
-        virtual void PrintInfo(int p_level) = 0;
+        ASTNode() = default;
+        virtual ~ASTNode() = default;
+        virtual void Accept(Visitor& v) = 0;
     };
 }
 

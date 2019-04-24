@@ -25,7 +25,8 @@ public :
     enum TOK_TYPE {
         TOK_EOF, TOK_DEF, TOK_EXTERN, TOK_ID,
         TOK_INT_NUMBER, TOK_FLOAT_NUMBER, TOK_NUM_ERROR, TOK_PUNC, TOK_SRCLANG_TYPE,
-        TOK_SYNTAX_ERR, TOK_BOOLOP, TOK_ASSIGNOP, TOK_ARITHMETICOP,
+        TOK_SYNTAX_ERR, TOK_BOOLOP, TOK_ASSIGNOP, TOK_ARITHMETIC_PLUS,
+        TOK_ARITHMETIC_MINUS, TOK_ARITHMETIC_DIV, TOK_ARITHMETIC_MULT,
         TOK_STMT_DELIMITER, TOK_OPEN_SCOPE, TOK_CLOSE_SCOPE,
         TOK_COMMENT, TOK_KEY_FLOAT, TOK_KEY_INT, TOK_KEY_BOOL,
         TOK_KEY_VAR, TOK_KEY_PRINT, TOK_KEY_RETURN, TOK_KEY_IF,
@@ -81,7 +82,10 @@ public :
                 case TOK_SYNTAX_ERR :               return "[TOK_SYNTAX_ERR]";
                 case TOK_BOOLOP :                   return "[TOK_BOOLOP]";
                 case TOK_ASSIGNOP :                 return "[TOK_ASSIGNOP]";
-                case TOK_ARITHMETICOP :             return "[TOK_ARITHMETICOP]";
+                case TOK_ARITHMETIC_PLUS :          return "[TOK_ARITHMETIC_PLUS]";
+                case TOK_ARITHMETIC_MINUS :         return "[TOK_ARITHMETIC_MINUS]";
+                case TOK_ARITHMETIC_MULT :          return "[TOK_ARITHMETIC_MULT]";
+                case TOK_ARITHMETIC_DIV :           return "[TOK_ARITHMETIC_DIV]";
                 case TOK_STMT_DELIMITER :           return "[TOK_STMT_DELIMITER]";
                 case TOK_OPEN_SCOPE :               return "[TOK_OPEN_SCOPE]";
                 case TOK_CLOSE_SCOPE :              return "[TOK_CLOSE_SCOPE]";

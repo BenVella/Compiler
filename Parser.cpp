@@ -61,25 +61,22 @@ AST::Expr* Parser::ParseSumExpr() {
 AST::Expr* Parser::ParseSumExprRest(AST::Expr *pExpr1) {
     while(true) {
         switch(CurrentToken.token_type) {
-            case Lexer::TOK_ARITHMETICOP:
-                if (CurrentToken.id_name == "+") {  // PLUS
-                    nextToken();
-                    if (AST::Expr *pExpr2 = ParseMulExpr()) {
-                        pExpr1 = new AST::ExprBinOpAdd(pExpr1,pExpr2);
-                    } else {
-                        delete pExpr1;
-                        return nullptr; // Error
-                    }
-                } else if (CurrentToken.id_name == "-") {   // MINUS
-                    nextToken();
-                    if (AST::Expr *pExpr2 = ParseMulExpr()) {
-                        pExpr1 = new AST::ExprBinOpSub(pExpr1,pExpr2);
-                    } else {
-                        delete pExpr1;
-                        return nullptr; // Error
-                    }
+            case Lexer::TOK_ARITHMETIC_PLUS:
+                nextToken();
+                if (AST::Expr *pExpr2 = ParseMulExpr()) {
+                    pExpr1 = new AST::ExprBinOpAdd(pExpr1,pExpr2);
                 } else {
-                    return pExpr1;
+                    delete pExpr1;
+                    return nullptr; // Error
+                }
+                break;
+            case Lexer::TOK_ARITHMETIC_MINUS:
+                nextToken();
+                if (AST::Expr *pExpr2 = ParseMulExpr()) {
+                    pExpr1 = new AST::ExprBinOpSub(pExpr1,pExpr2);
+                } else {
+                    delete pExpr1;
+                    return nullptr; // Error
                 }
                 break;
             case Lexer::TOK_SYNTAX_ERR:
@@ -104,25 +101,22 @@ AST::Expr* Parser::ParseMulExprRest(AST::Expr *pExpr1)
     // -> can be done as iteration
     for (;;) {
         switch (CurrentToken.token_type) {
-            case Lexer::TOK_ARITHMETICOP:
-                if (CurrentToken.id_name == "*") {
-                    nextToken(); // consume token
-                    if (AST::Expr *pExpr2 = ParseUnExpr()) {
-                        pExpr1 = new AST::ExprBinOpMul(pExpr1, pExpr2);
-                    } else {
-                        delete pExpr1;
-                        return nullptr; // ERROR!
-                    }
-                } else if (CurrentToken.id_name == "/") {
-                    nextToken(); // consume token
-                    if (AST::Expr *pExpr2 = ParseUnExpr()) {
-                        pExpr1 = new AST::ExprBinOpDiv(pExpr1, pExpr2);
-                    } else {
-                        delete pExpr1;
-                        return nullptr; // ERROR!
-                    }
+            case Lexer::TOK_ARITHMETIC_MULT:
+                nextToken(); // consume token
+                if (AST::Expr *pExpr2 = ParseUnExpr()) {
+                    pExpr1 = new AST::ExprBinOpMul(pExpr1, pExpr2);
                 } else {
-                    return pExpr1;
+                    delete pExpr1;
+                    return nullptr; // ERROR!
+                }
+                break;
+            case Lexer::TOK_ARITHMETIC_DIV:
+                nextToken(); // consume token
+                if (AST::Expr *pExpr2 = ParseUnExpr()) {
+                    pExpr1 = new AST::ExprBinOpDiv(pExpr1, pExpr2);
+                } else {
+                    delete pExpr1;
+                    return nullptr; // ERROR!
                 }
                 break;
             case Lexer::TOK_SYNTAX_ERR:
@@ -140,16 +134,14 @@ AST::Expr* Parser::ParseUnExpr()
     // right recursive rule for right associative operators
     // -> must be done as recursion
     switch (CurrentToken.token_type) {
-        case Lexer::TOK_ARITHMETICOP:
-            if (CurrentToken.id_name=="+") {
-                nextToken(); // Unary plus has no effect, we skip it
-                return ParseUnExpr();
-            } else if (CurrentToken.id_name=="-") {
-                nextToken();
-                if (AST::Expr *pExpr = ParseUnExpr()) {
-                    return new AST::ExprUnOpNeg(pExpr);
-                } else return nullptr; // ERROR!
-            }
+        case Lexer::TOK_ARITHMETIC_PLUS:
+            nextToken(); // Unary plus has no effect, we skip it
+            return ParseUnExpr();
+        case Lexer::TOK_ARITHMETIC_MINUS:
+            nextToken();
+            if (AST::Expr *pExpr = ParseUnExpr()) {
+                return new AST::ExprUnOpNeg(pExpr);
+            } else return nullptr; // ERROR!
         default:
             return ParsePrimExpr();
     }
@@ -175,12 +167,15 @@ AST::Expr* Parser::ParsePrimExpr()
                 if (!(pExpr = ParseExpr())) return nullptr; // ERROR!
                 if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != ")") {
                     delete pExpr;
+                    Error ("Subexpression did not match a closing parenthesis!");
                     return nullptr; // ERROR!
                 }
+            } else {
+                Error ("Unexpected punctuation.  Was expecting opening parenthesis");
             }
             break;
         case Lexer::TOK_EOF:
-            Error("SYNTAX ERROR: Premature EOF!");
+            Error("SYNTAX ERROR: Premature EOF when parsing primary expression!");
             break;
         case Lexer::TOK_SYNTAX_ERR:
         case Lexer::TOK_NUM_ERROR:

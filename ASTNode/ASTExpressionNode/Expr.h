@@ -7,7 +7,6 @@
 
 #include <string>
 #include "../ASTNode.h"
-#include "../../Visitor/Visitor.h"
 
 namespace AST {
     class Expr : public ASTNode {
@@ -15,11 +14,9 @@ namespace AST {
         Expr() = default;
     public:
         virtual ~Expr() = default;
-    public:
         virtual double solve() const = 0;
 
-        virtual void Accept(Visitor *v) = 0;
-        virtual void PrintInfo(int p_level) = 0;
+        virtual void Accept(Visitor& v) = 0;
     };
 }
 

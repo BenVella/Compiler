@@ -24,8 +24,7 @@ namespace AST {
         std::vector<Statement *> *main_impl;
         std::vector<AST::Expr*> *tempExprs;
 
-        void Accept(Visitor *v) override {};
-        void PrintInfo(int p_level) override {};
+        void Accept(Visitor& v) override {};
     };
 }
 

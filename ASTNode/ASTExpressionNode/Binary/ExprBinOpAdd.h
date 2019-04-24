@@ -7,19 +7,22 @@
 
 #include "../Expr.h"
 #include "ExprBinOp.h"
+#include "../../../Visitor/Visitor.h"
 
 namespace AST {
     class ExprBinOpAdd: public ExprBinOp {
     public:
         ExprBinOpAdd(Expr *pArg1, Expr *pArg2): ExprBinOp(pArg1, pArg2) { }
-        virtual ~ExprBinOpAdd() = default;
-        virtual double solve() const
-        {
+
+        ~ExprBinOpAdd() override = default;
+
+        double solve() const override {
             return _pArg1->solve() + _pArg2->solve();
         }
 
-        void Accept(Visitor *v) override {};
-        void PrintInfo(int p_level) override {};
+        void Accept(Visitor& v) override {
+            v.Visit(*this);
+        };
     };
 }
 #endif //COMPILER_EXPRBINOPADD_H

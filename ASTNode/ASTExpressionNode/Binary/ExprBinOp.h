@@ -17,8 +17,7 @@ namespace AST {
         { }
         virtual ~ExprBinOp() { delete _pArg1; delete _pArg2; }
 
-        void Accept(Visitor *v) override {};
-        void PrintInfo(int p_level) override {};
+        virtual void Accept(Visitor& v) = 0;
     };
 }
 #endif //COMPILER_EXPRBINOP_H
