@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Compiler"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Compiler">
+				<Option output="C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Compiler.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 Compiler"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Compiler/fast">
+				<Option output="C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Compiler.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 Compiler/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOp.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOpAdd.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOpSub.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOppDiv.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOppMul.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Expr.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/ExprConst.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/ExprVar.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Unary/ExprUnOp.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Unary/ExprUnOpNeg.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Var.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTNode.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/AssignmentStatement.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/Block.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/Function.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/If.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/Return.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/Statement.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/Program.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Lexer.cpp">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Lexer.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Parser.cpp">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Parser.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Util.cpp">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Util.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Visitor/PrintInfoVisitor.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Visitor/Visitor.cpp">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Visitor/Visitor.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/main.cpp">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
