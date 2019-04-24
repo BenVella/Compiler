@@ -7,22 +7,22 @@
 
 
 #include "../ASTNode.h"
-#include "ASTStatementNode.h"
-#include "ASTBlockNode.h"
+#include "Statement.h"
+#include "Block.h"
 #include <string>
 namespace AST {
-    class ASTFunctionNode : public ASTStatementNode {
+    class Function : public Statement {
     public:
-        ASTFunctionNode();
-        virtual ~ASTFunctionNode();
+        Function();
+        virtual ~Function();
 
         std::string m_identifier;
         // std::vector< TODO Use a hashmap object to store parameters?
         std::string m_type;
-        ASTBlockNode *block;
+        Block *block;
 
-        void PrintInfo(int p_level) override;
-        void Accept(Visitor *v) override;
+        void Accept(Visitor *v) override {};
+        void PrintInfo(int p_level) override {};
     };
 }
 

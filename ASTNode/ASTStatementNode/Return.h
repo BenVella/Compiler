@@ -7,18 +7,18 @@
 
 
 #include "../ASTExpressionNode/Expr.h"
-#include "ASTStatementNode.h"
+#include "Statement.h"
 
 namespace AST {
-    class ASTReturnNode : public ASTStatementNode {
+    class Return : public Statement {
     public:
-        ASTReturnNode(Expr *p_node);
-        virtual ~ASTReturnNode() {}
+        explicit Return(Expr *p_node) : LHS(p_node) {}
+        ~Return() override = default;
 
         AST::Expr *LHS;
 
-        void Accept(Visitor *v) override;
-        void PrintInfo(int p_level) override;
+        void Accept(Visitor *v) override {};
+        void PrintInfo(int p_level) override {};
     };
 }
 

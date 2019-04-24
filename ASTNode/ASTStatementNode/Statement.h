@@ -8,10 +8,10 @@
 #include "../ASTNode.h"
 
 namespace AST {
-    class ASTStatementNode : public ASTNode {
+    class Statement : public ASTNode {
     public:
-        ASTStatementNode() {}
-        virtual ~ASTStatementNode() {}
+        Statement() {}
+        virtual ~Statement() {}
 
         virtual void PrintInfo(int p_level) = 0;
         virtual void Accept(Visitor *v) = 0;

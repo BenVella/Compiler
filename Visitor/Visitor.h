@@ -6,10 +6,10 @@
 #define COMPILER_VISITOR_H
 
 /*#include "../ASTNode/ASTNode.h"
-#include "../ASTNode/ASTProgramNode.h"
-#include "../ASTNode/ASTStatementNode/ASTStatementNode.h"
-#include "../ASTNode/ASTStatementNode/ASTIfNode.h"
-#include "../ASTNode/ASTStatementNode/ASTReturnNode.h"
+#include "../ASTNode/Program.h"
+#include "../ASTNode/Statement/Statement.h"
+#include "../ASTNode/Statement/If.h"
+#include "../ASTNode/Statement/Return.h"
 #include "../ASTNode/ASTExpressionNode/ASTFactorExprNode.h"
 #include "../ASTNode/ASTExpressionNode/ASTTermExprNode.h"
 #include "../ASTNode/ASTExpressionNode/ASTUnaryExprNode.h"
@@ -18,12 +18,12 @@
 class Visitor {
 /*public:
     virtual void Visit(ASTNode * e) = 0;
-    virtual void Visit(ASTProgramNode * e) = 0;
-    virtual void Visit(ASTStatementNode * e) = 0;
-    virtual void Visit(ASTBlockNode * e) = 0;
-    virtual void Visit(ASTFunctionNode * e) = 0;
-    virtual void Visit(ASTIfNode * e) = 0;
-    virtual void Visit(ASTReturnNode * e) = 0;
+    virtual void Visit(Program * e) = 0;
+    virtual void Visit(Statement * e) = 0;
+    virtual void Visit(Block * e) = 0;
+    virtual void Visit(Function * e) = 0;
+    virtual void Visit(If * e) = 0;
+    virtual void Visit(Return * e) = 0;
     virtual void Visit(ASTVariableNode * e) = 0;
     virtual void Visit(Expr * e) = 0;
     virtual void Visit(ASTFactorExprNode * e) = 0;
@@ -33,14 +33,14 @@ class Visitor {
     virtual void Visit(ASTBinaryExprNode * e) = 0;
 
     ASTNode::Accept(Visitor &v) { v.Visit(this); }
-    ASTProgramNode::Accept(Visitor &v) { v.Visit(this); }
+    Program::Accept(Visitor &v) { v.Visit(this); }
 
     ASTSStatementNode::Accept(Visitor &v) { v.Visit(this); }
     ASTVariableNode::Accept(Visitor &v) { v.Visit(this); }
-    ASTReturnNode::Accept(Visitor &v) { v.Visit(this); }
-    ASTIfNode::Accept(Visitor &v) { v.Visit(this); }
-    ASTFunctionNode::Accept(Visitor &v) { v.Visit(this); }
-    ASTBlockNode::Accept(Visitor &v) { v.Visit(this); }
+    Return::Accept(Visitor &v) { v.Visit(this); }
+    If::Accept(Visitor &v) { v.Visit(this); }
+    Function::Accept(Visitor &v) { v.Visit(this); }
+    Block::Accept(Visitor &v) { v.Visit(this); }
 
     Expr::Accept(Visitor &v) { v.Visit(this); }
     ASTBinaryExprNode::Accept(Visitor &v) { v.Visit(this); }

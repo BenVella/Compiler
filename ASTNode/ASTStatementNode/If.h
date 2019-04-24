@@ -6,21 +6,21 @@
 #define COMPILER_ASTIFSTATEMENTNODE_H
 
 #include "../ASTNode.h"
-#include "ASTStatementNode.h"
+#include "Statement.h"
 #include "../../Visitor/Visitor.h"
 #include "../ASTExpressionNode/Expr.h"
 namespace AST {
-    class ASTIfNode : public ASTStatementNode {
+    class If : public Statement {
     public:
-        ASTIfNode();
-        virtual ~ASTIfNode();
+        If();
+        virtual ~If();
 
         AST::Expr *condition = nullptr;
         ASTNode *LHS = nullptr;
         ASTNode *RHS = nullptr;
 
-        void Accept(Visitor *v) override;
-        void PrintInfo(int p_level) override;
+        void Accept(Visitor *v) override {};
+        void PrintInfo(int p_level) override {};
     };
 }
 #endif //COMPILER_ASTIFSTATEMENTNODE_H

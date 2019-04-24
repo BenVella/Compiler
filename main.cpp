@@ -15,9 +15,14 @@ int main() {
     std::string fileName = R"(C:\Users\bennet.vella\Desktop\Compilers\SampleCode.txt)";
     Lexer* newLexer = new Lexer (fileName);
 
+    //std::cout << "Starting Main Program" << std::endl;
+
     // Standard Parser Evaluation TODO Uncomment if you want Parser operation
-    Parser* newParser = new Parser(newLexer);
-    newParser->Parse();
+    AST::Program* progResult = Parser::Parse(newLexer);
+
+    //std::cout << "Finished Main Program" << std::endl;
+
+
 
     // Direct Lexer Evaluation  TODO Uncomment if you want direct Lexer operation
 /*    auto valTest = newLexer->GetNextToken();

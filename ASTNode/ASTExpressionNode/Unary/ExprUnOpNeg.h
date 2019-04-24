@@ -17,6 +17,9 @@ namespace AST {
         {
             return -_pArg1->solve();
         }
+
+        void Accept(Visitor *v) override {};
+        void PrintInfo(int p_level) override {};
     };
 }
 #endif //COMPILER_EXPRUNOPNEG_H

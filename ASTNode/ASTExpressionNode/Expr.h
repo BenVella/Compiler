@@ -17,6 +17,9 @@ namespace AST {
         virtual ~Expr() = default;
     public:
         virtual double solve() const = 0;
+
+        virtual void Accept(Visitor *v) = 0;
+        virtual void PrintInfo(int p_level) = 0;
     };
 }
 

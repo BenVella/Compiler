@@ -14,6 +14,9 @@ namespace AST {
     protected:
         ExprUnOp(Expr *pArg1): Expr(), _pArg1(pArg1) { }
         virtual ~ExprUnOp() { delete _pArg1; }
+
+        void Accept(Visitor *v) override {};
+        void PrintInfo(int p_level) override {};
     };
 }
 #endif //COMPILER_EXPRUNOP_H

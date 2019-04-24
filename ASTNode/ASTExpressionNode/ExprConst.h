@@ -15,6 +15,9 @@ namespace AST {
         ExprConst(double value): Expr(), _value(value) { }
         virtual ~ExprConst() = default;
         virtual double solve() const { return _value; }
+
+        void Accept(Visitor *v) override {};
+        void PrintInfo(int p_level) override {};
     };
 }
 #endif //COMPILER_ASTEXPRCONST_H

@@ -127,7 +127,7 @@ Lexer::Token Lexer::StateToToken(STATE_TYPE st) {
         case ST_ID:                             return Lexer::Token(TOK_ID,m_lexeme);
         case ST_DIGIT:                          return Lexer::Token(TOK_INT_NUMBER,std::stof(m_lexeme, nullptr));
         case ST_FLOAT_END:                      return Lexer::Token(TOK_FLOAT_NUMBER,std::stof(m_lexeme, nullptr));
-        case ST_SLASH:                          return Lexer::Token(TOK_PUNC,m_lexeme);
+        case ST_SLASH:
         case ST_OPERATOR:
             if (m_lexeme == "=") return Lexer::Token(TOK_ASSIGNOP);
             else if (m_lexeme == "*" || m_lexeme == "/") return Lexer::Token(TOK_ARITHMETICOP,m_lexeme,2);

@@ -4,6 +4,7 @@
 
 #ifndef COMPILER_VAR_H
 #define COMPILER_VAR_H
+
 namespace AST {
     class Var {
     private:
@@ -15,4 +16,5 @@ namespace AST {
         void set(double value) { _value = value; }
     };
 }
+
 #endif //COMPILER_VAR_H

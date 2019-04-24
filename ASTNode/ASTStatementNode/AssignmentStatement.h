@@ -6,19 +6,19 @@
 #define COMPILER_ASTASSIGNMENTSTATEMENTNODE_H
 
 #include <string>
-#include "ASTStatementNode.h"
+#include "Statement.h"
 
 namespace AST {
-    class ASTAssignmentStatementNode : public ASTStatementNode {
+    class AssignmentStatement : public Statement {
     public:
-        ASTAssignmentStatementNode(std::string p_name, AST::Expr *p_node);
-        virtual ~ASTAssignmentStatementNode();
+        AssignmentStatement(std::string p_name, AST::Expr *p_node) : LHS (p_node) {}
+        ~AssignmentStatement() = default;
 
         AST::Expr *LHS;
         AST::Expr *RHS;
 
-        void PrintInfo(int p_level);
-        void Accept(Visitor *v);
+        void Accept(Visitor *v) override {};
+        void PrintInfo(int p_level) override {};
     };
 }
 

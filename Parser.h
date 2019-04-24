@@ -7,49 +7,50 @@
 
 #include <map>
 #include "Lexer.h"
+#include "ASTNode/ASTExpressionNode/Var.h"
 #include "ASTNode/ASTExpressionNode/Expr.h"
-#include "ASTNode/ASTStatementNode/ASTStatementNode.h"
-#include "ASTNode/ASTStatementNode/ASTReturnNode.h"
-#include "ASTNode/ASTStatementNode/ASTFunctionNode.h"
+#include "ASTNode/ASTStatementNode/Statement.h"
+#include "ASTNode/ASTStatementNode/Function.h"
+#include "ASTNode/Program.h"
 
 class Parser {
-public:
-    ASTNode * Parse();
-    Parser(Lexer * p_Lexer);
-    virtual ~Parser();
-
 private:
-    typedef std::map<std::string, Var> VarTable;
+    typedef std::map<std::string, AST::Var> VarTable;
 
+    Parser(Lexer *p_lexer);
     Lexer* m_Lexer;
     Lexer::Token CurrentToken;
+    VarTable m_varTable;
 
-    //Helper Functions
+    // Helper Functions
     bool isToken(Lexer::TOK_TYPE p_type);
     void nextToken();
+    bool match(Lexer::TOK_TYPE p_Type);
 
-    ASTExprNode * Error (const char *Str);
-    ASTExprNode * ParseExpression();
-    ASTSimpleExprNode * ParseSimpleExpression();
-    ASTTermExprNode * ParseTermExpression();
-    ASTFactorExprNode * ParseFactorExpression();
+    // Expression Parsing
+    AST::Expr* Error (const char *str);
+    AST::Program* ParseProgram();
+    AST::Expr* ParseExpr();
+    AST::Expr* ParseSumExpr();
+    AST::Expr* ParseSumExprRest(AST::Expr *pExpr1);
+    AST::Expr* ParseMulExpr();
+    AST::Expr* ParseMulExprRest(AST::Expr *pExpr1);
+    AST::Expr* ParseUnExpr();
+    AST::Expr* ParsePrimExpr();
 
-    ASTExprNode * ParseNumberExpr();
-    ASTExprNode * ParseParenthesisExpr();
-    ASTExprNode * ParseIdentifierExpr();
-    ASTExprNode * ParseUnaryExpr();
-    //Expr * ParseBinaryExpr(int p_Precedence, Expr * p_LHS);
-    ASTExprNode * ParseBinaryExpr();
+    // Statement Parsing
+    AST::Statement* ParseReturnStatement();
+    AST::Statement* ParseAssignmentStatement();
+    AST::Statement* ParseStatement();
+    AST::Statement* ParseIdStatement();
+    AST::Statement* ParseIfStatement();
 
-    ASTStatementNode * ParseReturnStatement();
-    ASTStatementNode * ParseAssignmentStatement();
+    // Function Parsing
+    AST::Function* ParseFunctionPrototype();
 
-
-    ASTFunctionNode * ParseFunctionPrototype();
-    ASTStatementNode * ParseStatement();
-
-    ASTStatementNode *ParseIdStatement();
-    ASTStatementNode *ParseIfStatement();
+public:
+    static AST::Program* Parse(Lexer *p_lexer);
+    virtual ~Parser() {}
 };
 
 #endif //COMPILER_PARSER_H

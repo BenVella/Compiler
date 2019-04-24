@@ -16,6 +16,9 @@ namespace AST {
         ExprVar(Var *pVar): Expr(), _pVar(pVar) { }
         virtual ~ExprVar() = default;
         virtual double solve() const { return _pVar->get(); }
+
+        void Accept(Visitor *v) override {};
+        void PrintInfo(int p_level) override {};
     };
 }
 #endif //COMPILER_ASTEXPRVAR_H
