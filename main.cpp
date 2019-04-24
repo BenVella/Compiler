@@ -22,8 +22,11 @@ int main() {
     AST::Program* progResult = Parser::Parse(newLexer);
 
     //std::cout << "Finished Main Program" << std::endl;
+    PrintInfoVisitor visitor;
 
-    PrintInfoVisitor::Visit(progResult->tempExprs[0]);
+    for (auto* expr : *progResult->tempExprs) {
+        expr->Accept(visitor);
+    }
 
 
     // Direct Lexer Evaluation  TODO Uncomment if you want direct Lexer operation

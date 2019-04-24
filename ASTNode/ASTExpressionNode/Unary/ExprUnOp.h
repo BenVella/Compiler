@@ -9,7 +9,7 @@
 
 namespace AST {
     class ExprUnOp: public Expr {
-    protected:
+    public:
         Expr *_pArg1;
     protected:
         ExprUnOp(Expr *pArg1): Expr(), _pArg1(pArg1) { }

@@ -9,7 +9,7 @@
 
 namespace AST {
     class ExprBinOp: public Expr {
-    protected:
+    public:
         Expr *_pArg1, *_pArg2;
     protected:
         ExprBinOp(Expr *pArg1, Expr *pArg2):
