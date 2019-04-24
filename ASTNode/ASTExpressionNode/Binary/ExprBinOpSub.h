@@ -18,7 +18,9 @@ namespace AST {
             return _pArg1->solve() - _pArg2->solve();
         }
 
-        void Accept(Visitor& v) override {};
+        void Accept(Visitor& v) override {
+            v.Visit(*this);
+        };
     };
 }
 #endif //COMPILER_EXPRBINOPSUB_H

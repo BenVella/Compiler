@@ -9,6 +9,7 @@
 #include "Visitor.h"
 #include "../ASTNode/ASTExpressionNode/Expr.h"
 #include "../ASTNode/ASTExpressionNode/Binary/ExprBinOpAdd.h"
+#include "../ASTNode/ASTExpressionNode/Binary/ExprBinOpSub.h"
 
 class PrintInfoVisitor : public Visitor {
 private:
@@ -22,8 +23,17 @@ public:
     }
 
     virtual void Visit(AST::ExprBinOpAdd& p_node) override {
-        std::cout << "<BinOpAdd>\n\t<arg1>" << p_node._pArg1 << "</arg1>\n\t" <<
-        "<arg2>" << p_node._pArg2 << "</arg2>\n</BinOpAdd>";
+        println("<BinOpAdd>");
+        p_node._pArg1->Accept(*this);
+        p_node._pArg2->Accept(*this);
+        println("</BinOpAdd>");
+    }
+
+    virtual void Visit(AST::ExprBinOpSub& p_node) override {
+        println("<BinOpSub>");
+        p_node._pArg1->Accept(*this);
+        p_node._pArg2->Accept(*this);
+        println("</BinOpSub>");
     }
 };
 #endif //COMPILER_PRINTINFOVISITOR_H
