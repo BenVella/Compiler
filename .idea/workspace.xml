@@ -11,43 +11,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="35b1282c-6940-4047-947b-f4faef52583f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/Project.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/bennet_vella.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTExpressionNode/Binary/ExprBinOp.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTExpressionNode/Binary/ExprBinOpAdd.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTExpressionNode/Binary/ExprBinOpSub.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTExpressionNode/Binary/ExprBinOppDiv.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTExpressionNode/Binary/ExprBinOppMul.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTExpressionNode/Expr.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTExpressionNode/ExprConst.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTExpressionNode/ExprVar.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTExpressionNode/Unary/ExprUnOp.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTExpressionNode/Unary/ExprUnOpNeg.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTExpressionNode/Var.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTNode.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTStatementNode/AssignmentStatement.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTStatementNode/Block.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTStatementNode/Function.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTStatementNode/If.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTStatementNode/Return.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTStatementNode/Statement.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ASTNode/Program.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Notes.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Parser.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Parser.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Util.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Util.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Visitor/PrintInfoVisitor.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Visitor/Visitor.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Visitor/Visitor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lexer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Lexer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lexer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Lexer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+    <list default="true" id="35b1282c-6940-4047-947b-f4faef52583f" name="Default Changelist" comment="Merge branch 'Development' of https://github.com/BenVella/Compiler into Development&#10;&#10;# Conflicts:&#10;#&#9;.idea/modules.xml">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -57,12 +22,13 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
     <option name="clangWarnings" value="-Wno-unused-variable,-Wno-shadow,-Wshadow-field-in-constructor-modified,-Wshadow-ivar,-Wno-switch,-Wno-parentheses,-Wbitwise-op-parentheses,-Wdangling-else,-Wlogical-not-parentheses,-Wlogical-op-parentheses,-Woverloaded-shift-op-parentheses,-Wparentheses-equality,-Wshift-op-parentheses,-Werror=implicit-function-declaration,-Wno-extra-tokens" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="263">
@@ -70,6 +36,24 @@
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cmake-build-debug/SampleCode.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="4" lean-forward="true" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.idea/modules.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="10" lean-forward="true" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -110,6 +94,16 @@
             <path>
               <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
               <item name="Compiler" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Compiler" type="462c0819:PsiDirectoryNode" />
+              <item name="cmake-build-debug" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Compiler" type="462c0819:PsiDirectoryNode" />
+              <item name="Visitor" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -262,7 +256,7 @@
       <option name="presentableId" value="Default" />
       <updated>1556055239703</updated>
       <workItem from="1556055240924" duration="722000" />
-      <workItem from="1556125658803" duration="1524000" />
+      <workItem from="1556125658803" duration="1850000" />
     </task>
     <task id="LOCAL-00001" summary="commit untracked files">
       <created>1556125748125</created>
@@ -271,11 +265,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556125748125</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Merge branch 'Development' of https://github.com/BenVella/Compiler into Development&#10;&#10;# Conflicts:&#10;#&#9;.idea/modules.xml">
+      <created>1556141996885</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1556141996885</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2246000" />
+    <option name="totallyTimeSpent" value="2572000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -287,14 +288,14 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3997833" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32936078" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="10" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="CMake" order="11" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -307,7 +308,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="commit untracked files" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit untracked files" />
+    <MESSAGE value="Merge branch 'Development' of https://github.com/BenVella/Compiler into Development&#10;&#10;# Conflicts:&#10;#&#9;.idea/modules.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'Development' of https://github.com/BenVella/Compiler into Development&#10;&#10;# Conflicts:&#10;#&#9;.idea/modules.xml" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -335,6 +337,20 @@
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmake-build-debug/SampleCode.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="4" lean-forward="true" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/modules.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="10" lean-forward="true" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
         </state>
       </provider>
     </entry>
