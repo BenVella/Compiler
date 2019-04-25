@@ -11,15 +11,20 @@
 #include "../ASTExpressionNode/Expr.h"
 namespace AST {
     class If : public Statement {
+    private:
+        AST::Expr *_expr;
+        ASTNode *_block1;
+        ASTNode *_block2;
     public:
-        If();
-        virtual ~If();
+        If(AST::Expr * p_expr, ASTNode *pBlock) : _expr(p_expr), _block1(pBlock) {}
+        If(AST::Expr * p_expr, ASTNode *pBlock1, ASTNode *pBlock2) : _expr(p_expr), _block1(pBlock1), _block2(pBlock2) {}
+        ~If() override = default;
 
-        AST::Expr *condition = nullptr;
-        ASTNode *LHS = nullptr;
-        ASTNode *RHS = nullptr;
+        void Accept(Visitor& v) override { v.Visit(*this); };
 
-        void Accept(Visitor& v) override {};
+        Expr *getExpr() const {return _expr;}
+        ASTNode *getBlock1() const {return _block1;}
+        ASTNode *getBlock2() const {return _block2;}
     };
 }
 #endif //COMPILER_IF_H

@@ -42,9 +42,11 @@ private:
     AST::Statement* ParseVarDeclareStatement();
     AST::Statement* ParsePrintStatement();
     AST::Statement* ParseReturnStatement();
-    AST::Statement* ParseStatement();
-    AST::Statement* ParseIdentifierStatement();
     AST::Statement* ParseIfStatement();
+    AST::Statement* ParseForStatement();
+    AST::Statement* ParseStatement();
+    AST::Statement* ParseBlockStatement();
+    AST::Statement* ParseIdentifierStatement();
 
     // Function Parsing
     AST::Function* ParseFunctionPrototype();

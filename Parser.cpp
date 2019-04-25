@@ -19,6 +19,7 @@
 #include "ASTNode/ASTStatementNode/Return.h"
 #include "ASTNode/ASTStatementNode/VarDeclare.h"
 #include "ASTNode/ASTStatementNode/Print.h"
+#include "ASTNode/ASTStatementNode/If.h"
 
 Parser::Parser(Lexer * p_lexer): m_Lexer(p_lexer) {
     nextToken();
@@ -296,22 +297,49 @@ AST::Statement* Parser::ParseReturnStatement() {
     return node;
 }
 
-AST::Statement *Parser::ParseIdentifierStatement() {
+AST::Statement * Parser::ParseIfStatement() {
+    nextToken();
+    if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != "(") {
+        Error("Expecting open parenthesis for ' IF ' statement");
+        return nullptr;
+    }
+
+    auto *pExpr = ParseExpr();
+
+    nextToken();
+    if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != ")") {
+        Error("Expecting close parenthesis for ' IF ' statement");
+        return nullptr;
+    }
+
+    // Get primary behaviour
+    if (auto *pBlock1 = ParseBlockStatement()) {
+        nextToken();
+        if (isToken(Lexer::TOK_KEY_ELSE)) {
+            if (auto *pBlock2 = ParseBlockStatement()) {
+                return new AST::If(pExpr,pBlock1,pBlock2);
+            } else {
+                Error ("Expecting second Block code for ' IF ' statement!");
+                return nullptr;
+            }
+        } else {
+            return new AST::If(pExpr,pBlock1);
+        }
+    } else {
+        Error ("Expecting first Block code for ' IF ' statement");
+        return nullptr;
+    }
+}
+
+AST::Statement* Parser::ParseForStatement() {
+
+}
+
+AST::Statement* Parser::ParseIdentifierStatement() {
     return nullptr;
 }
 
-AST::Statement * Parser::ParseIfStatement() {
-    CurrentToken = m_Lexer->GetNextToken();
-    if (isToken(Lexer::TOK_PUNC) && CurrentToken.id_name == "(") {
-        auto condition = ParseExpr();
-
-        CurrentToken = m_Lexer->GetNextToken();
-        if (isToken(Lexer::TOK_PUNC) && CurrentToken.id_name == ")") {
-            // auto thenBlock = ParseBlock();   // ToDo create a block node?
-        }
-    } else {
-        Error ("Expecting open bracket for if-condition-start");
-    }
+AST::Statement* Parser::ParseBlockStatement() {
     return nullptr;
 }
 
@@ -330,7 +358,7 @@ AST::Statement * Parser::ParseStatement() {
         case Lexer::TOK_KEY_VAR:
             node = ParseVarDeclareStatement();
         case Lexer::TOK_ID:
-            node = ParseIdStatement();
+            node = ParseIdentifierStatement();
             break;
         default:
             break;

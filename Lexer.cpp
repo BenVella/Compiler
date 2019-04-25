@@ -117,6 +117,7 @@ Lexer::Token Lexer::StateToToken(STATE_TYPE st) {
                 else if (m_lexeme == "print") return Lexer::Token(TOK_KEY_PRINT);
                 else if (m_lexeme == "return") return Lexer::Token(TOK_KEY_RETURN);
                 else if (m_lexeme == "if") return Lexer::Token(TOK_KEY_IF);
+                else if (m_lexeme == "else") return Lexer::Token(TOK_KEY_ELSE);
                 else if (m_lexeme == "for") return Lexer::Token(TOK_KEY_FOR);
                 else if (m_lexeme == "fn") return Lexer::Token(TOK_KEY_FN);
                 else if (m_lexeme == "true") return Lexer::Token(TOK_KEY_TRUE);
