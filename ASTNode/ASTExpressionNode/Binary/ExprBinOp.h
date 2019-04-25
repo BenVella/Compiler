@@ -9,7 +9,7 @@
 
 namespace AST {
     class ExprBinOp: public Expr {
-    public:
+    private:
         Expr *_pArg1, *_pArg2;
     protected:
         ExprBinOp(Expr *pArg1, Expr *pArg2):
@@ -18,6 +18,9 @@ namespace AST {
         virtual ~ExprBinOp() { delete _pArg1; delete _pArg2; }
 
         virtual void Accept(Visitor& v) = 0;
+    public:
+        Expr *get_pArg1() const {return _pArg1;}
+        Expr *get_pArg2() const {return _pArg2;}
     };
 }
 #endif //COMPILER_EXPRBINOP_H

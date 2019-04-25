@@ -16,10 +16,12 @@ namespace AST {
         ~ExprUnOpNeg() override = default;
 
         double solve() const override {
-            return -_pArg1->solve();
+            return -get_pArg1()->solve();
         }
 
-        void Accept(Visitor& v) override {};
+        void Accept(Visitor& v) override {
+            v.Visit(*this);
+        };
     };
 }
 #endif //COMPILER_EXPRUNOPNEG_H

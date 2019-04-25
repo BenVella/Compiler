@@ -9,13 +9,17 @@
 
 namespace AST {
     class ExprUnOp: public Expr {
-    public:
+    private:
         Expr *_pArg1;
     protected:
         ExprUnOp(Expr *pArg1): Expr(), _pArg1(pArg1) { }
         virtual ~ExprUnOp() { delete _pArg1; }
 
-        void Accept(Visitor& v) override {};
+        void Accept(Visitor& v) override {
+            v.Visit(*this);
+        };
+    public:
+        Expr *get_pArg1() const { return _pArg1; }
     };
 }
 #endif //COMPILER_EXPRUNOP_H

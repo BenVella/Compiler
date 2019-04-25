@@ -203,33 +203,6 @@ Util.cpp.s:
 	$(MAKE) -f CMakeFiles\Compiler.dir\build.make CMakeFiles/Compiler.dir/Util.cpp.s
 .PHONY : Util.cpp.s
 
-Visitor/Visitor.obj: Visitor/Visitor.cpp.obj
-
-.PHONY : Visitor/Visitor.obj
-
-# target to build an object file
-Visitor/Visitor.cpp.obj:
-	$(MAKE) -f CMakeFiles\Compiler.dir\build.make CMakeFiles/Compiler.dir/Visitor/Visitor.cpp.obj
-.PHONY : Visitor/Visitor.cpp.obj
-
-Visitor/Visitor.i: Visitor/Visitor.cpp.i
-
-.PHONY : Visitor/Visitor.i
-
-# target to preprocess a source file
-Visitor/Visitor.cpp.i:
-	$(MAKE) -f CMakeFiles\Compiler.dir\build.make CMakeFiles/Compiler.dir/Visitor/Visitor.cpp.i
-.PHONY : Visitor/Visitor.cpp.i
-
-Visitor/Visitor.s: Visitor/Visitor.cpp.s
-
-.PHONY : Visitor/Visitor.s
-
-# target to generate assembly for a file
-Visitor/Visitor.cpp.s:
-	$(MAKE) -f CMakeFiles\Compiler.dir\build.make CMakeFiles/Compiler.dir/Visitor/Visitor.cpp.s
-.PHONY : Visitor/Visitor.cpp.s
-
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -275,9 +248,6 @@ help:
 	@echo ... Util.obj
 	@echo ... Util.i
 	@echo ... Util.s
-	@echo ... Visitor/Visitor.obj
-	@echo ... Visitor/Visitor.i
-	@echo ... Visitor/Visitor.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

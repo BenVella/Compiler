@@ -82,22 +82,9 @@ CMakeFiles/Compiler.dir/Lexer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Compiler.dir/Lexer.cpp.s"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\bennet.vella\Desktop\Compiler\Lexer.cpp -o CMakeFiles\Compiler.dir\Lexer.cpp.s
 
-CMakeFiles/Compiler.dir/Visitor/Visitor.cpp.obj: CMakeFiles/Compiler.dir/flags.make
-CMakeFiles/Compiler.dir/Visitor/Visitor.cpp.obj: ../Visitor/Visitor.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\bennet.vella\Desktop\Compiler\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Compiler.dir/Visitor/Visitor.cpp.obj"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Compiler.dir\Visitor\Visitor.cpp.obj -c C:\Users\bennet.vella\Desktop\Compiler\Visitor\Visitor.cpp
-
-CMakeFiles/Compiler.dir/Visitor/Visitor.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Compiler.dir/Visitor/Visitor.cpp.i"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\bennet.vella\Desktop\Compiler\Visitor\Visitor.cpp > CMakeFiles\Compiler.dir\Visitor\Visitor.cpp.i
-
-CMakeFiles/Compiler.dir/Visitor/Visitor.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Compiler.dir/Visitor/Visitor.cpp.s"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\bennet.vella\Desktop\Compiler\Visitor\Visitor.cpp -o CMakeFiles\Compiler.dir\Visitor\Visitor.cpp.s
-
 CMakeFiles/Compiler.dir/Parser.cpp.obj: CMakeFiles/Compiler.dir/flags.make
 CMakeFiles/Compiler.dir/Parser.cpp.obj: ../Parser.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\bennet.vella\Desktop\Compiler\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Compiler.dir/Parser.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\bennet.vella\Desktop\Compiler\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Compiler.dir/Parser.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Compiler.dir\Parser.cpp.obj -c C:\Users\bennet.vella\Desktop\Compiler\Parser.cpp
 
 CMakeFiles/Compiler.dir/Parser.cpp.i: cmake_force
@@ -110,7 +97,7 @@ CMakeFiles/Compiler.dir/Parser.cpp.s: cmake_force
 
 CMakeFiles/Compiler.dir/Util.cpp.obj: CMakeFiles/Compiler.dir/flags.make
 CMakeFiles/Compiler.dir/Util.cpp.obj: ../Util.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\bennet.vella\Desktop\Compiler\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Compiler.dir/Util.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\bennet.vella\Desktop\Compiler\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Compiler.dir/Util.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Compiler.dir\Util.cpp.obj -c C:\Users\bennet.vella\Desktop\Compiler\Util.cpp
 
 CMakeFiles/Compiler.dir/Util.cpp.i: cmake_force
@@ -125,7 +112,6 @@ CMakeFiles/Compiler.dir/Util.cpp.s: cmake_force
 Compiler_OBJECTS = \
 "CMakeFiles/Compiler.dir/main.cpp.obj" \
 "CMakeFiles/Compiler.dir/Lexer.cpp.obj" \
-"CMakeFiles/Compiler.dir/Visitor/Visitor.cpp.obj" \
 "CMakeFiles/Compiler.dir/Parser.cpp.obj" \
 "CMakeFiles/Compiler.dir/Util.cpp.obj"
 
@@ -134,14 +120,13 @@ Compiler_EXTERNAL_OBJECTS =
 
 Compiler.exe: CMakeFiles/Compiler.dir/main.cpp.obj
 Compiler.exe: CMakeFiles/Compiler.dir/Lexer.cpp.obj
-Compiler.exe: CMakeFiles/Compiler.dir/Visitor/Visitor.cpp.obj
 Compiler.exe: CMakeFiles/Compiler.dir/Parser.cpp.obj
 Compiler.exe: CMakeFiles/Compiler.dir/Util.cpp.obj
 Compiler.exe: CMakeFiles/Compiler.dir/build.make
 Compiler.exe: CMakeFiles/Compiler.dir/linklibs.rsp
 Compiler.exe: CMakeFiles/Compiler.dir/objects1.rsp
 Compiler.exe: CMakeFiles/Compiler.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\bennet.vella\Desktop\Compiler\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable Compiler.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\bennet.vella\Desktop\Compiler\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable Compiler.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\Compiler.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

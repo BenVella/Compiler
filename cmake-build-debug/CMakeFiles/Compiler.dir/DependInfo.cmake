@@ -7,7 +7,6 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/bennet.vella/Desktop/Compiler/Lexer.cpp" "C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/Lexer.cpp.obj"
   "C:/Users/bennet.vella/Desktop/Compiler/Parser.cpp" "C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/Parser.cpp.obj"
   "C:/Users/bennet.vella/Desktop/Compiler/Util.cpp" "C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/Util.cpp.obj"
-  "C:/Users/bennet.vella/Desktop/Compiler/Visitor/Visitor.cpp" "C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/Visitor/Visitor.cpp.obj"
   "C:/Users/bennet.vella/Desktop/Compiler/main.cpp" "C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

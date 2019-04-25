@@ -12,6 +12,11 @@ namespace AST {
     private:
         double _value;
     public:
+        double get_value() const {
+            return _value;
+        }
+
+    public:
         ExprConst(double value): Expr(), _value(value) { }
         virtual ~ExprConst() = default;
         virtual double solve() const { return _value; }

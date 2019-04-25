@@ -13,13 +13,13 @@ namespace AST {
     private:
         Var *_pVar;
     public:
+        Var *get_pVar() const {return _pVar;}
         explicit ExprVar(Var *pVar): Expr(), _pVar(pVar) { }
-
         ~ExprVar() override = default;
-
         double solve() const override { return _pVar->get(); }
-
-        void Accept(Visitor& v) override {};
+        void Accept(Visitor& v) override {
+            v.Visit(*this);
+        };
     };
 }
 #endif //COMPILER_ASTEXPRVAR_H

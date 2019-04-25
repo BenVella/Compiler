@@ -158,9 +158,6 @@
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Visitor/PrintInfoVisitor.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Visitor/Visitor.cpp">
-			<Option target="Compiler"/>
-		</Unit>
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Visitor/Visitor.h">
 			<Option target="Compiler"/>
 		</Unit>

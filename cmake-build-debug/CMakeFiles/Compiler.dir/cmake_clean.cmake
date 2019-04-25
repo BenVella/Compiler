@@ -1,7 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Compiler.dir/main.cpp.obj"
   "CMakeFiles/Compiler.dir/Lexer.cpp.obj"
-  "CMakeFiles/Compiler.dir/Visitor/Visitor.cpp.obj"
   "CMakeFiles/Compiler.dir/Parser.cpp.obj"
   "CMakeFiles/Compiler.dir/Util.cpp.obj"
   "Compiler.pdb"

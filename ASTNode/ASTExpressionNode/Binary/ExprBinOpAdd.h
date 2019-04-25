@@ -17,12 +17,10 @@ namespace AST {
         ~ExprBinOpAdd() override = default;
 
         double solve() const override {
-            return _pArg1->solve() + _pArg2->solve();
+            return get_pArg1()->solve() + get_pArg2()->solve();
         }
 
-        void Accept(Visitor& v) override {
-            v.Visit(*this);
-        };
+        void Accept(Visitor& v) override {v.Visit(*this);}
     };
 }
 #endif //COMPILER_EXPRBINOPADD_H
