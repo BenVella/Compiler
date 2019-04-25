@@ -1,0 +1,14 @@
+GENERAL
+1 - Visitor class errors in declaration
+2 - Circular reference errors not identifying class names
+
+LEXER
+1 - Introduce precedence on Lexer ArithmeticOp?
+2 - Example of a BoolOp?
+
+PARSER
+1 - Expression - Factor storage of Function / Literal / Identifier / SubExpression / Unary etc
+2 - Create a Binary, Unary, Number, Variable expression nodes?
+3 - Combine them using Factor, Term, Simple and Full Expression classes?
+4 - Why are factor and term separate for Multiplicative Op and Additive Op
+5 - Is literal the word "int / bool / float" or the actual value of this type?
