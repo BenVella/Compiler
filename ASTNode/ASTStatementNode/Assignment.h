@@ -2,20 +2,20 @@
 // Created by bennet.vella on 10/04/2019.
 //
 
-#ifndef COMPILER_ASTASSIGNMENTSTATEMENTNODE_H
-#define COMPILER_ASTASSIGNMENTSTATEMENTNODE_H
+#ifndef COMPILER_ASTASSIGNMENT_H
+#define COMPILER_ASTASSIGNMENT_H
 
 #include <string>
 #include "Statement.h"
 
 namespace AST {
-    class AssignmentStatement : public Statement {
+    class Assignment : public Statement {
     private:
         std::string _name;
         AST::Expr *RHS;
     public:
-        AssignmentStatement(std::string p_name, AST::Expr *p_node) : RHS (p_node) {}
-        ~AssignmentStatement() = default;
+        Assignment(std::string p_name, AST::Expr *p_node) : RHS (p_node) {}
+        ~Assignment() = default;
 
         void Accept(Visitor& v) override { v.Visit(*this); }
 
@@ -24,4 +24,4 @@ namespace AST {
     };
 }
 
-#endif //COMPILER_ASTASSIGNMENTSTATEMENTNODE_H
+#endif //COMPILER_ASTASSIGNMENT_H

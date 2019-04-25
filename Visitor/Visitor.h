@@ -15,7 +15,9 @@ namespace AST {
     class ExprBinOpDiv;
     class ExprUnOpNeg;
 
-    class AssignmentStatement;
+    class Assignment;
+    class VarDeclare;
+    class Print;
 }
 
 class Visitor {
@@ -29,7 +31,9 @@ public:
     virtual void Visit (AST::ExprBinOpDiv& e) = 0;
     virtual void Visit (AST::ExprUnOpNeg& e) = 0;
 
-    virtual void Visit (AST::AssignmentStatement& e) = 0;
+    virtual void Visit (AST::Assignment& e) = 0;
+    virtual void Visit (AST::VarDeclare& e) = 0;
+    virtual void Visit (AST::Print& e) = 0;
 };
 
 #endif //COMPILER_VISITOR_H

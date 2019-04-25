@@ -5,8 +5,7 @@
 #include <vector>
 #include "Parser.h"
 #include "ASTNode/Program.h"
-#include "ASTNode/ASTStatementNode/AssignmentStatement.h"
-#include "ASTNode/ASTStatementNode/Return.h"
+
 #include "ASTNode/ASTExpressionNode/Binary/ExprBinOpAdd.h"
 #include "ASTNode/ASTExpressionNode/Binary/ExprBinOpSub.h"
 #include "ASTNode/ASTExpressionNode/Binary/ExprBinOppMul.h"
@@ -15,6 +14,11 @@
 #include "ASTNode/ASTExpressionNode/Data/ExprConstInt.h"
 #include "ASTNode/ASTExpressionNode/Data/ExprConstFloat.h"
 #include "ASTNode/ASTExpressionNode/Data/ExprVar.h"
+
+#include "ASTNode/ASTStatementNode/Assignment.h"
+#include "ASTNode/ASTStatementNode/Return.h"
+#include "ASTNode/ASTStatementNode/VarDeclare.h"
+#include "ASTNode/ASTStatementNode/Print.h"
 
 Parser::Parser(Lexer * p_lexer): m_Lexer(p_lexer) {
     nextToken();
@@ -223,18 +227,12 @@ AST::Statement * Parser::ParseAssignmentStatement() {
     // Handle expression
     nextToken(); // skip ' = '
     auto pExpr = ParseExpr();
-    auto ass_node = new AST::AssignmentStatement(var_name.c_str(), pExpr);
+    auto pAssign = new AST::Assignment(var_name.c_str(), pExpr);
 
-    return ass_node;
+    return pAssign;
 }
 
 AST::Statement * Parser::ParseVarDeclareStatement() {
-    // Check for 'var' keyword
-    if (!isToken(Lexer::TOK_KEY_VAR)) {
-        Error("Expecting 'var' keyword for Variable Declaration");
-        return nullptr;
-    }
-
     // Check for Identifier
     nextToken();
     if (!isToken(Lexer::TOK_ID)) {
@@ -251,41 +249,54 @@ AST::Statement * Parser::ParseVarDeclareStatement() {
     }
 
     nextToken();
+    std::string var_type;
     switch(CurrentToken.token_type) {
         case Lexer::TOK_KEY_INT:
-            nextToken();
-            if (!isToken(Lexer::TOK_ASSIGNOP)) {
-                Error ("Expecting ' = ' for Variable Declaration");
-                return nullptr;
-            }
-            nextToken();
-            auto pExpr = ParseExpr();
-            AST::Var &var = m_varTable[var_name];
-            // Todo create a variable declaration object and store data within it, and update var table
+            var_type="int";
+            break;
+        case Lexer::TOK_KEY_FLOAT:
+            var_type = "float";
+            break;
+        case Lexer::TOK_KEY_BOOL:
+            var_type = "bool";
+            break;
+        default:
+            Error("Expecting a type ( 'int' , 'float' or 'bool' for Variable Declaration");
+            return nullptr;
     }
 
-    CurrentToken = m_Lexer->GetNextToken();
-    if (CurrentToken.token_type != Lexer::TOK_ASSIGNOP) {
-        Error("Expecting '=' while parsing an assignment statement");
+    nextToken();    // Check for ' = '
+    if (!isToken(Lexer::TOK_ASSIGNOP)) {
+        Error("Expecting ' = ' for Variable Declaration");
         return nullptr;
     }
-    CurrentToken = m_Lexer->GetNextToken();
-    auto pExpr = ParseExpr();
-    auto ass_node = new AST::AssignmentStatement(var_name.c_str(), pExpr);
-    return ass_node;
+
+    nextToken();    // Parse remaining expression and return VarDeclare AST Node
+    AST::Expr *pExpr = ParseExpr();
+    AST::Var &var = m_varTable[var_name];
+    var.set(pExpr);
+
+    return new AST::VarDeclare(var_name,var_type,pExpr);
 }
 
-AST::Statement * Parser::ParseReturnStatement() {
-    CurrentToken = m_Lexer->GetNextToken();
-    auto expr_node = ParseExpr();
-    if (!expr_node)
+AST::Statement* Parser::ParsePrintStatement() {
+    nextToken();
+    auto pExpr = ParseExpr();
+
+    return new AST::Print(pExpr);
+}
+
+AST::Statement* Parser::ParseReturnStatement() {
+    nextToken();
+    auto *pExpr = ParseExpr();
+    if (!pExpr)
         return nullptr;
 
-    auto node = new AST::Return(expr_node);
+    auto node = new AST::Return(pExpr);
     return node;
 }
 
-AST::Statement *Parser::ParseIdStatement() {
+AST::Statement *Parser::ParseIdentifierStatement() {
     return nullptr;
 }
 
@@ -313,6 +324,11 @@ AST::Statement * Parser::ParseStatement() {
         case Lexer::TOK_KEY_RETURN:
             node = ParseReturnStatement();
             break;
+        case Lexer::TOK_KEY_PRINT:
+            node = ParsePrintStatement();
+            break;
+        case Lexer::TOK_KEY_VAR:
+            node = ParseVarDeclareStatement();
         case Lexer::TOK_ID:
             node = ParseIdStatement();
             break;

@@ -2,8 +2,8 @@
 // Created by bennet.vella on 27/03/2019.
 //
 
-#ifndef COMPILER_ASTRETURNSTATEMENTNODE_H
-#define COMPILER_ASTRETURNSTATEMENTNODE_H
+#ifndef COMPILER_RETURN_H
+#define COMPILER_RETURN_H
 
 
 #include "../ASTExpressionNode/Expr.h"
@@ -21,4 +21,4 @@ namespace AST {
     };
 }
 
-#endif //COMPILER_ASTRETURNSTATEMENTNODE_H
+#endif //COMPILER_RETURN_H

@@ -12,6 +12,7 @@ namespace AST {
     public:
         ASTNode() = default;
         virtual ~ASTNode() = default;
+
         virtual void Accept(Visitor& v) = 0;
     };
 }

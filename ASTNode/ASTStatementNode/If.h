@@ -2,8 +2,8 @@
 // Created by bennet.vella on 25/03/2019.
 //
 
-#ifndef COMPILER_ASTIFSTATEMENTNODE_H
-#define COMPILER_ASTIFSTATEMENTNODE_H
+#ifndef COMPILER_IF_H
+#define COMPILER_IF_H
 
 #include "../ASTNode.h"
 #include "Statement.h"
@@ -22,4 +22,4 @@ namespace AST {
         void Accept(Visitor& v) override {};
     };
 }
-#endif //COMPILER_ASTIFSTATEMENTNODE_H
+#endif //COMPILER_IF_H

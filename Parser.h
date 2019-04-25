@@ -20,7 +20,7 @@ private:
     Parser(Lexer *p_lexer);
     Lexer* m_Lexer;
     Lexer::Token CurrentToken;
-    VarTable m_varTable;
+    VarTable m_varTable;    // ToDo this might need to be moved outside to main in order to not lose references
 
     // Helper Functions
     bool isToken(Lexer::TOK_TYPE p_type);
@@ -38,11 +38,12 @@ private:
     AST::Expr* ParsePrimExpr();
 
     // Statement Parsing
-    AST::Statement* ParseVarDeclareStatement();
-    AST::Statement* ParseReturnStatement();
     AST::Statement* ParseAssignmentStatement();
+    AST::Statement* ParseVarDeclareStatement();
+    AST::Statement* ParsePrintStatement();
+    AST::Statement* ParseReturnStatement();
     AST::Statement* ParseStatement();
-    AST::Statement* ParseIdStatement();
+    AST::Statement* ParseIdentifierStatement();
     AST::Statement* ParseIfStatement();
 
     // Function Parsing

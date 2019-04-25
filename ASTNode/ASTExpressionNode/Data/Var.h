@@ -5,15 +5,17 @@
 #ifndef COMPILER_VAR_H
 #define COMPILER_VAR_H
 
+#include "../Expr.h"
+
 namespace AST {
     class Var {
     private:
-        float _value;
+        Expr *_value;
     public:
         Var(): _value() { }
         ~Var() = default;
-        double get() const { return _value; }
-        void set(double value) { _value = value; }
+        Expr* get() const { return _value; }
+        void set(Expr *value) { _value = value; }
     };
 }
 

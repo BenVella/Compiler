@@ -2,8 +2,8 @@
 // Created by bennet.vella on 25/03/2019.
 //
 
-#ifndef COMPILER_ASTSTATEMENTNODE_H
-#define COMPILER_ASTSTATEMENTNODE_H
+#ifndef COMPILER_STATEMENT_H
+#define COMPILER_STATEMENT_H
 
 #include "../ASTNode.h"
 
@@ -17,4 +17,4 @@ namespace AST {
     };
 }
 
-#endif //COMPILER_ASTSTATEMENTNODE_H
+#endif //COMPILER_STATEMENT_H

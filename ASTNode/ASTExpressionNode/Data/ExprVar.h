@@ -16,7 +16,7 @@ namespace AST {
         Var *get_pVar() const {return _pVar;}
         explicit ExprVar(Var *pVar): Expr(), _pVar(pVar) { }
         ~ExprVar() override = default;
-        float solve() const override { return _pVar->get(); }
+        float solve() const override { return _pVar->get()->solve(); }
         void Accept(Visitor& v) override {
             v.Visit(*this);
         };

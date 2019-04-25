@@ -2,8 +2,8 @@
 // Created by bennet.vella on 10/04/2019.
 //
 
-#ifndef COMPILER_ASTBLOCKNODE_H
-#define COMPILER_ASTBLOCKNODE_H
+#ifndef COMPILER_BLOCK_H
+#define COMPILER_BLOCK_H
 
 #include "../ASTNode.h"
 #include "Statement.h"
@@ -20,4 +20,4 @@ namespace AST {
         void Accept(Visitor& v) override {};
     };
 }
-#endif //COMPILER_ASTBLOCKNODE_H
+#endif //COMPILER_BLOCK_H

@@ -2,8 +2,8 @@
 // Created by bennet.vella on 27/03/2019.
 //
 
-#ifndef COMPILER_ASTFUNCTIONNODE_H
-#define COMPILER_ASTFUNCTIONNODE_H
+#ifndef COMPILER_FUNCTION_H
+#define COMPILER_FUNCTION_H
 
 
 #include "../ASTNode.h"
@@ -25,4 +25,4 @@ namespace AST {
     };
 }
 
-#endif //COMPILER_ASTFUNCTIONNODE_H
+#endif //COMPILER_FUNCTION_H

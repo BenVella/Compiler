@@ -15,7 +15,9 @@
 #include "../ASTNode/ASTExpressionNode/Binary/ExprBinOppMul.h"
 #include "../ASTNode/ASTExpressionNode/Binary/ExprBinOppDiv.h"
 #include "../ASTNode/ASTExpressionNode/Unary/ExprUnOpNeg.h"
-#include "../ASTNode/ASTStatementNode/AssignmentStatement.h"
+#include "../ASTNode/ASTStatementNode/Assignment.h"
+#include "../ASTNode/ASTStatementNode/VarDeclare.h"
+#include "../ASTNode/ASTStatementNode/Print.h"
 
 
 class PrintXMLVisitor : public Visitor {
@@ -87,13 +89,31 @@ public:
     }
 
     // Statements
-    virtual void Visit(AST::AssignmentStatement& p_node) override {
-        std::cout << indentTabs() << "<AssignmentStatement>" << std::endl;
+    virtual void Visit(AST::Assignment& p_node) override {
+        std::cout << indentTabs() << "<Assignment>" << std::endl;
         m_indent++;
-        std::cout << p_node.get_name() << std::endl;
+        std::cout << "<Identifier>" << p_node.get_name() << "</Identifier>" << std::endl;
         p_node.getRHS()->Accept(*this);
         m_indent--;
-        std::cout << indentTabs() << "</AssignmentStatement>" << std::endl;
+        std::cout << indentTabs() << "</Assignment>" << std::endl;
+    }
+
+    virtual void Visit(AST::VarDeclare& p_node) override {
+        std::cout << indentTabs() << "<VarDeclare>" << std::endl;
+        m_indent++;
+        std::cout << "<Identifier>" << p_node.getName() << "</Identifier>" << std::endl;
+        std::cout << "<Type>" << p_node.getType() << "</Type>" << std::endl;
+        p_node.getExpr()->Accept(*this);
+        m_indent--;
+        std::cout << indentTabs() << "</VarDeclare>" << std::endl;
+    }
+
+    virtual void Visit(AST::Print& p_node) override {
+        std::cout << indentTabs() << "<Print>" << std::endl;
+        m_indent++;
+        p_node.getExpr()->Accept(*this);
+        m_indent--;
+        std::cout << indentTabs() << "</Print>" << std::endl;
     }
 };
 #endif //COMPILER_PRINTINFOVISITOR_H
