@@ -95,22 +95,25 @@
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOppMul.h">
 			<Option target="Compiler"/>
 		</Unit>
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Data/ExprConstFloat.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Data/ExprVar.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Data/Identifier.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Data/Var.h">
+			<Option target="Compiler"/>
+		</Unit>
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Expr.h">
-			<Option target="Compiler"/>
-		</Unit>
-		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/ExprConst.h">
-			<Option target="Compiler"/>
-		</Unit>
-		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/ExprVar.h">
 			<Option target="Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Unary/ExprUnOp.h">
 			<Option target="Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Unary/ExprUnOpNeg.h">
-			<Option target="Compiler"/>
-		</Unit>
-		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Var.h">
 			<Option target="Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTNode.h">
@@ -155,7 +158,7 @@
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Util.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Visitor/PrintInfoVisitor.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Visitor/PrintXMLVisitor.h">
 			<Option target="Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Visitor/Visitor.h">

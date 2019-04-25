@@ -7,7 +7,7 @@
 
 #include <map>
 #include "Lexer.h"
-#include "ASTNode/ASTExpressionNode/Var.h"
+#include "ASTNode/ASTExpressionNode/Data/Var.h"
 #include "ASTNode/ASTExpressionNode/Expr.h"
 #include "ASTNode/ASTStatementNode/Statement.h"
 #include "ASTNode/ASTStatementNode/Function.h"
@@ -25,7 +25,6 @@ private:
     // Helper Functions
     bool isToken(Lexer::TOK_TYPE p_type);
     void nextToken();
-    bool match(Lexer::TOK_TYPE p_Type);
 
     // Expression Parsing
     AST::Expr* Error (const char *str);
@@ -39,6 +38,7 @@ private:
     AST::Expr* ParsePrimExpr();
 
     // Statement Parsing
+    AST::Statement* ParseVarDeclareStatement();
     AST::Statement* ParseReturnStatement();
     AST::Statement* ParseAssignmentStatement();
     AST::Statement* ParseStatement();

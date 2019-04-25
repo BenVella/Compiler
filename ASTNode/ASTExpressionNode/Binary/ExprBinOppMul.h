@@ -13,7 +13,7 @@ namespace AST {
     public:
         ExprBinOpMul(Expr *pArg1, Expr *pArg2): ExprBinOp(pArg1, pArg2) { }
         virtual ~ExprBinOpMul() = default;
-        virtual double solve() const
+        virtual float solve() const
         {
             return get_pArg1()->solve() * get_pArg2()->solve();
         }

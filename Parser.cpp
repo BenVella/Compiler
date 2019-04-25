@@ -12,11 +12,18 @@
 #include "ASTNode/ASTExpressionNode/Binary/ExprBinOppMul.h"
 #include "ASTNode/ASTExpressionNode/Binary/ExprBinOppDiv.h"
 #include "ASTNode/ASTExpressionNode/Unary/ExprUnOpNeg.h"
-#include "ASTNode/ASTExpressionNode/ExprConst.h"
-#include "ASTNode/ASTExpressionNode/ExprVar.h"
+#include "ASTNode/ASTExpressionNode/Data/ExprConstInt.h"
+#include "ASTNode/ASTExpressionNode/Data/ExprConstFloat.h"
+#include "ASTNode/ASTExpressionNode/Data/ExprVar.h"
 
 Parser::Parser(Lexer * p_lexer): m_Lexer(p_lexer) {
     nextToken();
+}
+
+// Handle Expressions Only
+AST::Program* Parser::Parse(Lexer *p_lexer) {
+    Parser *parser = new Parser(p_lexer);
+    return parser->ParseProgram();
 }
 
 AST::Program* Parser::ParseProgram() {
@@ -44,6 +51,10 @@ AST::Program* Parser::ParseProgram() {
     pNodes->tempExprs->clear();
     return pNodes;
 }
+
+//////////////////////////////////////
+///////////// EXPRESSION /////////////
+//////////////////////////////////////
 
 AST::Expr* Parser::ParseExpr() {
     return ParseSumExpr();
@@ -152,8 +163,11 @@ AST::Expr* Parser::ParsePrimExpr()
     AST::Expr *pExpr = nullptr;
     switch (CurrentToken.token_type) {
         case Lexer::TOK_INT_NUMBER:
+            pExpr = new AST::ExprConstInt(CurrentToken.number_value);
+            nextToken();
+            break;
         case Lexer::TOK_FLOAT_NUMBER:
-            pExpr = new AST::ExprConst(CurrentToken.number_value);
+            pExpr = new AST::ExprConstFloat(CurrentToken.number_value);
             nextToken(); // consume token
             break;
         case Lexer::TOK_ID: {
@@ -187,12 +201,78 @@ AST::Expr* Parser::ParsePrimExpr()
     return pExpr;
 }
 
+//////////////////////////////////////
+///////////// STATEMENTS /////////////
+//////////////////////////////////////
 
+AST::Statement * Parser::ParseAssignmentStatement() {
+    // Get Identifier
+    if (!isToken(Lexer::TOK_ID)) {
+        Error("Expecting Id Token for Assignment Start");
+        return nullptr;
+    }
+    std::string var_name = CurrentToken.id_name;
 
-// Handle Expressions Only
-AST::Program* Parser::Parse(Lexer *p_lexer) {
-    Parser *parser = new Parser(p_lexer);
-    return parser->ParseProgram();
+    // Check for ' = ' symbol
+    nextToken();
+    if (CurrentToken.token_type != Lexer::TOK_ASSIGNOP) {
+        Error("Expecting '=' while parsing an assignment statement");
+        return nullptr;
+    }
+
+    // Handle expression
+    nextToken(); // skip ' = '
+    auto pExpr = ParseExpr();
+    auto ass_node = new AST::AssignmentStatement(var_name.c_str(), pExpr);
+
+    return ass_node;
+}
+
+AST::Statement * Parser::ParseVarDeclareStatement() {
+    // Check for 'var' keyword
+    if (!isToken(Lexer::TOK_KEY_VAR)) {
+        Error("Expecting 'var' keyword for Variable Declaration");
+        return nullptr;
+    }
+
+    // Check for Identifier
+    nextToken();
+    if (!isToken(Lexer::TOK_ID)) {
+        Error ("Expecting identifier for Variable Declaration");
+        return nullptr;
+    }
+    std::string var_name = CurrentToken.id_name;
+
+    // Check for ' : ' keyword
+    nextToken();
+    if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != ":") {
+        Error ("Expecting colon for Variable Declaration");
+        return nullptr;
+    }
+
+    nextToken();
+    switch(CurrentToken.token_type) {
+        case Lexer::TOK_KEY_INT:
+            nextToken();
+            if (!isToken(Lexer::TOK_ASSIGNOP)) {
+                Error ("Expecting ' = ' for Variable Declaration");
+                return nullptr;
+            }
+            nextToken();
+            auto pExpr = ParseExpr();
+            AST::Var &var = m_varTable[var_name];
+            // Todo create a variable declaration object and store data within it, and update var table
+    }
+
+    CurrentToken = m_Lexer->GetNextToken();
+    if (CurrentToken.token_type != Lexer::TOK_ASSIGNOP) {
+        Error("Expecting '=' while parsing an assignment statement");
+        return nullptr;
+    }
+    CurrentToken = m_Lexer->GetNextToken();
+    auto pExpr = ParseExpr();
+    auto ass_node = new AST::AssignmentStatement(var_name.c_str(), pExpr);
+    return ass_node;
 }
 
 AST::Statement * Parser::ParseReturnStatement() {
@@ -256,27 +336,6 @@ AST::Function * Parser::ParseFunctionPrototype() {
     return nullptr; // ToDo remove nullptr;
 }
 
-AST::Statement * Parser::ParseAssignmentStatement() {
-    CurrentToken = m_Lexer->GetNextToken();
-    std::string var_name;
-    if (isToken(Lexer::TOK_ID)) {
-        var_name = CurrentToken.id_name;
-        CurrentToken = m_Lexer->GetNextToken();
-    } else {
-        Error("Expecting Id Token for Assignment Start");
-        return nullptr;
-    }
-
-    if (CurrentToken.token_type != Lexer::TOK_ASSIGNOP) {
-        Error("Expecting '=' while parsing an assignment statement");
-        return nullptr;
-    }
-    CurrentToken = m_Lexer->GetNextToken();
-    auto expr_node = ParseExpr();
-    auto ass_node = new AST::AssignmentStatement(var_name.c_str(), expr_node);
-    return ass_node;
-}
-
 AST::Expr * Parser::Error(const char *str) {
     std::cerr << "[ERROR]: " << str << std::endl;
     return nullptr;
@@ -291,12 +350,4 @@ void Parser::nextToken() {
     CurrentToken = m_Lexer->GetNextToken();
 }
 
-bool Parser::match(Lexer::TOK_TYPE p_Type) {
-    if (CurrentToken.token_type != p_Type) {
-        Error("SYNTAX ERROR! Unexpected token\n");
-        return false;
-    }
-    nextToken();
-    return true;
-}
 

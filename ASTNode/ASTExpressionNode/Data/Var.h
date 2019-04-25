@@ -8,7 +8,7 @@
 namespace AST {
     class Var {
     private:
-        double _value;
+        float _value;
     public:
         Var(): _value() { }
         ~Var() = default;

@@ -12,16 +12,15 @@ namespace AST {
     class ExprUnOpNeg: public ExprUnOp {
     public:
         explicit ExprUnOpNeg(Expr *pArg1): ExprUnOp(pArg1) { }
-
         ~ExprUnOpNeg() override = default;
 
-        double solve() const override {
+        float solve() const override {
             return -get_pArg1()->solve();
         }
 
         void Accept(Visitor& v) override {
             v.Visit(*this);
-        };
+        }
     };
 }
 #endif //COMPILER_EXPRUNOPNEG_H

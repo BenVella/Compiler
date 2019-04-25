@@ -3,7 +3,7 @@
 #include <io.h>
 #include "Lexer.h"
 #include "Parser.h"
-#include "Visitor/PrintInfoVisitor.h"
+#include "Visitor/PrintXMLVisitor.h"
 
 void AppendLexerDetails(Lexer::Token *pToken);
 void PrintTokenDetails();
@@ -17,16 +17,14 @@ int main() {
     std::string fileName = R"(SampleCode.txt)";
     Lexer* newLexer = new Lexer (fileName);
 
-    //std::cout << "Starting Main Program" << std::endl;
-
     // Standard Parser Evaluation TODO Uncomment if you want Parser operation
     AST::Program* progResult = Parser::Parse(newLexer);
 
-    //std::cout << "Finished Main Program" << std::endl;
-    PrintInfoVisitor visitor;
-
+    // VISITOR - PrintXMLVisitor
+    PrintXMLVisitor visitor;
     for (auto* expr : *progResult->tempExprs) {
         expr->Accept(visitor);
+        std::cout << "Value of expression is: " << expr->solve() << std::endl;
     }
 
 

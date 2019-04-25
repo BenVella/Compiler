@@ -12,12 +12,10 @@ namespace AST {
     private:
         Expr *_pArg1;
     protected:
-        ExprUnOp(Expr *pArg1): Expr(), _pArg1(pArg1) { }
-        virtual ~ExprUnOp() { delete _pArg1; }
+        explicit ExprUnOp(Expr *pArg1): Expr(), _pArg1(pArg1) { }
+        ~ExprUnOp() override { delete _pArg1; }
 
-        void Accept(Visitor& v) override {
-            v.Visit(*this);
-        };
+        void Accept(Visitor& v) override = 0;
     public:
         Expr *get_pArg1() const { return _pArg1; }
     };
