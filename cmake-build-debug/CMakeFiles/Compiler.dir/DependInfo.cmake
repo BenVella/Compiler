@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/bennv/CLionProjects/Compiler/Lexer.cpp" "C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/Lexer.cpp.obj"
-  "C:/Users/bennv/CLionProjects/Compiler/Parser.cpp" "C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/Parser.cpp.obj"
-  "C:/Users/bennv/CLionProjects/Compiler/Util.cpp" "C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/Util.cpp.obj"
-  "C:/Users/bennv/CLionProjects/Compiler/main.cpp" "C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/main.cpp.obj"
+  "C:/Users/bennet.vella/Desktop/Compiler/Lexer.cpp" "C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/Lexer.cpp.obj"
+  "C:/Users/bennet.vella/Desktop/Compiler/Parser.cpp" "C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/Parser.cpp.obj"
+  "C:/Users/bennet.vella/Desktop/Compiler/Util.cpp" "C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/Util.cpp.obj"
+  "C:/Users/bennet.vella/Desktop/Compiler/main.cpp" "C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

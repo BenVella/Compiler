@@ -19,6 +19,7 @@
 #include "../ASTNode/ASTStatementNode/VarDeclare.h"
 #include "../ASTNode/ASTStatementNode/Print.h"
 #include "../ASTNode/ASTStatementNode/If.h"
+#include "../ASTNode/ASTStatementNode/For.h"
 
 
 class PrintXMLVisitor : public Visitor {
@@ -123,6 +124,26 @@ public:
         p_node.getExpr()->Accept(*this);
         p_node.getBlock1()->Accept(*this);
         p_node.getBlock2()->Accept(*this);
+        m_indent--;
+        std::cout << indentTabs() << "</If>" << std::endl;
+    }
+
+    virtual void Visit(AST::Block& p_node) override {
+        std::cout << indentTabs() << "<If>" << std::endl;
+        m_indent++;
+        for (auto *stmt : *p_node.getStatements()) {
+            stmt->Accept(*this);
+        }
+        m_indent--;
+        std::cout << indentTabs() << "</If>" << std::endl;
+    }
+
+    virtual void Visit(AST::For& p_node) override {
+        std::cout << indentTabs() << "<If>" << std::endl;
+        m_indent++;
+        p_node.getVar()->Accept(*this);
+        p_node.getExpr()->Accept(*this);
+        p_node.getAssign()->Accept(*this);
         m_indent--;
         std::cout << indentTabs() << "</If>" << std::endl;
     }

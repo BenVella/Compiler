@@ -19,6 +19,8 @@ namespace AST {
     class VarDeclare;
     class Print;
     class If;
+    class Block;
+    class For;
 }
 
 class Visitor {
@@ -36,6 +38,8 @@ public:
     virtual void Visit (AST::VarDeclare& e) = 0;
     virtual void Visit (AST::Print& e) = 0;
     virtual void Visit (AST::If& e) = 0;
+    virtual void Visit (AST::Block& e) = 0;
+    virtual void Visit (AST::For& e) = 0;
 };
 
 #endif //COMPILER_VISITOR_H

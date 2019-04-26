@@ -20,6 +20,8 @@
 #include "ASTNode/ASTStatementNode/VarDeclare.h"
 #include "ASTNode/ASTStatementNode/Print.h"
 #include "ASTNode/ASTStatementNode/If.h"
+#include "ASTNode/ASTStatementNode/Block.h"
+#include "ASTNode/ASTStatementNode/For.h"
 
 Parser::Parser(Lexer * p_lexer): m_Lexer(p_lexer) {
     nextToken();
@@ -43,7 +45,7 @@ AST::Program* Parser::ParseProgram() {
             pNodes->tempExprs->push_back(pExpr);
         } else break;
         // special error checking for missing ';' (usual error)
-        if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != ";") {
+        if (!isToken(Lexer::TOK_STMT_DELIMITER)) {
             std::cerr << "SYNTAX ERROR: Semicolon expected!" << std::endl;
             break;
         }
@@ -332,7 +334,50 @@ AST::Statement * Parser::ParseIfStatement() {
 }
 
 AST::Statement* Parser::ParseForStatement() {
+    nextToken();
+    if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != "(") {
+        Error ("Expecting Open Parenthesis for function definition");
+        return nullptr;
+    }
 
+    nextToken();
+
+    AST::Statement *pVar = nullptr;
+    if (isToken(Lexer::TOK_KEY_VAR)) {
+        pVar = ParseVarDeclareStatement();
+        nextToken();
+    }
+
+    if (!isToken(Lexer::TOK_STMT_DELIMITER)) {
+        Error ("Expecting ' ; ' between for statement definitions");
+    }
+
+    nextToken();
+    auto *pExpr = ParseExpr();
+
+    nextToken();
+    if (!isToken(Lexer::TOK_STMT_DELIMITER)) {
+        Error ("Expecting ' ; ' between for statement definitions");
+    }
+
+    nextToken();
+    AST::Statement *pAssign = nullptr;
+    if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != ")") {
+        if (!(pAssign = ParseAssignmentStatement())) {
+            Error ("Expecting an Assignment statement or Close Parenthesis to end For definition");
+            return nullptr;
+        }
+
+        nextToken();
+        if (isToken(Lexer::TOK_PUNC) && CurrentToken.id_name == ")") {
+            return new AST::For(pVar,pExpr,pAssign);
+        } else {
+            Error ("Expecting close parenthesis to end for definition");
+            return nullptr;
+        }
+    } else {
+        return new AST::For(pVar,pExpr,pAssign);
+    }
 }
 
 AST::Statement* Parser::ParseIdentifierStatement() {
