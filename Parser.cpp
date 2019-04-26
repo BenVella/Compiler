@@ -20,14 +20,18 @@
 #include "ASTNode/ASTStatementNode/VarDeclare.h"
 #include "ASTNode/ASTStatementNode/Print.h"
 #include "ASTNode/ASTStatementNode/If.h"
+#include "ASTNode/ASTStatementNode/Block.h"
+#include "ASTNode/ASTStatementNode/For.h"
+#include "ASTNode/ASTStatementNode/Param.h"
+#include "ASTNode/ASTStatementNode/Params.h"
 
-Parser::Parser(Lexer * p_lexer): m_Lexer(p_lexer) {
+Parser::Parser(Lexer * p_lexer, VarTable &p_varTable): m_Lexer(p_lexer), m_varTable(p_varTable) {
     nextToken();
 }
 
 // Handle Expressions Only
-AST::Program* Parser::Parse(Lexer *p_lexer) {
-    Parser *parser = new Parser(p_lexer);
+AST::Program* Parser::Parse(Lexer *p_lexer, VarTable& p_varTable) {
+    Parser *parser = new Parser(p_lexer, p_varTable);
     return parser->ParseProgram();
 }
 
@@ -38,28 +42,62 @@ AST::Program* Parser::ParseProgram() {
 
     //std::vector<AST::Expr*> pExprs;
     while (true){
-        if (AST::Expr *pExpr = ParseExpr()) {
-            //pExprs.push_back(pExpr);
-            pNodes->tempExprs->push_back(pExpr);
+        if (auto *pStmt = ParseStatement()) {
+            pNodes->main_impl->push_back(pStmt);
         } else break;
-        // special error checking for missing ';' (usual error)
-        if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != ";") {
+        /*// special error checking for missing ';' (usual error)
+        if (!isToken(Lexer::TOK_STMT_DELIMITER)) {
             std::cerr << "SYNTAX ERROR: Semicolon expected!" << std::endl;
             break;
-        }
-        nextToken(); // consume semicolon
+        }*/
         if (isToken(Lexer::TOK_EOF)) return pNodes;
     }
     // We didn't make it to EOF - delete all and return empty
     Error("End of File not reached!");
-    for (AST::Expr *pExpr : *pNodes->tempExprs) delete pExpr;
-    pNodes->tempExprs->clear();
+    for (auto *pStmt : *pNodes->main_impl) delete pStmt;
+    pNodes->main_impl->clear();
     return pNodes;
 }
 
-//////////////////////////////////////
-///////////// EXPRESSION /////////////
-//////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////// Statements //////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+AST::Statement * Parser::ParseStatement() {
+    AST::Statement * node = nullptr;
+    switch(CurrentToken.token_type) {
+        case Lexer::TOK_ID:
+            node = ParseIdentifierStatement();
+            break;
+        case Lexer::TOK_KEY_VAR:
+            node = ParseVarDeclareStatement();
+            break;
+        case Lexer::TOK_KEY_PRINT:
+            node = ParsePrintStatement();
+            break;
+        case Lexer::TOK_KEY_RETURN:
+            node = ParseReturnStatement();
+            break;
+        case Lexer::TOK_KEY_IF:
+            node = ParseIfStatement();
+            break;
+        case Lexer::TOK_KEY_FOR:
+            node = ParseForStatement();
+            break;
+        case Lexer::TOK_KEY_FN:
+            node = ParseFunctionDeclaration();
+            break;
+        case Lexer::TOK_OPEN_SCOPE:
+            node = ParseFunctionDeclaration();
+        default:
+            break;
+    }
+    return node; //nullptr is not set
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////// Expression //////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 AST::Expr* Parser::ParseExpr() {
     return ParseSumExpr();
@@ -206,9 +244,9 @@ AST::Expr* Parser::ParsePrimExpr()
     return pExpr;
 }
 
-//////////////////////////////////////
-///////////// STATEMENTS /////////////
-//////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////// Statements //////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 AST::Statement * Parser::ParseAssignmentStatement() {
     // Get Identifier
@@ -228,8 +266,14 @@ AST::Statement * Parser::ParseAssignmentStatement() {
     // Handle expression
     nextToken(); // skip ' = '
     auto pExpr = ParseExpr();
-    auto pAssign = new AST::Assignment(var_name.c_str(), pExpr);
+    m_varTable[var_name].set(pExpr);
+    auto pAssign = new AST::Assignment(std::move(var_name), pExpr);
 
+    if (!isToken(Lexer::TOK_STMT_DELIMITER)) {
+        Error ("Expecting ' ; ' to terminate statement");
+        return nullptr;
+    }
+    nextToken(); // Consume delimeter
     return pAssign;
 }
 
@@ -274,9 +318,14 @@ AST::Statement * Parser::ParseVarDeclareStatement() {
 
     nextToken();    // Parse remaining expression and return VarDeclare AST Node
     AST::Expr *pExpr = ParseExpr();
-    AST::Var &var = m_varTable[var_name];
-    var.set(pExpr);
-
+    m_varTable[var_name].set(pExpr);
+//    AST::Var &var = m_varTable[var_name];
+//    var.set(pExpr);
+    if (!isToken(Lexer::TOK_STMT_DELIMITER)) {
+        Error("Expecting ' ; ' for termination of Variable Declaration");
+        return nullptr;
+    }
+    nextToken();
     return new AST::VarDeclare(var_name,var_type,pExpr);
 }
 
@@ -292,9 +341,7 @@ AST::Statement* Parser::ParseReturnStatement() {
     auto *pExpr = ParseExpr();
     if (!pExpr)
         return nullptr;
-
-    auto node = new AST::Return(pExpr);
-    return node;
+    return new AST::Return(pExpr);
 }
 
 AST::Statement * Parser::ParseIfStatement() {
@@ -306,17 +353,33 @@ AST::Statement * Parser::ParseIfStatement() {
 
     auto *pExpr = ParseExpr();
 
-    nextToken();
     if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != ")") {
         Error("Expecting close parenthesis for ' IF ' statement");
         return nullptr;
     }
 
     // Get primary behaviour
+    nextToken();
     if (auto *pBlock1 = ParseBlockStatement()) {
         nextToken();
+        if (!isToken(Lexer::TOK_CLOSE_SCOPE)) {
+            Error ("Expecting ' } ' to close Primary Block code for ' IF ' statement!");
+            return nullptr;
+        }
+        nextToken();
         if (isToken(Lexer::TOK_KEY_ELSE)) {
+            nextToken();
             if (auto *pBlock2 = ParseBlockStatement()) {
+                if (!isToken(Lexer::TOK_STMT_DELIMITER)) {
+                    Error("Expecting delimeter to end statement");
+                    return nullptr;
+                }
+                nextToken(); // consume delimeter
+                if (!isToken(Lexer::TOK_CLOSE_SCOPE)) {
+                    Error("Expecting ' } ' to Close Block Scope");
+                    return nullptr;
+                }
+                nextToken();
                 return new AST::If(pExpr,pBlock1,pBlock2);
             } else {
                 Error ("Expecting second Block code for ' IF ' statement!");
@@ -332,53 +395,174 @@ AST::Statement * Parser::ParseIfStatement() {
 }
 
 AST::Statement* Parser::ParseForStatement() {
-
-}
-
-AST::Statement* Parser::ParseIdentifierStatement() {
-    return nullptr;
-}
-
-AST::Statement* Parser::ParseBlockStatement() {
-    return nullptr;
-}
-
-AST::Statement * Parser::ParseStatement() {
-    AST::Statement * node = nullptr;
-    switch(CurrentToken.token_type) {
-        case Lexer::TOK_KEY_IF:
-            node = ParseIfStatement();
-            break;
-        case Lexer::TOK_KEY_RETURN:
-            node = ParseReturnStatement();
-            break;
-        case Lexer::TOK_KEY_PRINT:
-            node = ParsePrintStatement();
-            break;
-        case Lexer::TOK_KEY_VAR:
-            node = ParseVarDeclareStatement();
-        case Lexer::TOK_ID:
-            node = ParseIdentifierStatement();
-            break;
-        default:
-            break;
-    }
-    return node; //nullptr is not set
-}
-
-AST::Function * Parser::ParseFunctionPrototype() {
-    if (CurrentToken.token_type != Lexer::TOK_ID) {
-        Error("Expecting function name");
+    nextToken();
+    if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != "(") {
+        Error ("Expecting Open Parenthesis for function definition");
         return nullptr;
     }
 
-    std::string functionName = CurrentToken.id_name;
-    auto functionParameters = std::vector<std::string>();
+    nextToken();
 
-    CurrentToken = m_Lexer->GetNextToken();
+    AST::Statement *pVar = nullptr;
+    if (isToken(Lexer::TOK_KEY_VAR)) {
+        pVar = ParseVarDeclareStatement();
+        nextToken();
+    }
 
-    return nullptr; // ToDo remove nullptr;
+    if (!isToken(Lexer::TOK_STMT_DELIMITER)) {
+        Error ("Expecting ' ; ' between for statement definitions");
+    }
+
+    nextToken();
+    auto *pExpr = ParseExpr();
+
+    nextToken();
+    if (!isToken(Lexer::TOK_STMT_DELIMITER)) {
+        Error ("Expecting ' ; ' between for statement definitions");
+    }
+
+    nextToken();
+    AST::Statement *pAssign = nullptr;
+    if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != ")") {
+        if (!(pAssign = ParseAssignmentStatement())) {
+            Error ("Expecting an Assignment statement or Close Parenthesis to end For definition");
+            return nullptr;
+        }
+
+        nextToken();
+        if (isToken(Lexer::TOK_PUNC) && CurrentToken.id_name == ")") {
+            return new AST::For(pVar,pExpr,pAssign);
+        } else {
+            Error ("Expecting close parenthesis to end for definition");
+            return nullptr;
+        }
+    } else {
+        return new AST::For(pVar,pExpr,pAssign);
+    }
 }
+
+AST::Statement* Parser::ParseFunctionDeclaration() {
+    if (!isToken(Lexer::TOK_ID)) {
+        Error ("Expecting identifier for Function Declaration");
+        return nullptr;
+    }
+    std::string pName = CurrentToken.id_name;
+
+    nextToken();
+    if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != "(") {
+        Error ("Expecting Open Parenthesis for Function Delcaration");
+        return nullptr;
+    }
+
+    nextToken();
+    AST::Statement *pParams = ParseParams();    // TODO Implement Param parsing
+
+    nextToken();
+    if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != ")") {
+        Error ("Expecting Close Parenthesis for Function Delcaration");
+        return nullptr;
+    }
+
+    nextToken();
+    if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != ":") {
+        Error ("Expecting Colon for Function Delcaration");
+        return nullptr;
+    }
+
+    nextToken();
+    std::string pType;
+    switch(CurrentToken.token_type) {
+        case Lexer::TOK_KEY_INT:
+            pType="int";
+            break;
+        case Lexer::TOK_KEY_FLOAT:
+            pType = "float";
+            break;
+        case Lexer::TOK_KEY_BOOL:
+            pType = "bool";
+            break;
+        default:
+            Error("Expecting a type ( 'int' , 'float' or 'bool' for Variable Declaration");
+            return nullptr;
+    }
+
+    nextToken();
+    if (auto  *pBlock = ParseBlockStatement()) {
+        return new AST::Function(std::move(pName),pParams,std::move(pType),pBlock);
+    } else {
+        Error("Expecting a block statement for Function Defintion");
+        return nullptr;
+    }
+}
+
+AST::Statement* Parser::ParseParams() {
+    auto* pParams = new AST::Params();
+    while (true){
+        if (auto* pSingle = ParseSingleParam()) {
+            pParams->addParam(pSingle);
+        } else {
+            return pParams;
+        }
+    }
+}
+
+AST::Statement* Parser::ParseSingleParam() {
+    if (!isToken(Lexer::TOK_ID)) {
+        Error ("Expecting identifier for new Parameter");   // This might not be in Error, simply no more params to parse
+        return nullptr;
+    }
+    std::string pName = CurrentToken.id_name;
+
+    nextToken();
+    if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != ":") {
+        Error ("Expecting ' : ' for Parameter");
+        return nullptr;
+    }
+
+    nextToken();
+    std::string pType;
+    switch(CurrentToken.token_type) {
+        case Lexer::TOK_KEY_INT:
+            pType="int";
+            break;
+        case Lexer::TOK_KEY_FLOAT:
+            pType = "float";
+            break;
+        case Lexer::TOK_KEY_BOOL:
+            pType = "bool";
+            break;
+        default:
+            Error("Expecting a type ( 'int' , 'float' or 'bool' for Variable Declaration");
+            return nullptr;
+    }
+
+    return new AST::Param(pName,pType);
+}
+
+AST::Statement* Parser::ParseIdentifierStatement() {
+    return ParseAssignmentStatement();
+}
+
+AST::Statement* Parser::ParseBlockStatement() {
+    if (!isToken(Lexer::TOK_OPEN_SCOPE)) {
+        Error ("Expecting ' { ' to begin statement block");
+        return nullptr;
+    }
+
+    nextToken();
+    auto* pBlock = new AST::Block();
+    while (true) {
+        if (auto* pStmt = ParseStatement()) {
+            pBlock->addStatement(pStmt);
+        } else {
+            return pBlock;
+        }
+    }
+}
+
+//////////////////////////////////////////
+///////////// HELPER METHODS /////////////
+//////////////////////////////////////////
 
 AST::Expr * Parser::Error(const char *str) {
     std::cerr << "[ERROR]: " << str << std::endl;
@@ -393,5 +577,3 @@ bool Parser::isToken(Lexer::TOK_TYPE p_type) {
 void Parser::nextToken() {
     CurrentToken = m_Lexer->GetNextToken();
 }
-
-

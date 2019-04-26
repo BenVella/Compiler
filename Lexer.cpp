@@ -137,11 +137,12 @@ Lexer::Token Lexer::StateToToken(STATE_TYPE st) {
             else if (m_lexeme == "-") return Lexer::Token(TOK_ARITHMETIC_MINUS);
             else return Lexer::Token(TOK_SYNTAX_ERR,m_lexeme);
         case ST_PUNCTUATION:
-            if (m_lexeme == "{") return Lexer::Token(TOK_OPEN_SCOPE);
+            if (m_lexeme == ";") return Lexer::Token(TOK_STMT_DELIMITER);
+            else if (m_lexeme == "{") return Lexer::Token(TOK_OPEN_SCOPE);
             else if (m_lexeme == "}") return Lexer::Token(TOK_CLOSE_SCOPE);
             else return Lexer::Token(TOK_PUNC,m_lexeme);
-        case ST_LINE_COMMENT:                   return Lexer::Token(TOK_COMMENT,m_lexeme);
-        case ST_BLOCK_END:                      return Lexer::Token(TOK_COMMENT,m_lexeme);
+        case ST_LINE_COMMENT:                   return GetNextToken(); // Retry
+        case ST_BLOCK_END:                      return GetNextToken(); // Retry
     }
     return Lexer::Token();
 }

@@ -11,13 +11,17 @@
 
 namespace AST {
     class Return : public Statement {
+    private:
+        AST::Expr *_expr;
     public:
-        explicit Return(Expr *p_node) : LHS(p_node) {}
+        explicit Return(Expr *p_node) : _expr(p_node) {}
         ~Return() override = default;
 
-        AST::Expr *LHS;
+        void Accept(Visitor& v) override { v.Visit(*this); };
 
-        void Accept(Visitor& v) override {};
+        Expr *getExpr() const {
+            return _expr;
+        }
     };
 }
 

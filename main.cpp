@@ -5,6 +5,8 @@
 #include "Parser.h"
 #include "Visitor/PrintXMLVisitor.h"
 
+typedef std::map<std::string, AST::Var> VarTable;
+
 void AppendLexerDetails(Lexer::Token *pToken);
 void PrintTokenDetails();
 void OffloadLexerDetails();
@@ -16,15 +18,15 @@ int main() {
 
     std::string fileName = R"(SampleCode.txt)";
     Lexer* newLexer = new Lexer (fileName);
+    VarTable varTable;
 
     // Standard Parser Evaluation TODO Uncomment if you want Parser operation
-    AST::Program* progResult = Parser::Parse(newLexer);
+    AST::Program* progResult = Parser::Parse(newLexer, varTable);
 
     // VISITOR - PrintXMLVisitor
     PrintXMLVisitor visitor;
-    for (auto* expr : *progResult->tempExprs) {
-        expr->Accept(visitor);
-        std::cout << "Value of expression is: " << expr->solve() << std::endl;
+    for (auto* stmt : *progResult->main_impl) {
+        stmt->Accept(visitor);
     }
 
 

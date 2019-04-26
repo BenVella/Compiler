@@ -12,19 +12,19 @@
 namespace AST {
     class If : public Statement {
     private:
-        AST::Expr *_expr;
-        ASTNode *_block1;
-        ASTNode *_block2;
+        Expr *_expr;
+        Statement *_block1;
+        Statement *_block2;
     public:
-        If(AST::Expr * p_expr, ASTNode *pBlock) : _expr(p_expr), _block1(pBlock) {}
-        If(AST::Expr * p_expr, ASTNode *pBlock1, ASTNode *pBlock2) : _expr(p_expr), _block1(pBlock1), _block2(pBlock2) {}
+        If(AST::Expr * p_expr, Statement *pBlock) : _expr(p_expr), _block1(pBlock) {}
+        If(AST::Expr * p_expr, Statement *pBlock1, Statement *pBlock2) : _expr(p_expr), _block1(pBlock1), _block2(pBlock2) {}
         ~If() override = default;
 
         void Accept(Visitor& v) override { v.Visit(*this); };
 
         Expr *getExpr() const {return _expr;}
-        ASTNode *getBlock1() const {return _block1;}
-        ASTNode *getBlock2() const {return _block2;}
+        Statement *getBlock1() const {return _block1;}
+        Statement *getBlock2() const {return _block2;}
     };
 }
 #endif //COMPILER_IF_H

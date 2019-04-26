@@ -10,14 +10,23 @@
 #include <vector>
 
 namespace AST {
-    class Block : public ASTNode {
+    class Block : public Statement {
+    private:
+        std::vector<Statement *> *_statements;
     public:
-        Block();
-        virtual ~Block();
+        Block(std::vector<Statement *> *p_statements) : _statements(p_statements) {}
+        Block() {
+            _statements = new std::vector<Statement *> ();
+        }
+        ~Block() override = default;
 
-        std::vector<Statement *> *m_statements;
+        void Accept(Visitor& v) override { v.Visit(*this); };
 
-        void Accept(Visitor& v) override {};
+        std::vector<Statement *> *getStatements() const { return _statements; }
+
+        void addStatement(Statement *p_statement) {
+            _statements->push_back(p_statement);
+        }
     };
 }
 #endif //COMPILER_BLOCK_H

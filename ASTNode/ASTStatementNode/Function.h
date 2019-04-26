@@ -1,3 +1,7 @@
+#include <utility>
+
+#include <utility>
+
 //
 // Created by bennet.vella on 27/03/2019.
 //
@@ -12,16 +16,22 @@
 #include <string>
 namespace AST {
     class Function : public Statement {
+    private:
+        std::string _name;
+        Statement* _params;
+        std::string _type;
+        Statement* _block;
     public:
-        Function();
-        virtual ~Function();
+        Function(std::string _name, Statement *_params, std::string _type, Statement *_block) :
+            _name(std::move(_name)), _params(_params), _type(std::move(_type)), _block(_block) {}
 
-        std::string m_identifier;
-        // std::vector< TODO Use a hashmap object to store parameters?
-        std::string m_type;
-        Block *block;
+        ~Function() override = default;
+        void Accept(Visitor& v) override { v.Visit(*this); };
 
-        void Accept(Visitor& v) override {};
+        const std::string &getName() const { return _name; }
+        Statement *getParams() const { return _params; }
+        const std::string &getType() const { return _type; }
+        Statement *getBlock() const { return _block; }
     };
 }
 
