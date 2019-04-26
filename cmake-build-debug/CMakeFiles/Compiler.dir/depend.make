@@ -21,6 +21,8 @@ CMakeFiles/Compiler.dir/Parser.cpp.obj: ../ASTNode/ASTNode.h
 CMakeFiles/Compiler.dir/Parser.cpp.obj: ../ASTNode/ASTStatementNode/Assignment.h
 CMakeFiles/Compiler.dir/Parser.cpp.obj: ../ASTNode/ASTStatementNode/Block.h
 CMakeFiles/Compiler.dir/Parser.cpp.obj: ../ASTNode/ASTStatementNode/Function.h
+CMakeFiles/Compiler.dir/Parser.cpp.obj: ../ASTNode/ASTStatementNode/If.h
+CMakeFiles/Compiler.dir/Parser.cpp.obj: ../ASTNode/ASTStatementNode/Print.h
 CMakeFiles/Compiler.dir/Parser.cpp.obj: ../ASTNode/ASTStatementNode/Return.h
 CMakeFiles/Compiler.dir/Parser.cpp.obj: ../ASTNode/ASTStatementNode/Statement.h
 CMakeFiles/Compiler.dir/Parser.cpp.obj: ../ASTNode/ASTStatementNode/VarDeclare.h
@@ -49,6 +51,8 @@ CMakeFiles/Compiler.dir/main.cpp.obj: ../ASTNode/ASTNode.h
 CMakeFiles/Compiler.dir/main.cpp.obj: ../ASTNode/ASTStatementNode/Assignment.h
 CMakeFiles/Compiler.dir/main.cpp.obj: ../ASTNode/ASTStatementNode/Block.h
 CMakeFiles/Compiler.dir/main.cpp.obj: ../ASTNode/ASTStatementNode/Function.h
+CMakeFiles/Compiler.dir/main.cpp.obj: ../ASTNode/ASTStatementNode/If.h
+CMakeFiles/Compiler.dir/main.cpp.obj: ../ASTNode/ASTStatementNode/Print.h
 CMakeFiles/Compiler.dir/main.cpp.obj: ../ASTNode/ASTStatementNode/Statement.h
 CMakeFiles/Compiler.dir/main.cpp.obj: ../ASTNode/ASTStatementNode/VarDeclare.h
 CMakeFiles/Compiler.dir/main.cpp.obj: ../ASTNode/Program.h
