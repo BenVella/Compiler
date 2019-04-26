@@ -141,8 +141,8 @@ Lexer::Token Lexer::StateToToken(STATE_TYPE st) {
             else if (m_lexeme == "{") return Lexer::Token(TOK_OPEN_SCOPE);
             else if (m_lexeme == "}") return Lexer::Token(TOK_CLOSE_SCOPE);
             else return Lexer::Token(TOK_PUNC,m_lexeme);
-        case ST_LINE_COMMENT:                   return Lexer::Token(TOK_COMMENT,m_lexeme);
-        case ST_BLOCK_END:                      return Lexer::Token(TOK_COMMENT,m_lexeme);
+        case ST_LINE_COMMENT:                   return GetNextToken(); // Retry
+        case ST_BLOCK_END:                      return GetNextToken(); // Retry
     }
     return Lexer::Token();
 }

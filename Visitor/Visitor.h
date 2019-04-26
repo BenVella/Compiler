@@ -18,6 +18,7 @@ namespace AST {
     class Assignment;
     class VarDeclare;
     class Print;
+    class Return;
     class If;
     class Block;
     class For;
@@ -40,6 +41,7 @@ public:
     virtual void Visit (AST::Assignment& e) = 0;
     virtual void Visit (AST::VarDeclare& e) = 0;
     virtual void Visit (AST::Print& e) = 0;
+    virtual void Visit (AST::Return& e) = 0;
     virtual void Visit (AST::If& e) = 0;
     virtual void Visit (AST::Block& e) = 0;
     virtual void Visit (AST::For& e) = 0;

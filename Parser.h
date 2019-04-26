@@ -17,7 +17,7 @@ class Parser {
 private:
     typedef std::map<std::string, AST::Var> VarTable;
 
-    Parser(Lexer *p_lexer);
+    Parser(Lexer *p_lexer,VarTable& p_varTable);
     Lexer* m_Lexer;
     Lexer::Token CurrentToken;
     VarTable m_varTable;    // ToDo this might need to be moved outside to main in order to not lose references
@@ -55,7 +55,7 @@ private:
     AST::Function* ParseFunctionPrototype();
 
 public:
-    static AST::Program* Parse(Lexer *p_lexer);
+    static AST::Program* Parse(Lexer *p_lexer, VarTable& varTable);
     virtual ~Parser() {}
 };
 

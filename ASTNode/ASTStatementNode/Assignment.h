@@ -12,15 +12,15 @@ namespace AST {
     class Assignment : public Statement {
     private:
         std::string _name;
-        AST::Expr *RHS;
+        AST::Expr *_expr;
     public:
-        Assignment(std::string p_name, AST::Expr *p_node) : RHS (p_node) {}
+        Assignment(std::string p_name, AST::Expr *p_node) : _name(p_name), _expr (p_node) {}
         ~Assignment() = default;
 
         void Accept(Visitor& v) override { v.Visit(*this); }
 
-        const std::string &get_name() const { return _name; }
-        Expr *getRHS() const { return RHS; }
+        const std::string &getName() const { return _name; }
+        Expr *getExpr() const { return _expr; }
     };
 }
 

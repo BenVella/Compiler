@@ -1,1 +1,1 @@
-a+b;
+var a : float = 1;
