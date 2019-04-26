@@ -12,42 +12,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57e65565-b069-46ea-bf34-824c621fbf72" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ASTNode/ASTStatementNode/For.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ASTNode/ASTStatementNode/Param.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ASTNode/ASTStatementNode/Params.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ASTNode/ASTStatementNode/Block.h" beforeDir="false" afterPath="$PROJECT_DIR$/ASTNode/ASTStatementNode/Block.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ASTNode/ASTStatementNode/If.h" beforeDir="false" afterPath="$PROJECT_DIR$/ASTNode/ASTStatementNode/If.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ASTNode/ASTStatementNode/Function.h" beforeDir="false" afterPath="$PROJECT_DIR$/ASTNode/ASTStatementNode/Function.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lexer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Lexer.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Parser.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Parser.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Parser.h" beforeDir="false" afterPath="$PROJECT_DIR$/Parser.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Visitor/PrintXMLVisitor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Visitor/PrintXMLVisitor.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Visitor/Visitor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Visitor/Visitor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.14.2/CMakeCCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.14.2/CMakeCXXCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.14.2/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.14.2/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.14.2/CMakeRCCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.14.2/CMakeSystem.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.14.2/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.14.2/CompilerIdC/a.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.14.2/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.14.2/CompilerIdCXX/a.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/DependInfo.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/depend.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/flags.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/link.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Compiler.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Compiler.cbp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Compiler.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Compiler.exe" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -66,17 +42,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Parser.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="41" column="47" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
+            <state relative-caret-position="289">
+              <caret line="50" column="39" selection-start-line="50" selection-start-column="39" selection-end-line="50" selection-end-column="39" />
+              <folding>
+                <element signature="e#102#116#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Parser.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="360" column="5" selection-start-line="360" selection-start-column="5" selection-end-line="360" selection-end-column="5" />
+            <state relative-caret-position="273">
+              <caret line="535" column="9" lean-forward="true" selection-start-line="535" selection-start-column="9" selection-end-line="535" selection-end-column="9" />
               <folding>
                 <element signature="e#49#66#0" expanded="true" />
               </folding>
@@ -85,19 +64,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ASTNode/ASTStatementNode/For.h">
+        <entry file="file://$PROJECT_DIR$/ASTNode/ASTStatementNode/Param.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ASTNode/ASTStatementNode/If.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="26" column="17" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
+            <state relative-caret-position="188">
+              <caret line="21" column="54" selection-start-line="21" selection-start-column="54" selection-end-line="21" selection-end-column="54" />
+              <folding>
+                <element signature="e#100#117#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -105,35 +78,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ASTNode/ASTStatementNode/Block.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="23" column="43" selection-start-line="23" selection-start-column="43" selection-end-line="23" selection-end-column="43" />
+            <state relative-caret-position="137">
+              <caret line="18" column="58" selection-start-line="18" selection-start-column="58" selection-end-line="18" selection-end-column="58" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lexer.cpp">
+        <entry file="file://$PROJECT_DIR$/ASTNode/ASTStatementNode/Params.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="139" column="73" selection-start-line="139" selection-start-column="73" selection-end-line="139" selection-end-column="73" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Visitor/Visitor.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="86">
-              <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ASTNode/ASTExpressionNode/Data/ExprVar.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+            <state relative-caret-position="289">
+              <caret line="23" column="38" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
+              <folding>
+                <element signature="e#102#119#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -142,7 +100,7 @@
         <entry file="file://$PROJECT_DIR$/Visitor/PrintXMLVisitor.h">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="222">
-              <caret line="143" column="39" selection-start-line="143" selection-start-column="39" selection-end-line="143" selection-end-column="39" />
+              <caret line="176" column="39" selection-start-line="176" selection-start-column="39" selection-end-line="176" selection-end-column="39" />
               <folding>
                 <element signature="e#122#141#0" expanded="true" />
               </folding>
@@ -151,10 +109,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ASTNode/ASTExpressionNode/Data/Var.h">
+        <entry file="file://$PROJECT_DIR$/Visitor/Visitor.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="21" column="23" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
+            <state relative-caret-position="-118">
+              <caret line="25" column="16" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -183,30 +141,32 @@
         <option value="$PROJECT_DIR$/Visitor/PrintInfoVisitor.h" />
         <option value="$PROJECT_DIR$/ASTNode/ASTExpressionNode/Data/Var.h" />
         <option value="$PROJECT_DIR$/ASTNode/ASTStatementNode/Assignment.h" />
-        <option value="$PROJECT_DIR$/ASTNode/ASTStatementNode/Function.h" />
         <option value="$PROJECT_DIR$/ASTNode/ASTStatementNode/Return.h" />
         <option value="$PROJECT_DIR$/ASTNode/ASTStatementNode/Statement.h" />
         <option value="$PROJECT_DIR$/ASTNode/ASTExpressionNode/Data/ExprVar.h" />
         <option value="$PROJECT_DIR$/ASTNode/ASTStatementNode/VarDeclare.h" />
         <option value="$PROJECT_DIR$/ASTNode/ASTStatementNode/Print.h" />
         <option value="$PROJECT_DIR$/ASTNode/ASTNode.h" />
-        <option value="$PROJECT_DIR$/Parser.h" />
         <option value="$PROJECT_DIR$/Lexer.cpp" />
         <option value="$PROJECT_DIR$/ASTNode/ASTStatementNode/For.h" />
-        <option value="$PROJECT_DIR$/Parser.cpp" />
-        <option value="$PROJECT_DIR$/ASTNode/ASTStatementNode/Block.h" />
-        <option value="$PROJECT_DIR$/Visitor/PrintXMLVisitor.h" />
-        <option value="$PROJECT_DIR$/Visitor/Visitor.h" />
         <option value="$PROJECT_DIR$/ASTNode/ASTStatementNode/If.h" />
+        <option value="$PROJECT_DIR$/ASTNode/ASTStatementNode/Function.h" />
+        <option value="$PROJECT_DIR$/Parser.h" />
+        <option value="$PROJECT_DIR$/ASTNode/ASTStatementNode/Param.h" />
+        <option value="$PROJECT_DIR$/Visitor/Visitor.h" />
+        <option value="$PROJECT_DIR$/ASTNode/ASTStatementNode/Params.h" />
+        <option value="$PROJECT_DIR$/Visitor/PrintXMLVisitor.h" />
+        <option value="$PROJECT_DIR$/ASTNode/ASTStatementNode/Block.h" />
+        <option value="$PROJECT_DIR$/Parser.cpp" />
       </list>
     </option>
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="260" />
-    <option name="y" value="20" />
-    <option name="width" value="1400" />
-    <option name="height" value="1000" />
+    <option name="x" value="85" />
+    <option name="y" value="25" />
+    <option name="width" value="1750" />
+    <option name="height" value="980" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -339,17 +299,24 @@
       <option name="project" value="LOCAL" />
       <updated>1556142235817</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Updated If, For and Block statement logic">
+      <created>1556270463103</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1556270463103</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9651000" />
+    <option name="totallyTimeSpent" value="14524000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22483222" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22483222" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -364,7 +331,7 @@
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50067115" side_tool="true" weight="0.3286119" />
       <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="CMake" order="11" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Messages" order="12" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Messages" order="12" visible="true" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -409,7 +376,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="commit untracked files" />
     <MESSAGE value="Merge branch 'Development' of https://github.com/BenVella/Compiler into Development&#10;&#10;# Conflicts:&#10;#&#9;.idea/modules.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'Development' of https://github.com/BenVella/Compiler into Development&#10;&#10;# Conflicts:&#10;#&#9;.idea/modules.xml" />
+    <MESSAGE value="Updated If, For and Block statement logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated If, For and Block statement logic" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/SampleCode.txt" />
@@ -465,13 +433,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ASTNode/ASTStatementNode/Function.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ASTNode/ASTStatementNode/Return.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -520,13 +481,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Parser.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="41" column="47" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Lexer.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -541,37 +495,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ASTNode/ASTStatementNode/Block.h">
+    <entry file="file://$PROJECT_DIR$/ASTNode/ASTStatementNode/If.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="23" column="43" selection-start-line="23" selection-start-column="43" selection-end-line="23" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Visitor/Visitor.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Parser.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="360" column="5" selection-start-line="360" selection-start-column="5" selection-end-line="360" selection-end-column="5" />
-          <folding>
-            <element signature="e#49#66#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Visitor/PrintXMLVisitor.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="143" column="39" selection-start-line="143" selection-start-column="39" selection-end-line="143" selection-end-column="39" />
-          <folding>
-            <element signature="e#122#141#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="329">
+          <caret line="29" column="22" lean-forward="true" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -582,10 +509,77 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ASTNode/ASTStatementNode/If.h">
+    <entry file="file://$PROJECT_DIR$/Parser.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="26" column="17" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
+        <state relative-caret-position="289">
+          <caret line="50" column="39" selection-start-line="50" selection-start-column="39" selection-end-line="50" selection-end-column="39" />
+          <folding>
+            <element signature="e#102#116#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ASTNode/ASTStatementNode/Function.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Visitor/Visitor.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-118">
+          <caret line="25" column="16" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Visitor/PrintXMLVisitor.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="176" column="39" selection-start-line="176" selection-start-column="39" selection-end-line="176" selection-end-column="39" />
+          <folding>
+            <element signature="e#122#141#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ASTNode/ASTStatementNode/Params.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="23" column="38" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
+          <folding>
+            <element signature="e#102#119#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ASTNode/ASTStatementNode/Block.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="18" column="58" selection-start-line="18" selection-start-column="58" selection-end-line="18" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ASTNode/ASTStatementNode/Param.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="21" column="54" selection-start-line="21" selection-start-column="54" selection-end-line="21" selection-end-column="54" />
+          <folding>
+            <element signature="e#100#117#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Parser.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="535" column="9" lean-forward="true" selection-start-line="535" selection-start-column="9" selection-end-line="535" selection-end-column="9" />
+          <folding>
+            <element signature="e#49#66#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

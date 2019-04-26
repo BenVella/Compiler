@@ -46,6 +46,9 @@ private:
     AST::Statement* ParseForStatement();
     AST::Statement* ParseStatement();
     AST::Statement* ParseBlockStatement();
+    AST::Statement* ParseFunctionDeclaration();
+    AST::Statement* ParseParams();
+    AST::Statement* ParseSingleParam();
     AST::Statement* ParseIdentifierStatement();
 
     // Function Parsing

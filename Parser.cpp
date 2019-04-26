@@ -22,6 +22,8 @@
 #include "ASTNode/ASTStatementNode/If.h"
 #include "ASTNode/ASTStatementNode/Block.h"
 #include "ASTNode/ASTStatementNode/For.h"
+#include "ASTNode/ASTStatementNode/Param.h"
+#include "ASTNode/ASTStatementNode/Params.h"
 
 Parser::Parser(Lexer * p_lexer): m_Lexer(p_lexer) {
     nextToken();
@@ -57,6 +59,42 @@ AST::Program* Parser::ParseProgram() {
     for (AST::Expr *pExpr : *pNodes->tempExprs) delete pExpr;
     pNodes->tempExprs->clear();
     return pNodes;
+}
+
+//////////////////////////////////////
+///////////// STATEMENTS /////////////
+//////////////////////////////////////
+
+AST::Statement * Parser::ParseStatement() {
+    AST::Statement * node = nullptr;
+    switch(CurrentToken.token_type) {
+        case Lexer::TOK_KEY_IF:
+            node = ParseIfStatement();
+            break;
+        case Lexer::TOK_KEY_RETURN:
+            node = ParseReturnStatement();
+            break;
+        case Lexer::TOK_KEY_PRINT:
+            node = ParsePrintStatement();
+            break;
+        case Lexer::TOK_KEY_VAR:
+            node = ParseVarDeclareStatement();
+            break;
+        case Lexer::TOK_KEY_FOR:
+            node = ParseForStatement();
+            break;
+        case Lexer::TOK_KEY_FN:
+            node = ParseFunctionDeclaration();
+            break;
+        case Lexer::TOK_ID:
+            node = ParseIdentifierStatement();
+            break;
+        case Lexer::TOK_OPEN_SCOPE:
+            node = ParseFunctionDeclaration();
+        default:
+            break;
+    }
+    return node; //nullptr is not set
 }
 
 //////////////////////////////////////
@@ -380,50 +418,128 @@ AST::Statement* Parser::ParseForStatement() {
     }
 }
 
-AST::Statement* Parser::ParseIdentifierStatement() {
-    return nullptr;
-}
-
-AST::Statement* Parser::ParseBlockStatement() {
-    return nullptr;
-}
-
-AST::Statement * Parser::ParseStatement() {
-    AST::Statement * node = nullptr;
-    switch(CurrentToken.token_type) {
-        case Lexer::TOK_KEY_IF:
-            node = ParseIfStatement();
-            break;
-        case Lexer::TOK_KEY_RETURN:
-            node = ParseReturnStatement();
-            break;
-        case Lexer::TOK_KEY_PRINT:
-            node = ParsePrintStatement();
-            break;
-        case Lexer::TOK_KEY_VAR:
-            node = ParseVarDeclareStatement();
-        case Lexer::TOK_ID:
-            node = ParseIdentifierStatement();
-            break;
-        default:
-            break;
+AST::Statement* Parser::ParseFunctionDeclaration() {
+    if (!isToken(Lexer::TOK_ID)) {
+        Error ("Expecting identifier for Function Declaration");
+        return nullptr;
     }
-    return node; //nullptr is not set
-}
+    std::string pName = CurrentToken.id_name;
 
-AST::Function * Parser::ParseFunctionPrototype() {
-    if (CurrentToken.token_type != Lexer::TOK_ID) {
-        Error("Expecting function name");
+    nextToken();
+    if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != "(") {
+        Error ("Expecting Open Parenthesis for Function Delcaration");
         return nullptr;
     }
 
-    std::string functionName = CurrentToken.id_name;
-    auto functionParameters = std::vector<std::string>();
+    nextToken();
+    AST::Statement *pParams = ParseParams();    // TODO Implement Param parsing
 
-    CurrentToken = m_Lexer->GetNextToken();
+    nextToken();
+    if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != ")") {
+        Error ("Expecting Close Parenthesis for Function Delcaration");
+        return nullptr;
+    }
 
-    return nullptr; // ToDo remove nullptr;
+    nextToken();
+    if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != ":") {
+        Error ("Expecting Colon for Function Delcaration");
+        return nullptr;
+    }
+
+    nextToken();
+    std::string pType;
+    switch(CurrentToken.token_type) {
+        case Lexer::TOK_KEY_INT:
+            pType="int";
+            break;
+        case Lexer::TOK_KEY_FLOAT:
+            pType = "float";
+            break;
+        case Lexer::TOK_KEY_BOOL:
+            pType = "bool";
+            break;
+        default:
+            Error("Expecting a type ( 'int' , 'float' or 'bool' for Variable Declaration");
+            return nullptr;
+    }
+
+    nextToken();
+    if (auto  *pBlock = ParseBlockStatement()) {
+        return new AST::Function(std::move(pName),pParams,std::move(pType),pBlock);
+    } else {
+        Error("Expecting a block statement for Function Defintion");
+        return nullptr;
+    }
 }
+
+AST::Statement* Parser::ParseParams() {
+    auto* pParams = new AST::Params();
+    while (true){
+        if (auto* pSingle = ParseSingleParam()) {
+            pParams->addParam(pSingle);
+        } else {
+            return pParams;
+        }
+    }
+}
+
+AST::Statement* Parser::ParseSingleParam() {
+    if (!isToken(Lexer::TOK_ID)) {
+        Error ("Expecting identifier for new Parameter");   // This might not be in Error, simply no more params to parse
+        return nullptr;
+    }
+    std::string pName = CurrentToken.id_name;
+
+    nextToken();
+    if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != ":") {
+        Error ("Expecting ' : ' for Parameter");
+        return nullptr;
+    }
+
+    nextToken();
+    std::string pType;
+    switch(CurrentToken.token_type) {
+        case Lexer::TOK_KEY_INT:
+            pType="int";
+            break;
+        case Lexer::TOK_KEY_FLOAT:
+            pType = "float";
+            break;
+        case Lexer::TOK_KEY_BOOL:
+            pType = "bool";
+            break;
+        default:
+            Error("Expecting a type ( 'int' , 'float' or 'bool' for Variable Declaration");
+            return nullptr;
+    }
+
+    return new AST::Param(pName,pType);
+}
+
+AST::Statement* Parser::ParseIdentifierStatement() {
+    return ParseAssignmentStatement();
+}
+
+AST::Statement* Parser::ParseBlockStatement() {
+    if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != "{") {
+        Error ("Expecting ' { ' to begin statement block");
+        return nullptr;
+    }
+
+    nextToken();
+    auto* pBlock = new AST::Block();
+    while (true) {
+        if (auto* pStmt = ParseStatement()) {
+            pBlock->addStatement(pStmt);
+        } else {
+            return pBlock;
+        }
+    }
+}
+
+//////////////////////////////////////////
+///////////// HELPER METHODS /////////////
+//////////////////////////////////////////
 
 AST::Expr * Parser::Error(const char *str) {
     std::cerr << "[ERROR]: " << str << std::endl;

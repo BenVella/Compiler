@@ -134,6 +134,12 @@
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/If.h">
 			<Option target="Compiler"/>
 		</Unit>
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/Param.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/Params.h">
+			<Option target="Compiler"/>
+		</Unit>
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/Print.h">
 			<Option target="Compiler"/>
 		</Unit>

@@ -20,6 +20,9 @@
 #include "../ASTNode/ASTStatementNode/Print.h"
 #include "../ASTNode/ASTStatementNode/If.h"
 #include "../ASTNode/ASTStatementNode/For.h"
+#include "../ASTNode/ASTStatementNode/Function.h"
+#include "../ASTNode/ASTStatementNode/Param.h"
+#include "../ASTNode/ASTStatementNode/Params.h"
 
 
 class PrintXMLVisitor : public Visitor {
@@ -146,6 +149,36 @@ public:
         p_node.getAssign()->Accept(*this);
         m_indent--;
         std::cout << indentTabs() << "</If>" << std::endl;
+    }
+
+    virtual void Visit(AST::Function& p_node) override {
+        std::cout << indentTabs() << "<If>" << std::endl;
+        m_indent++;
+        std::cout << indentTabs() << "<Identifier>" << p_node.getName() << "</Identifier>" << std::endl;
+        p_node.getParams()->Accept(*this);
+        std::cout << indentTabs() << "<Type>" << p_node.getType() << "</Type>" << std::endl;
+        p_node.getBlock()->Accept(*this);
+        m_indent--;
+        std::cout << indentTabs() << "</If>" << std::endl;
+    }
+
+    virtual void Visit(AST::Param& p_node) override {
+        std::cout << indentTabs() << "<Param>" << std::endl;
+        m_indent++;
+        std::cout << indentTabs() << "<Identifier>" << p_node.getName() << "</Identifier>" << std::endl;
+        std::cout << indentTabs() << "<Type>" << p_node.getType() << "</Type>" << std::endl;
+        m_indent--;
+        std::cout << indentTabs() << "</Param>" << std::endl;
+    }
+
+    virtual void Visit(AST::Params& p_node) override {
+        std::cout << indentTabs() << "<Params>" << std::endl;
+        m_indent++;
+        for (auto *param : *p_node.getParams()) {
+            param->Accept(*this);
+        }
+        m_indent--;
+        std::cout << indentTabs() << "</Params>" << std::endl;
     }
 };
 #endif //COMPILER_PRINTINFOVISITOR_H

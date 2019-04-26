@@ -15,9 +15,8 @@ namespace AST {
         std::vector<Statement *> *_statements;
     public:
         Block(std::vector<Statement *> *p_statements) : _statements(p_statements) {}
-        Block(Statement *p_statement) {
+        Block() {
             _statements = new std::vector<Statement *> ();
-            _statements->push_back(p_statement);
         }
         ~Block() override = default;
 
@@ -26,7 +25,6 @@ namespace AST {
         std::vector<Statement *> *getStatements() const { return _statements; }
 
         void addStatement(Statement *p_statement) {
-            _statements = new std::vector<Statement *>();
             _statements->push_back(p_statement);
         }
     };

@@ -21,6 +21,9 @@ namespace AST {
     class If;
     class Block;
     class For;
+    class Function;
+    class Param;
+    class Params;
 }
 
 class Visitor {
@@ -40,6 +43,9 @@ public:
     virtual void Visit (AST::If& e) = 0;
     virtual void Visit (AST::Block& e) = 0;
     virtual void Visit (AST::For& e) = 0;
+    virtual void Visit (AST::Function& e) = 0;
+    virtual void Visit (AST::Param& e) = 0;
+    virtual void Visit (AST::Params& e) = 0;
 };
 
 #endif //COMPILER_VISITOR_H
