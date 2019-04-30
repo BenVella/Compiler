@@ -17,7 +17,6 @@ namespace AST {
     public:
         ExprConstInt(float value): Expr(), _value(value) { }
         virtual ~ExprConstInt() = default;
-        virtual float solve() const { return _value; }
 
         void Accept(Visitor& v) override { v.Visit(*this); }
     };

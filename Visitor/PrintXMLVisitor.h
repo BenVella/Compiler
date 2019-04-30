@@ -10,6 +10,8 @@
 #include "../ASTNode/ASTExpressionNode/Data/ExprConstInt.h"
 #include "../ASTNode/ASTExpressionNode/Data/ExprConstFloat.h"
 #include "../ASTNode/ASTExpressionNode/Data/ExprVar.h"
+#include "../ASTNode/ASTExpressionNode/Boolean/ExprBoolOpTrue.h"
+#include "../ASTNode/ASTExpressionNode/Boolean/ExprBoolOpFalse.h"
 #include "../ASTNode/ASTExpressionNode/Binary/ExprBinOpAdd.h"
 #include "../ASTNode/ASTExpressionNode/Binary/ExprBinOpSub.h"
 #include "../ASTNode/ASTExpressionNode/Binary/ExprBinOppMul.h"
@@ -21,7 +23,8 @@
 #include "../ASTNode/ASTStatementNode/Return.h"
 #include "../ASTNode/ASTStatementNode/If.h"
 #include "../ASTNode/ASTStatementNode/For.h"
-#include "../ASTNode/ASTStatementNode/Function.h"
+#include "../ASTNode/ASTStatementNode/FunctionCall.h"
+#include "../ASTNode/ASTStatementNode/FunctionDeclare.h"
 #include "../ASTNode/ASTStatementNode/Param.h"
 #include "../ASTNode/ASTStatementNode/Params.h"
 
@@ -36,8 +39,6 @@ private:
         return tabs;
     }
 public:
-    // Expressions
-    //std::cout << "Value of expression is: " << stmt->solve() << std::endl;
     virtual void Visit(AST::ExprConstInt& p_node) override {
         std::cout << indentTabs() << "<ExprConstInt>" << p_node.get_value() << "</ExprConstInt>" << std::endl;
     }
@@ -47,7 +48,15 @@ public:
     }
 
     virtual void Visit(AST::ExprVar& p_node) override {
-        std::cout << indentTabs() <<  "<ExprVar>" << p_node.get_pVar()->get()->solve() << "</ExprVar>" << std::endl;
+        std::cout << indentTabs() <<  "<ExprVar>" << p_node.getName() << "</ExprVar>" << std::endl;
+    }
+
+    virtual void Visit(AST::ExprBoolOpTrue& p_node) override {
+        std::cout << indentTabs() <<  "<ExprBoolOp>true</ExprBoolOp>" << std::endl;
+    }
+
+    virtual void Visit(AST::ExprBoolOpFalse& p_node) override {
+        std::cout << indentTabs() <<  "<ExprBoolOp>false</ExprBoolOp>" << std::endl;
     }
 
     virtual void Visit(AST::ExprBinOpAdd& p_node) override {
@@ -102,7 +111,7 @@ public:
         std::cout << indentTabs() << "<Assignment>" << std::endl;
         m_indent++;
         std::cout << indentTabs() << "<Identifier>" << p_node.getName() << "</Identifier>" << std::endl;
-        std::cout << indentTabs() << "<Expression Value: " << p_node.getExpr()->solve() << ">" << std::endl;
+        std::cout << indentTabs() << "<Expression>" << std::endl;
         m_indent++;
         p_node.getExpr()->Accept(*this);
         m_indent--;
@@ -116,7 +125,7 @@ public:
         m_indent++;
         std::cout << indentTabs() << "<Identifier>" << p_node.getName() << "</Identifier>" << std::endl;
         std::cout << indentTabs() << "<Type>" << p_node.getType() << "</Type>" << std::endl;
-        std::cout << indentTabs() << "<Expression Value: " << p_node.getExpr()->solve() << ">" << std::endl;
+        std::cout << indentTabs() << "<Expression>" << std::endl;
         m_indent++;
         p_node.getExpr()->Accept(*this);
         m_indent--;
@@ -128,7 +137,7 @@ public:
     virtual void Visit(AST::Print& p_node) override {
         std::cout << indentTabs() << "<Print>" << std::endl;
         m_indent++;
-        std::cout << indentTabs() << "<Expression Value: " << p_node.getExpr()->solve() << ">" << std::endl;
+        std::cout << indentTabs() << "<Expression>" << std::endl;
         m_indent++;
         p_node.getExpr()->Accept(*this);
         m_indent--;
@@ -140,7 +149,7 @@ public:
     virtual void Visit(AST::Return& p_node) override {
         std::cout << indentTabs() << "<Return>" << std::endl;
         m_indent++;
-        std::cout << indentTabs() << "<Expression Value: " << p_node.getExpr()->solve() << ">" << std::endl;
+        std::cout << indentTabs() << "<Expression>" << std::endl;
         m_indent++;
         p_node.getExpr()->Accept(*this);
         m_indent--;
@@ -152,7 +161,7 @@ public:
     virtual void Visit(AST::If& p_node) override {
         std::cout << indentTabs() << "<If>" << std::endl;
         m_indent++;
-        std::cout << indentTabs() << "<Expression Value: " << p_node.getExpr()->solve() << ">" << std::endl;
+        std::cout << indentTabs() << "<Expression>" << std::endl;
         m_indent++;
         p_node.getExpr()->Accept(*this);
         m_indent--;
@@ -177,26 +186,37 @@ public:
     virtual void Visit(AST::For& p_node) override {
         std::cout << indentTabs() << "<For>" << std::endl;
         m_indent++;
-        p_node.getVar()->Accept(*this);
-        std::cout << indentTabs() << "<Expression Value: " << p_node.getExpr()->solve() << ">" << std::endl;
+        if (p_node.getVar() != NULL)
+            p_node.getVar()->Accept(*this);
+        std::cout << indentTabs() << "<Expression>" << std::endl;
         m_indent++;
         p_node.getExpr()->Accept(*this);
         m_indent--;
         std::cout<< indentTabs() << "</Expression>" << std::endl;
-        p_node.getAssign()->Accept(*this);
+        if (p_node.getAssign() != NULL)
+            p_node.getAssign()->Accept(*this);
         m_indent--;
         std::cout << indentTabs() << "</For>" << std::endl;
     }
 
-    virtual void Visit(AST::Function& p_node) override {
-        std::cout << indentTabs() << "<If>" << std::endl;
+    virtual void Visit(AST::FunctionCall& p_node) override {
+        std::cout << indentTabs() << "<FunctionCall>" << std::endl;
+        m_indent++;
+        std::cout << indentTabs() << "<Identifier>" << p_node.getName() << "</Identifier>" << std::endl;
+        p_node.getParams()->Accept(*this);
+        m_indent--;
+        std::cout << indentTabs() << "</FunctionCall>" << std::endl;
+    }
+
+    virtual void Visit(AST::FunctionDeclare& p_node) override {
+        std::cout << indentTabs() << "<FunctionDeclare>" << std::endl;
         m_indent++;
         std::cout << indentTabs() << "<Identifier>" << p_node.getName() << "</Identifier>" << std::endl;
         p_node.getParams()->Accept(*this);
         std::cout << indentTabs() << "<Type>" << p_node.getType() << "</Type>" << std::endl;
         p_node.getBlock()->Accept(*this);
         m_indent--;
-        std::cout << indentTabs() << "</If>" << std::endl;
+        std::cout << indentTabs() << "</FunctionDeclare>" << std::endl;
     }
 
     virtual void Visit(AST::Param& p_node) override {

@@ -147,3 +147,7 @@ Lexer::Token Lexer::StateToToken(STATE_TYPE st) {
     return Lexer::Token();
 }
 
+int Lexer::getLine() const {
+    return m_lineNumber;
+}
+

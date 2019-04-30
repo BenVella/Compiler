@@ -14,10 +14,6 @@ namespace AST {
         explicit ExprUnOpNeg(Expr *pArg1): ExprUnOp(pArg1) { }
         ~ExprUnOpNeg() override = default;
 
-        float solve() const override {
-            return -get_pArg1()->solve();
-        }
-
         void Accept(Visitor& v) override {
             v.Visit(*this);
         }
