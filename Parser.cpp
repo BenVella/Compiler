@@ -14,6 +14,8 @@
 #include "ASTNode/ASTExpressionNode/Data/ExprConstInt.h"
 #include "ASTNode/ASTExpressionNode/Data/ExprConstFloat.h"
 #include "ASTNode/ASTExpressionNode/Data/ExprVar.h"
+#include "ASTNode/ASTExpressionNode/Boolean/ExprBoolOpTrue.h"
+#include "ASTNode/ASTExpressionNode/Boolean/ExprBoolOpFalse.h"
 
 #include "ASTNode/ASTStatementNode/Assignment.h"
 #include "ASTNode/ASTStatementNode/Return.h"
@@ -47,11 +49,6 @@ AST::Program* Parser::ParseProgram() {
         if (auto *pStmt = ParseStatement()) {
             pNodes->main_impl->push_back(pStmt);
         } else break;
-        /*// special error checking for missing ';' (usual error)
-        if (!isToken(Lexer::TOK_STMT_DELIMITER)) {
-            std::cerr << "SYNTAX ERROR: Semicolon expected!" << std::endl;
-            break;
-        }*/
         if (isToken(Lexer::TOK_EOF)) return pNodes;
     }
     // We didn't make it to EOF - delete all and return empty
@@ -209,16 +206,16 @@ AST::Expr* Parser::ParsePrimExpr()
     switch (CurrentToken.token_type) {
         case Lexer::TOK_INT_NUMBER:
             pExpr = new AST::ExprConstInt(CurrentToken.number_value);
-            nextToken();
+            nextToken(); // consume int value token
             break;
         case Lexer::TOK_FLOAT_NUMBER:
             pExpr = new AST::ExprConstFloat(CurrentToken.number_value);
-            nextToken(); // consume token
+            nextToken(); // consume float value token
             break;
         case Lexer::TOK_ID: {
             AST::Var &var = m_varTable[CurrentToken.id_name]; // find or create
             pExpr = new AST::ExprVar(CurrentToken.id_name,&var);
-            nextToken(); // consume token
+            nextToken(); // consume id token
         } break;
         case Lexer::TOK_PUNC:
             if (CurrentToken.id_name=="(") {
@@ -226,22 +223,30 @@ AST::Expr* Parser::ParsePrimExpr()
                 if (!(pExpr = ParseExpr())) return nullptr; // ERROR!
                 if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != ")") {
                     delete pExpr;
-                    Error ("Subexpression did not match a closing parenthesis!");
+                    Error ("Subexpression did not match a closing parenthesis");
                     return nullptr; // ERROR!
                 }
             } else {
                 Error ("Unexpected punctuation.  Was expecting opening parenthesis");
+                return nullptr;
             }
             break;
-        case Lexer::TOK_EOF:
-            Error("SYNTAX ERROR: Premature EOF when parsing primary expression!");
+        case Lexer::TOK_KEY_TRUE:
+            pExpr = new AST::ExprBoolOpTrue();
+            nextToken(); // consume true token
             break;
+        case Lexer::TOK_KEY_FALSE:
+            pExpr = new AST::ExprBoolOpFalse();
+            nextToken(); // consume false token
+            break;
+        case Lexer::TOK_EOF:
+            Error("SYNTAX ERROR: Premature EOF when parsing primary expression");
+            return nullptr;
         case Lexer::TOK_SYNTAX_ERR:
         case Lexer::TOK_NUM_ERROR:
-            Error("SYNTAX ERROR: Unexpected character!");
-            break;
         default:
-            Error("SYNTAX ERROR: Unexpected token!");
+            Error("SYNTAX ERROR: Unexpected Primary Expression Token");
+            return nullptr;
     }
     return pExpr;
 }
@@ -345,17 +350,32 @@ AST::Statement * Parser::ParseVarDeclareStatement() {
 
 AST::Statement* Parser::ParsePrintStatement() {
     nextToken();
-    auto pExpr = ParseExpr();
-
-    return new AST::Print(pExpr);
+    if (auto* pExpr = ParseExpr()) {
+        if (!isToken(Lexer::TOK_STMT_DELIMITER)) {
+            Error ("Expecting ' ; ' to terminate print statement");
+            return nullptr;
+        }
+        nextToken();
+        return new AST::Print(pExpr);
+    } else {
+        Error ("Expecting expression for print statement");
+        return nullptr;
+    }
 }
 
 AST::Statement* Parser::ParseReturnStatement() {
     nextToken();
-    auto *pExpr = ParseExpr();
-    if (!pExpr)
+    if (auto *pExpr = ParseExpr()) {
+        if (!isToken(Lexer::TOK_STMT_DELIMITER)) {
+            Error ("Expecting ' ; ' to terminate print statement");
+            return nullptr;
+        }
+        nextToken();
+        return new AST::Return(pExpr);
+    } else {
+        Error ("Expecting expression for return statement");
         return nullptr;
-    return new AST::Return(pExpr);
+    }
 }
 
 AST::Statement * Parser::ParseIfStatement() {
@@ -375,25 +395,9 @@ AST::Statement * Parser::ParseIfStatement() {
     // Get primary behaviour
     nextToken();
     if (auto *pBlock1 = ParseBlockStatement()) {
-        nextToken();
-        if (!isToken(Lexer::TOK_CLOSE_SCOPE)) {
-            Error ("Expecting ' } ' to close Primary Block code for ' IF ' statement!");
-            return nullptr;
-        }
-        nextToken();
         if (isToken(Lexer::TOK_KEY_ELSE)) {
-            nextToken();
+            nextToken(); // Consume else token
             if (auto *pBlock2 = ParseBlockStatement()) {
-                if (!isToken(Lexer::TOK_STMT_DELIMITER)) {
-                    Error("Expecting delimeter to end statement");
-                    return nullptr;
-                }
-                nextToken(); // consume delimeter
-                if (!isToken(Lexer::TOK_CLOSE_SCOPE)) {
-                    Error("Expecting ' } ' to Close Block Scope");
-                    return nullptr;
-                }
-                nextToken();
                 return new AST::If(pExpr,pBlock1,pBlock2);
             } else {
                 Error ("Expecting second Block code for ' IF ' statement!");
@@ -430,7 +434,6 @@ AST::Statement* Parser::ParseForStatement() {
     nextToken();
     auto *pExpr = ParseExpr();
 
-    nextToken();
     if (!isToken(Lexer::TOK_STMT_DELIMITER)) {
         Error ("Expecting ' ; ' between for statement definitions");
     }
@@ -454,12 +457,14 @@ AST::Statement* Parser::ParseForStatement() {
 
         nextToken();
         if (isToken(Lexer::TOK_PUNC) && CurrentToken.id_name == ")") {
+            nextToken(); // Consume ' ) ' token
             return new AST::For(pVar,pExpr,pAssign);
         } else {
             Error ("Expecting close parenthesis to end for definition");
             return nullptr;
         }
     } else {
+        nextToken(); // Consume ' ) ' token
         return new AST::For(pVar,pExpr,pAssign);
     }
 }
@@ -582,13 +587,18 @@ AST::Statement* Parser::ParseBlockStatement() {
         Error ("Expecting ' { ' to begin statement block");
         return nullptr;
     }
+    nextToken(); // consume Open Scope statement
 
-    nextToken();
     auto* pBlock = new AST::Block();
     while (true) {
         if (auto* pStmt = ParseStatement()) {
             pBlock->addStatement(pStmt);
         } else {
+            if (!isToken(Lexer::TOK_CLOSE_SCOPE)) {
+                Error ("Expecting ' } ' to close statement block");
+                return nullptr;
+            }
+            nextToken(); // consume close scope token
             return pBlock;
         }
     }
@@ -599,7 +609,7 @@ AST::Statement* Parser::ParseBlockStatement() {
 //////////////////////////////////////////
 
 AST::Expr * Parser::Error(const char *str) {
-    std::cerr << "[ERROR]: " << str << std::endl;
+    std::cerr << "[ERROR]: " << str << "; [Token]: " << CurrentToken.ToString() << "; [Line]: " << m_Lexer->getLine() << std::endl;
     return nullptr;
 }
 

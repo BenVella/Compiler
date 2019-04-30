@@ -95,6 +95,15 @@
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOppMul.h">
 			<Option target="Compiler"/>
 		</Unit>
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Boolean/ExprBoolOp.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Boolean/ExprBoolOpFalse.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Boolean/ExprBoolOpTrue.h">
+			<Option target="Compiler"/>
+		</Unit>
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Data/ExprConstFloat.h">
 			<Option target="Compiler"/>
 		</Unit>

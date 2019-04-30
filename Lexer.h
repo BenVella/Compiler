@@ -111,6 +111,8 @@ public :
     void NextWord();
     void NextChar(char * p_lastChar);
 
+    int getLine() const;
+
 private:
     std::string m_inputProgram;
     int m_charIndex;

@@ -27,7 +27,7 @@ private:
     void nextToken();
 
     // Expression Parsing
-    static AST::Expr* Error (const char *str);
+    AST::Expr* Error (const char *str);
     AST::Program* ParseProgram();
     AST::Expr* ParseExpr();
     AST::Expr* ParseSumExpr();

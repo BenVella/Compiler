@@ -10,6 +10,8 @@
 #include "../ASTNode/ASTExpressionNode/Data/ExprConstInt.h"
 #include "../ASTNode/ASTExpressionNode/Data/ExprConstFloat.h"
 #include "../ASTNode/ASTExpressionNode/Data/ExprVar.h"
+#include "../ASTNode/ASTExpressionNode/Boolean/ExprBoolOpTrue.h"
+#include "../ASTNode/ASTExpressionNode/Boolean/ExprBoolOpFalse.h"
 #include "../ASTNode/ASTExpressionNode/Binary/ExprBinOpAdd.h"
 #include "../ASTNode/ASTExpressionNode/Binary/ExprBinOpSub.h"
 #include "../ASTNode/ASTExpressionNode/Binary/ExprBinOppMul.h"
@@ -47,6 +49,14 @@ public:
 
     virtual void Visit(AST::ExprVar& p_node) override {
         std::cout << indentTabs() <<  "<ExprVar>" << p_node.getName() << "</ExprVar>" << std::endl;
+    }
+
+    virtual void Visit(AST::ExprBoolOpTrue& p_node) override {
+        std::cout << indentTabs() <<  "<ExprBoolOp>true</ExprBoolOp>" << std::endl;
+    }
+
+    virtual void Visit(AST::ExprBoolOpFalse& p_node) override {
+        std::cout << indentTabs() <<  "<ExprBoolOp>false</ExprBoolOp>" << std::endl;
     }
 
     virtual void Visit(AST::ExprBinOpAdd& p_node) override {
@@ -176,13 +186,15 @@ public:
     virtual void Visit(AST::For& p_node) override {
         std::cout << indentTabs() << "<For>" << std::endl;
         m_indent++;
-        p_node.getVar()->Accept(*this);
+        if (p_node.getVar() != NULL)
+            p_node.getVar()->Accept(*this);
         std::cout << indentTabs() << "<Expression>" << std::endl;
         m_indent++;
         p_node.getExpr()->Accept(*this);
         m_indent--;
         std::cout<< indentTabs() << "</Expression>" << std::endl;
-        p_node.getAssign()->Accept(*this);
+        if (p_node.getAssign() != NULL)
+            p_node.getAssign()->Accept(*this);
         m_indent--;
         std::cout << indentTabs() << "</For>" << std::endl;
     }

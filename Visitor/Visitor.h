@@ -9,6 +9,8 @@ namespace AST {
     class ExprConstInt;
     class ExprConstFloat;
     class ExprVar;
+    class ExprBoolOpTrue;
+    class ExprBoolOpFalse;
     class ExprBinOpAdd;
     class ExprBinOpSub;
     class ExprBinOpMul;
@@ -33,6 +35,8 @@ public:
     virtual void Visit (AST::ExprConstInt& e) = 0;
     virtual void Visit (AST::ExprConstFloat& e) = 0;
     virtual void Visit (AST::ExprVar& e) = 0;
+    virtual void Visit (AST::ExprBoolOpTrue& e) = 0;
+    virtual void Visit (AST::ExprBoolOpFalse& e) = 0;
     virtual void Visit (AST::ExprBinOpAdd& e) = 0;
     virtual void Visit (AST::ExprBinOpSub& e) = 0;
     virtual void Visit (AST::ExprBinOpMul& e) = 0;
