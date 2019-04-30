@@ -14,8 +14,6 @@ namespace AST {
         Expr() = default;
     public:
         virtual ~Expr() = default;
-        virtual float solve() const = 0;
-
         virtual void Accept(Visitor& v) = 0;
     };
 }

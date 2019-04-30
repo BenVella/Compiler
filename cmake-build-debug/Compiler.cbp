@@ -101,9 +101,6 @@
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Data/ExprVar.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Data/Identifier.h">
-			<Option target="Compiler"/>
-		</Unit>
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Data/Var.h">
 			<Option target="Compiler"/>
 		</Unit>
@@ -128,7 +125,10 @@
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/For.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/Function.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/FunctionCall.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/FunctionDeclare.h">
 			<Option target="Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/If.h">

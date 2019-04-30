@@ -13,10 +13,6 @@ namespace AST {
     public:
         ExprBinOpDiv(Expr *pArg1, Expr *pArg2): ExprBinOp(pArg1, pArg2) { }
         virtual ~ExprBinOpDiv() = default;
-        virtual float solve() const
-        {
-            return get_pArg1()->solve() / get_pArg2()->solve();
-        }
 
         void Accept(Visitor& v) override {v.Visit(*this);}
     };

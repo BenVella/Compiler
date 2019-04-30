@@ -16,10 +16,6 @@ namespace AST {
 
         ~ExprBinOpAdd() override = default;
 
-        float solve() const override {
-            return get_pArg1()->solve() + get_pArg2()->solve();
-        }
-
         void Accept(Visitor& v) override {v.Visit(*this);}
     };
 }

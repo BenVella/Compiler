@@ -22,7 +22,8 @@ namespace AST {
     class If;
     class Block;
     class For;
-    class Function;
+    class FunctionCall;
+    class FunctionDeclare;
     class Param;
     class Params;
 }
@@ -45,7 +46,8 @@ public:
     virtual void Visit (AST::If& e) = 0;
     virtual void Visit (AST::Block& e) = 0;
     virtual void Visit (AST::For& e) = 0;
-    virtual void Visit (AST::Function& e) = 0;
+    virtual void Visit (AST::FunctionCall& e) = 0;
+    virtual void Visit (AST::FunctionDeclare& e) = 0;
     virtual void Visit (AST::Param& e) = 0;
     virtual void Visit (AST::Params& e) = 0;
 };

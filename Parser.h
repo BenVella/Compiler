@@ -10,7 +10,7 @@
 #include "ASTNode/ASTExpressionNode/Data/Var.h"
 #include "ASTNode/ASTExpressionNode/Expr.h"
 #include "ASTNode/ASTStatementNode/Statement.h"
-#include "ASTNode/ASTStatementNode/Function.h"
+#include "ASTNode/ASTStatementNode/FunctionDeclare.h"
 #include "ASTNode/Program.h"
 
 class Parser {
@@ -27,7 +27,7 @@ private:
     void nextToken();
 
     // Expression Parsing
-    AST::Expr* Error (const char *str);
+    static AST::Expr* Error (const char *str);
     AST::Program* ParseProgram();
     AST::Expr* ParseExpr();
     AST::Expr* ParseSumExpr();
@@ -38,7 +38,7 @@ private:
     AST::Expr* ParsePrimExpr();
 
     // Statement Parsing
-    AST::Statement* ParseAssignmentStatement();
+    AST::Statement* ParseAssignmentStatement(std::string p_name);
     AST::Statement* ParseVarDeclareStatement();
     AST::Statement* ParsePrintStatement();
     AST::Statement* ParseReturnStatement();
@@ -46,13 +46,14 @@ private:
     AST::Statement* ParseForStatement();
     AST::Statement* ParseStatement();
     AST::Statement* ParseBlockStatement();
+    AST::Statement* ParseFunctionCall(const std::string& pName);
     AST::Statement* ParseFunctionDeclaration();
     AST::Statement* ParseParams();
     AST::Statement* ParseSingleParam();
     AST::Statement* ParseIdentifierStatement();
 
-    // Function Parsing
-    AST::Function* ParseFunctionPrototype();
+    // FunctionDeclare Parsing
+    AST::FunctionDeclare* ParseFunctionPrototype();
 
 public:
     static AST::Program* Parse(Lexer *p_lexer, VarTable& varTable);

@@ -11,15 +11,16 @@
 namespace AST {
     class ExprVar: public Expr {
     private:
-        Var *_pVar;
+        std::string _name;
+        Var *_var;
     public:
-        Var *get_pVar() const {return _pVar;}
-        explicit ExprVar(Var *pVar): Expr(), _pVar(pVar) { }
+        ExprVar(const std::string &name, Var *var) : _name(name), _var(var) {}
+
         ~ExprVar() override = default;
-        float solve() const override { return _pVar->get()->solve(); }
-        void Accept(Visitor& v) override {
-            v.Visit(*this);
-        };
+        void Accept(Visitor& v) override { v.Visit(*this); }
+
+        Var *getVar() const {return _var;}
+        const std::string &getName() const { return _name; }
     };
 }
 #endif //COMPILER_ASTEXPRVAR_H
