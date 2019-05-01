@@ -489,6 +489,7 @@ AST::Statement* Parser::ParseFunctionCall(const std::string& pName) {
 }
 
 AST::Statement* Parser::ParseFunctionDeclaration() {
+    nextToken(); // Consume TOK_KEY_FN
     if (!isToken(Lexer::TOK_ID)) {
         Error ("Expecting identifier for FunctionDeclare Declaration");
         return nullptr;
@@ -504,7 +505,6 @@ AST::Statement* Parser::ParseFunctionDeclaration() {
     nextToken();
     auto *pParams = ParseParams();
 
-    nextToken();
     if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name != ")") {
         Error ("Expecting Close Parenthesis for FunctionDeclare Delcaration");
         return nullptr;
@@ -547,10 +547,15 @@ AST::Statement* Parser::ParseParams() {
     while (true){
         if (auto* pSingle = ParseSingleParam()) {
             pParams->addParam(pSingle);
-        } else {
-            return pParams;
+
+            if (!isToken(Lexer::TOK_PUNC) || CurrentToken.id_name!= ",") {
+                break;
+            } else {
+                nextToken(); // Consume ' , ' and loop again
+            }
         }
     }
+    return pParams;
 }
 
 AST::Statement* Parser::ParseSingleParam() {
@@ -582,7 +587,7 @@ AST::Statement* Parser::ParseSingleParam() {
             Error("Expecting a type ( 'int' , 'float' or 'bool' for Variable Declaration");
             return nullptr;
     }
-
+    nextToken(); //Consume pType tokekn
     return new AST::Param(pName,pType);
 }
 

@@ -9,7 +9,7 @@
 Lexer::Lexer (std::string p_fileName) {
     // Initialize Vars
     m_charIndex = 0;
-    m_lineNumber = 0;
+    m_lineNumber = 1;
 
     //Read file
     std::cout << "[Lexer] Loading program from " << p_fileName << std::endl;
