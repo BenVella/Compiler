@@ -18,9 +18,9 @@ private:
     typedef std::map<std::string, AST::Var> VarTable;
 
     Parser(Lexer *p_lexer,VarTable& p_varTable);
-    Lexer* m_Lexer;
-    Lexer::Token CurrentToken;
-    VarTable m_varTable;    // ToDo this might need to be moved outside to main in order to not lose references
+    Lexer* _lexer;
+    Lexer::Token _currentToken;
+    VarTable _varTable;    // ToDo this might need to be moved outside to main in order to not lose references
 
     // Helper Functions
     bool isToken(Lexer::TOK_TYPE p_type);

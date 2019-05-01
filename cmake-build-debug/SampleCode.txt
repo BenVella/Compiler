@@ -1,3 +1,7 @@
 a = 2;
+var b : float = 6.2 * 1.2;
 for ( ; true ; ){}
 if (true) { a = 1; } else { return a; }
+fn boost(a:int,b:float) : float {
+    return a*b;
+}
