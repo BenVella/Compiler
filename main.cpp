@@ -4,6 +4,7 @@
 #include "Lexer.h"
 #include "Parser.h"
 #include "Visitor/PrintXMLVisitor.h"
+#include "Visitor/SemanticAnalysisVisitor.h"
 
 typedef std::map<std::string, AST::Var> VarTable;
 
@@ -23,22 +24,22 @@ int main() {
     // Standard Parser Evaluation TODO Uncomment if you want Parser operation
     AST::Program* progResult = Parser::Parse(newLexer, varTable);
 
+/*  // Uncomment for Printing XML
     // VISITOR - PrintXMLVisitor
     PrintXMLVisitor visitor;
     for (auto* stmt : *progResult->main_impl) {
         stmt->Accept(visitor);
     }
+*/
 
 
-    // Direct Lexer Evaluation  TODO Uncomment if you want direct Lexer operation
-/*    auto valTest = newLexer->GetNextToken();
-    while (valTest.token_type != Lexer::TOK_EOF && valTest.token_type != Lexer::TOK_SYNTAX_ERR) {
-        AppendLexerDetails(&valTest);
-        valTest = newLexer->GetNextToken();
+    // VISITOR - SemanticAnalysisVisitor
+    std::cout << "Semantic Pass" << std::endl;
+    auto *visitor1 = new SemanticAnalysisVisitor();
+    for (auto* stmt : *progResult->main_impl) {
+        stmt->Accept(*visitor1);
     }
 
-    PrintTokenDetails();
-    OffloadLexerDetails();*/
     return 0;
 }
 

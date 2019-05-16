@@ -184,6 +184,9 @@
 		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Visitor/PrintXMLVisitor.h">
 			<Option target="Compiler"/>
 		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Visitor/SemanticAnalysisVisitor.h">
+			<Option target="Compiler"/>
+		</Unit>
 		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Visitor/Visitor.h">
 			<Option target="Compiler"/>
 		</Unit>

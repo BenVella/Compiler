@@ -219,15 +219,6 @@ public:
         std::cout << indentTabs() << "</FunctionDeclare>" << std::endl;
     }
 
-    virtual void Visit(AST::Param& p_node) override {
-        std::cout << indentTabs() << "<Param>" << std::endl;
-        m_indent++;
-        std::cout << indentTabs() << "<Identifier>" << p_node.getName() << "</Identifier>" << std::endl;
-        std::cout << indentTabs() << "<Type>" << p_node.getType() << "</Type>" << std::endl;
-        m_indent--;
-        std::cout << indentTabs() << "</Param>" << std::endl;
-    }
-
     virtual void Visit(AST::Params& p_node) override {
         std::cout << indentTabs() << "<Params>" << std::endl;
         m_indent++;
@@ -236,6 +227,15 @@ public:
         }
         m_indent--;
         std::cout << indentTabs() << "</Params>" << std::endl;
+    }
+
+    virtual void Visit(AST::Param& p_node) override {
+        std::cout << indentTabs() << "<Param>" << std::endl;
+        m_indent++;
+        std::cout << indentTabs() << "<Identifier>" << p_node.getName() << "</Identifier>" << std::endl;
+        std::cout << indentTabs() << "<Type>" << p_node.getType() << "</Type>" << std::endl;
+        m_indent--;
+        std::cout << indentTabs() << "</Param>" << std::endl;
     }
 };
 #endif //COMPILER_PRINTINFOVISITOR_H
