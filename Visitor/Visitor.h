@@ -14,6 +14,8 @@ namespace AST {
     class ExprBinOpAdd;
     class ExprBinOpSub;
     class ExprBinOpMul;
+    class ExprBinOpSmaller;
+    class ExprBinOpGreater;
     class ExprBinOpDiv;
     class ExprUnOpNeg;
 
@@ -41,6 +43,8 @@ public:
     virtual void Visit (AST::ExprBinOpSub& e) = 0;
     virtual void Visit (AST::ExprBinOpMul& e) = 0;
     virtual void Visit (AST::ExprBinOpDiv& e) = 0;
+    virtual void Visit (AST::ExprBinOpSmaller& e) = 0;
+    virtual void Visit (AST::ExprBinOpGreater& e) = 0;
     virtual void Visit (AST::ExprUnOpNeg& e) = 0;
 
     virtual void Visit (AST::Assignment& e) = 0;

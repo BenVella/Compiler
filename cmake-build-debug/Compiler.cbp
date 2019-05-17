@@ -8,192 +8,196 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug"/>
+				<Option working_dir="C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Compiler">
-				<Option output="C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Compiler.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug"/>
+				<Option output="C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Compiler.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/../../../../i686-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 Compiler"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 Compiler"/>
+					<CompileFile command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Compiler/fast">
-				<Option output="C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Compiler.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug"/>
+				<Option output="C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Compiler.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/../../../../i686-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 Compiler/fast"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 Compiler/fast"/>
+					<CompileFile command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug"/>
+				<Option working_dir="C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug"/>
+				<Option working_dir="C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/bennv/CLionProjects/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/bennet.vella/Desktop/Compiler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOp.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOp.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOpAdd.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOpAdd.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOpSub.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOpDiv.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOppDiv.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOpGreater.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOppMul.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOpMul.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Boolean/ExprBoolOp.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOpSmaller.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Boolean/ExprBoolOpFalse.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOpSub.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Boolean/ExprBoolOpTrue.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Boolean/ExprBoolOp.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Data/ExprConstFloat.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Boolean/ExprBoolOpFalse.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Data/ExprVar.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Boolean/ExprBoolOpTrue.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Data/Var.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Data/ExprConstFloat.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Expr.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Data/ExprVar.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Unary/ExprUnOp.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Data/Var.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Unary/ExprUnOpNeg.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Expr.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTNode.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Unary/ExprUnOp.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/Assignment.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Unary/ExprUnOpNeg.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/Block.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTNode.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/For.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/Assignment.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/FunctionCall.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/Block.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/FunctionDeclare.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/For.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/If.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/FunctionCall.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/Param.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/FunctionDeclare.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/Params.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/If.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/Print.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/Param.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/Return.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/Params.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/Statement.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/Print.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/Program.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/Return.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Lexer.cpp">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/Statement.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Lexer.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/Program.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Parser.cpp">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Lexer.cpp">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Parser.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Lexer.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Util.cpp">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Parser.cpp">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Util.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Parser.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Visitor/PrintXMLVisitor.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Util.cpp">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Visitor/SemanticAnalysisVisitor.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Util.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/Visitor/Visitor.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Visitor/PrintXMLVisitor.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/main.cpp">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Visitor/SemanticAnalysisVisitor.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/CMakeLists.txt">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Visitor/Visitor.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/main.cpp">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
