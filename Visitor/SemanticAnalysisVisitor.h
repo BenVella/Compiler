@@ -100,6 +100,9 @@ public:
             std::cout << "VAR \"" << p_node.getName() << "\" NOT FOUND" << std::endl;
         } else {
             std::cout << "Var exists" << std::endl;
+            if (p_node.getVar().get() != NULL) {
+                p_node.getVar().get()->Accept(*this); // Set var type
+            }
         }
     }
 
@@ -169,8 +172,8 @@ public:
 
     virtual void Visit(AST::VarDeclare& p_node) override {
         ST->Insert(p_node.getName(),p_node.getType());
-
         p_node.getExpr()->Accept(*this);
+        ValidateVarDeclareType(); // Ensure float or int and pop it
     }
 
     virtual void Visit(AST::Print& p_node) override {
@@ -239,6 +242,17 @@ public:
         } else {
             std::cout << "Types Matched" << std::endl;
         }
+    }
+
+    void ValidateVarDeclareType() {
+        if (typeStack.top() == "int" || typeStack.top() == "float") {
+            std::cout << "Valid var declare type" << std::endl;
+            typeStack.pop();
+        } else {
+            std::string errorText = "Type mismatch! Expected 'float' or 'int' but instead got " + typeStack.top();
+            Error(errorText);
+        }
+
     }
 };
 

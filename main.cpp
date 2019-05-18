@@ -24,13 +24,12 @@ int main() {
     // Standard Parser Evaluation TODO Uncomment if you want Parser operation
     AST::Program* progResult = Parser::Parse(newLexer, varTable);
 
-/*  // Uncomment for Printing XML
+    // Uncomment for Printing XML
     // VISITOR - PrintXMLVisitor
-    PrintXMLVisitor visitor;
+    /*PrintXMLVisitor visitor;
     for (auto* stmt : *progResult->main_impl) {
         stmt->Accept(visitor);
-    }
-*/
+    }*/
 
 
     // VISITOR - SemanticAnalysisVisitor
