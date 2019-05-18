@@ -12,13 +12,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57e65565-b069-46ea-bf34-824c621fbf72" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Visitor/SemanticAnalysisVisitor.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Visitor/PrintXMLVisitor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Visitor/PrintXMLVisitor.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Compiler.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Compiler.cbp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Compiler.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Compiler.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -136,7 +132,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -196,6 +191,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -253,6 +249,7 @@
       <workItem from="1556789643998" duration="639000" />
       <workItem from="1557339252398" duration="7579000" />
       <workItem from="1557694259525" duration="601000" />
+      <workItem from="1558027313240" duration="15393000" />
     </task>
     <task id="LOCAL-00001" summary="commit untracked files">
       <created>1556125748125</created>
@@ -331,17 +328,24 @@
       <option name="project" value="LOCAL" />
       <updated>1556722849016</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Added Semantic Analysis">
+      <created>1558042700871</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1558042700872</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47736000" />
+    <option name="totallyTimeSpent" value="63129000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27665246" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27985075" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -408,7 +412,8 @@
     <MESSAGE value="Commit extras" />
     <MESSAGE value="Removed solve() functionality from expressions.&#10;Still ToDo a solution for self reference assignments.&#10;Introduced Function Call and updated PrintXML for functions." />
     <MESSAGE value="Completed function declaration logic." />
-    <option name="LAST_COMMIT_MESSAGE" value="Completed function declaration logic." />
+    <MESSAGE value="Added Semantic Analysis" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Semantic Analysis" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
