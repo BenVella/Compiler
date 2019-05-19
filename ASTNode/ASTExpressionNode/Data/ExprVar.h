@@ -12,14 +12,14 @@ namespace AST {
     class ExprVar: public Expr {
     private:
         std::string _name;
-        Var *_var;
+        Var _var;
     public:
-        ExprVar(const std::string &name, Var *var) : _name(name), _var(var) {}
+        ExprVar(const std::string &name, Var var) : _name(name), _var(var) {}
 
         ~ExprVar() override = default;
         void Accept(Visitor& v) override { v.Visit(*this); }
 
-        Var *getVar() const {return _var;}
+        Var getVar() const {return _var;}
         const std::string &getName() const { return _name; }
     };
 }

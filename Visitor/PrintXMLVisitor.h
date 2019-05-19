@@ -14,8 +14,10 @@
 #include "../ASTNode/ASTExpressionNode/Boolean/ExprBoolOpFalse.h"
 #include "../ASTNode/ASTExpressionNode/Binary/ExprBinOpAdd.h"
 #include "../ASTNode/ASTExpressionNode/Binary/ExprBinOpSub.h"
-#include "../ASTNode/ASTExpressionNode/Binary/ExprBinOppMul.h"
-#include "../ASTNode/ASTExpressionNode/Binary/ExprBinOppDiv.h"
+#include "../ASTNode/ASTExpressionNode/Binary/ExprBinOpMul.h"
+#include "../ASTNode/ASTExpressionNode/Binary/ExprBinOpDiv.h"
+#include "../ASTNode/ASTExpressionNode/Binary/ExprBinOpSmaller.h"
+#include "../ASTNode/ASTExpressionNode/Binary/ExprBinOpGreater.h"
 #include "../ASTNode/ASTExpressionNode/Unary/ExprUnOpNeg.h"
 #include "../ASTNode/ASTStatementNode/Assignment.h"
 #include "../ASTNode/ASTStatementNode/VarDeclare.h"
@@ -93,6 +95,24 @@ public:
         p_node.get_pArg2()->Accept(*this);
         m_indent--;
         std::cout << indentTabs() << "</ExprBinOpDiv>" << std::endl;
+    }
+    
+    virtual void Visit(AST::ExprBinOpSmaller& p_node) override {
+        std::cout << indentTabs() << "<ExprBinOpSmaller>" << std::endl;
+        m_indent++;
+        p_node.get_pArg1()->Accept(*this);
+        p_node.get_pArg2()->Accept(*this);
+        m_indent--;
+        std::cout << indentTabs() << "</ExprBinOpSmaller>" << std::endl;
+    }
+    
+    virtual void Visit(AST::ExprBinOpGreater& p_node) override {
+        std::cout << indentTabs() << "<ExprBinOpGreater>" << std::endl;
+        m_indent++;
+        p_node.get_pArg1()->Accept(*this);
+        p_node.get_pArg2()->Accept(*this);
+        m_indent--;
+        std::cout << indentTabs() << "</ExprBinOpGreater>" << std::endl;
     }
 
     virtual void Visit(AST::ExprUnOpNeg& p_node) override {

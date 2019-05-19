@@ -135,6 +135,8 @@ Lexer::Token Lexer::StateToToken(STATE_TYPE st) {
             else if (m_lexeme == "/") return Lexer::Token(TOK_ARITHMETIC_DIV);
             else if (m_lexeme == "+") return Lexer::Token(TOK_ARITHMETIC_PLUS);
             else if (m_lexeme == "-") return Lexer::Token(TOK_ARITHMETIC_MINUS);
+            else if (m_lexeme == ">") return Lexer::Token(TOK_ARITHMETIC_GREATER);
+            else if (m_lexeme == "<") return Lexer::Token(TOK_ARITHMETIC_SMALLER);
             else return Lexer::Token(TOK_SYNTAX_ERR,m_lexeme);
         case ST_PUNCTUATION:
             if (m_lexeme == ";") return Lexer::Token(TOK_STMT_DELIMITER);

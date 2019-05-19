@@ -1,7 +1,13 @@
-a = 2;
-var b : float = 6.2 * 1.2;
-for ( ; true ; ){}
-if (true) { a = 1; } else { return a; }
-fn boost(a:int,b:float) : float {
-    return a*b;
+fn Pow(x:float, n:int) :  float {
+	var y:float = 1.0;
+	if (n>0) {
+		for (;n>0;n=n-1) {
+			y=y * x;
+		}
+	} else {
+		for (;n<0;n=n+1) {
+			y=y/x;
+		}
+	}
+	return y;
 }

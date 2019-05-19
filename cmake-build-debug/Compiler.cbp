@@ -88,13 +88,19 @@
 		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOpAdd.h">
 			<Option target="Compiler"/>
 		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOpDiv.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOpGreater.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOpMul.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOpSmaller.h">
+			<Option target="Compiler"/>
+		</Unit>
 		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOpSub.h">
-			<Option target="Compiler"/>
-		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOppDiv.h">
-			<Option target="Compiler"/>
-		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Binary/ExprBinOppMul.h">
 			<Option target="Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTExpressionNode/Boolean/ExprBoolOp.h">

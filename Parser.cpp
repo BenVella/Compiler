@@ -8,8 +8,10 @@
 
 #include "ASTNode/ASTExpressionNode/Binary/ExprBinOpAdd.h"
 #include "ASTNode/ASTExpressionNode/Binary/ExprBinOpSub.h"
-#include "ASTNode/ASTExpressionNode/Binary/ExprBinOppMul.h"
-#include "ASTNode/ASTExpressionNode/Binary/ExprBinOppDiv.h"
+#include "ASTNode/ASTExpressionNode/Binary/ExprBinOpMul.h"
+#include "ASTNode/ASTExpressionNode/Binary/ExprBinOpDiv.h"
+#include "ASTNode/ASTExpressionNode/Binary/ExprBinOpSmaller.h"
+#include "ASTNode/ASTExpressionNode/Binary/ExprBinOpGreater.h"
 #include "ASTNode/ASTExpressionNode/Unary/ExprUnOpNeg.h"
 #include "ASTNode/ASTExpressionNode/Data/ExprConstInt.h"
 #include "ASTNode/ASTExpressionNode/Data/ExprConstFloat.h"
@@ -142,6 +144,24 @@ AST::Expr* Parser::ParseSumExprRest(AST::Expr *pExpr1) {
                     return nullptr; // Error
                 }
                 break;
+            case Lexer::TOK_ARITHMETIC_SMALLER:
+                nextToken();
+                if (AST::Expr *pExpr2 = ParseExpr()) {
+                    pExpr1 = new AST::ExprBinOpSmaller(pExpr1,pExpr2);
+                } else {
+                    delete pExpr1;
+                    return nullptr;
+                }
+                break;
+            case Lexer::TOK_ARITHMETIC_GREATER:
+                nextToken();
+                if (AST::Expr *pExpr2 = ParseExpr()) {
+                    pExpr1 = new AST::ExprBinOpGreater(pExpr1,pExpr2);
+                } else {
+                    delete pExpr1;
+                    return nullptr;
+                }
+                break;
             case Lexer::TOK_SYNTAX_ERR:
                 Error("SYNTAX ERROR! Unexpected Token in ParseSumExprRest()");
                 delete pExpr1;
@@ -223,8 +243,8 @@ AST::Expr* Parser::ParsePrimExpr()
             nextToken(); // consume float value token
             break;
         case Lexer::TOK_ID: {
-            AST::Var &var = _varTable[_currentToken.id_name]; // find or create
-            pExpr = new AST::ExprVar(_currentToken.id_name,&var);
+            AST::Var var = _varTable[_currentToken.id_name]; // find or create
+            pExpr = new AST::ExprVar(_currentToken.id_name,var);
             nextToken(); // consume id token
         } break;
         case Lexer::TOK_PUNC:
@@ -312,6 +332,11 @@ AST::Statement * Parser::ParseAssignmentStatement(std::string p_name) {
     auto pAssign = new AST::Assignment(std::move(p_name), pExpr);
 
     if (!isToken(Lexer::TOK_STMT_DELIMITER)) {
+        // Check if we're potentially inside a for loop, if so exit as is and let for loop close
+        if (isToken(Lexer::TOK_PUNC) && _currentToken.id_name==")") {
+            return pAssign;
+        }
+
         Error ("Expecting ' ; ' to terminate statement");
         return nullptr;
     }
@@ -469,7 +494,7 @@ AST::Statement* Parser::ParseForStatement() {
             Error ("Expecting an Assignment statement or Close Parenthesis to end For definition");
             return nullptr;
         }
-        nextToken();
+        //nextToken();
 
     }
 

@@ -2,8 +2,8 @@
 // Created by bennet.vella on 23/04/2019.
 //
 
-#ifndef COMPILER_EXPRBINOPPDIV_H
-#define COMPILER_EXPRBINOPPDIV_H
+#ifndef COMPILER_EXPRBINOPDIV_H
+#define COMPILER_EXPRBINOPDIV_H
 
 #include "../Expr.h"
 #include "ExprBinOp.h"
@@ -19,4 +19,4 @@ namespace AST {
 
 }
 
-#endif //COMPILER_EXPRBINOPPDIV_H
+#endif //COMPILER_EXPRBINOPDIV_H
