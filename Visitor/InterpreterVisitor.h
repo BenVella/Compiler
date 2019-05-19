@@ -1,9 +1,9 @@
 //
-// Created by bennv on 5/8/2019.
+// Created by bennv on 5/19/2019.
 //
 
-#ifndef COMPILER_SEMANTICANALYSISVISITOR_H
-#define COMPILER_SEMANTICANALYSISVISITOR_H
+#ifndef COMPILER_INTERPRETERVISITOR_H
+#define COMPILER_INTERPRETERVISITOR_H
 
 #include <vector>
 #include <stack>
@@ -36,7 +36,7 @@
 #include "../ASTNode/ASTStatementNode/SimpleParam.h"
 #include "../ASTNode/ASTStatementNode/SimpleParams.h"
 
-class SemanticAnalysisVisitor : public Visitor {
+class InterpreterVisitor : public Visitor {
     struct SymbolTable {
         // Stack defining scopes holding identifier / type details
         std::vector<std::map<std::string,std::string>*> _scopeVector;
@@ -53,9 +53,9 @@ class SemanticAnalysisVisitor : public Visitor {
             _currentMap = _scopeVector.back();
         }
 
-        bool Insert(std::string p_name, std::string p_type) {
+        bool Insert(std::string p_name, std::string p_value) {
             if (_currentMap->find(p_name) == _currentMap->end()) {
-                _currentMap->insert(std::make_pair(p_name, p_type));
+                _currentMap->insert(std::make_pair(p_name, p_value));
                 return true;
             }
             else {
@@ -84,14 +84,17 @@ class SemanticAnalysisVisitor : public Visitor {
     };
 
     SymbolTable *ST;
-    std::stack<std::string> typeStack;
+    std::stack<std::string> boolStack;
+    std::stack<float> valueStack;
+    bool boolOrVal; // True if bool stack last used, false if value stack last used
     std::vector<AST::FunctionDeclare *> * functionList;
 public:
     bool hasErrored;
-    SemanticAnalysisVisitor() {
+    InterpreterVisitor() {
         ST = new SymbolTable();
         ST->Push();
         hasErrored = false;
+        boolOrVal=true;
         functionList = new std::vector<AST::FunctionDeclare *> ();
     }
 
@@ -100,80 +103,144 @@ public:
     ////////////////////////////////////////////////////////////////////////////////
 
     virtual void Visit(AST::ExprConstInt& p_node) override {
-        typeStack.push("int");
+        valueStack.push(p_node.get_value());
+        boolOrVal = false; // Value
     }
 
     virtual void Visit(AST::ExprConstFloat& p_node) override {
-        typeStack.push("float");
+        valueStack.push(p_node.get_value());
     }
 
     virtual void Visit(AST::ExprVar& p_node) override {
-        if (ST->Lookup(p_node.getName()) == "") {
-            std::string errorText = "Var '" + p_node.getName() + "' not found in SymbolTable!";
-            Error(errorText);
-        } else {
-            std::cout << "Checking Var '" << p_node.getName() << "'" << std::endl;
-            if (ST->Lookup(p_node.getName()) != "") {
-                typeStack.push(ST->Lookup(p_node.getName()));
+        if (p_node.getVar().get() != NULL) {
+            p_node.getVar().get()->Accept(*this); // Set var type
+            if (boolOrVal) {
+                ST->Insert(p_node.getName(),boolStack.top());
+                boolStack.pop();
             } else {
-                std::string errorText = "Var '" + p_node.getName() + "' not found in SymbolTable!";
-                Error(errorText);
+                ST->Insert(p_node.getName(),std::to_string(valueStack.top()));
+                valueStack.pop();
             }
+        } else {
+            std::string errorText = "Var '" + p_node.getName() + "' not found!";
+            Error(errorText);
         }
     }
 
     virtual void Visit(AST::ExprBoolOpTrue& p_node) override {
-        typeStack.push("true");
+        boolStack.push("true");
+        boolOrVal = true;
     }
 
     virtual void Visit(AST::ExprBoolOpFalse& p_node) override {
-        typeStack.push("false");
+        boolStack.push("false");
+        boolOrVal = true;
     }
 
     virtual void Visit(AST::ExprBinOpAdd& p_node) override {
         p_node.get_pArg1()->Accept(*this);
         p_node.get_pArg2()->Accept(*this);
 
-        CompareTopStackTypes();
+        if (hasErrored)
+            return;
+
+        float val1 = valueStack.top(); valueStack.pop();
+        float val2 = valueStack.top(); valueStack.pop();
+
+        valueStack.push(val1+val2);
+        boolOrVal = false;
     }
 
     virtual void Visit(AST::ExprBinOpSub& p_node) override {
         p_node.get_pArg1()->Accept(*this);
         p_node.get_pArg2()->Accept(*this);
 
-        CompareTopStackTypes();
+        if (hasErrored)
+            return;
+
+        float val1 = valueStack.top(); valueStack.pop();
+        float val2 = valueStack.top(); valueStack.pop();
+
+        valueStack.push(val1-val2);
+        boolOrVal = false;
     }
 
     virtual void Visit(AST::ExprBinOpMul& p_node) override {
         p_node.get_pArg1()->Accept(*this);
         p_node.get_pArg2()->Accept(*this);
 
-        CompareTopStackTypes();
+        if (hasErrored)
+            return;
+
+        float val1 = valueStack.top(); valueStack.pop();
+        float val2 = valueStack.top(); valueStack.pop();
+
+        valueStack.push(val1*val2);
+        boolOrVal = false;
     }
 
     virtual void Visit(AST::ExprBinOpDiv& p_node) override {
         p_node.get_pArg1()->Accept(*this);
         p_node.get_pArg2()->Accept(*this);
 
-        CompareTopStackTypes();
+        if (hasErrored)
+            return;
+
+        float val1 = valueStack.top(); valueStack.pop();
+        float val2 = valueStack.top(); valueStack.pop();
+
+        if (val2 == 0) {
+            std::string errorText = "Dividing by 0 is not allowed.  Runtime Error!";
+            Error (errorText);
+        } else {
+            valueStack.push(val1 / val2);
+            boolOrVal = false;
+        }
     }
 
     virtual void Visit(AST::ExprBinOpSmaller& p_node) override {
         p_node.get_pArg1()->Accept(*this);
         p_node.get_pArg2()->Accept(*this);
 
-        CompareTopStackTypes();
+        if (hasErrored)
+            return;
+
+        float val1 = valueStack.top(); valueStack.pop();
+        float val2 = valueStack.top(); valueStack.pop();
+
+        boolStack.push(val1 < val2 ? "true" : "false");
+        boolOrVal = true;
     }
 
     virtual void Visit(AST::ExprBinOpGreater& p_node) override {
         p_node.get_pArg1()->Accept(*this);
         p_node.get_pArg2()->Accept(*this);
 
-        CompareTopStackTypes();
+        if (hasErrored)
+            return;
+
+        float val1 = valueStack.top(); valueStack.pop();
+        float val2 = valueStack.top(); valueStack.pop();
+
+        boolStack.push(val1 > val2 ? "true" : "false");
+        boolOrVal = true;
     }
 
     virtual void Visit(AST::ExprUnOpNeg& p_node) override {
         p_node.get_pArg1()->Accept(*this);
+        if (boolOrVal) {
+             if (boolStack.top() == "true") {
+                 boolStack.pop();
+                 boolStack.push("false");
+             } else {
+                 boolStack.pop();
+                 boolStack.push("true");
+             }
+        } else {
+            float tempVal = valueStack.top();
+            valueStack.pop();
+            valueStack.push(-tempVal);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -181,31 +248,70 @@ public:
     ////////////////////////////////////////////////////////////////////////////////
 
     virtual void Visit(AST::Assignment& p_node) override {
+        // Interpret expression
         p_node.getExpr()->Accept(*this);
+
+        // Assign result to node name
+        if (boolOrVal) {
+            ST->Insert(p_node.getName(), boolStack.top());
+            boolStack.pop();
+        } else {
+            ST->Insert(p_node.getName(), std::to_string(valueStack.top()));
+            valueStack.pop();
+        }
     }
 
     virtual void Visit(AST::VarDeclare& p_node) override {
-        if (ST->Insert(p_node.getName(),p_node.getType())) {
-            p_node.getExpr()->Accept(*this);
-            ValidateVarDeclareType(); // Ensure float or int and pop it
+        p_node.getExpr()->Accept(*this);
+
+        // Assign result to node name
+        if (boolOrVal) {
+            ST->Insert(p_node.getName(), boolStack.top());
+            boolStack.pop();
         } else {
-            hasErrored = true;
+            ST->Insert(p_node.getName(), std::to_string(valueStack.top()));
+            valueStack.pop();
         }
     }
 
     virtual void Visit(AST::Print& p_node) override {
         p_node.getExpr()->Accept(*this);
+
+        if (boolOrVal) {
+            std::cout << boolStack.top() << std::endl;
+            boolStack.pop();
+        } else {
+            std::cout << valueStack.top() << std::endl;
+            valueStack.pop();
+        }
     }
 
     virtual void Visit(AST::Return& p_node) override {
+        // Compute expression and leave it for something else to handle
         p_node.getExpr()->Accept(*this);
     }
 
     virtual void Visit(AST::If& p_node) override {
+        // Compute expression first before checking
         p_node.getExpr()->Accept(*this);
-        p_node.getBlock1()->Accept(*this);
-        if (p_node.getBlock2() != NULL)
-            p_node.getBlock2()->Accept(*this);
+
+        if (boolOrVal) { // It's a boolean
+            if (boolStack.top() == "true") { // If true execute first block
+                p_node.getBlock1()->Accept(*this);
+            } else if (p_node.getBlock2() != NULL) { // If not true but second block exists execute it instead
+                p_node.getBlock2()->Accept(*this);
+            }
+
+            boolStack.pop();
+        } else { // It's a float (or int) value
+            if (valueStack.top() != 0) { // If not zero execute first block
+                p_node.getBlock1()->Accept(*this);
+            } else if (p_node.getBlock2() != NULL) { // If zero and second block exists execute it instead
+                p_node.getBlock2()->Accept(*this);
+            }
+
+            valueStack.pop();
+        }
     }
 
     virtual void Visit(AST::Block& p_node) override {
@@ -217,26 +323,38 @@ public:
     }
 
     virtual void Visit(AST::For& p_node) override {
+        bool keepLooping = true;
+        // Execute a var declaration if one exists
         if (p_node.getVar() != NULL)
             p_node.getVar()->Accept(*this);
 
-        p_node.getExpr()->Accept(*this);
+        while (keepLooping) {
+            // Run the expression
+            p_node.getExpr()->Accept(*this);
 
-        if (p_node.getAssign() != NULL)
-            p_node.getAssign()->Accept(*this);
+            if (boolOrVal) { // It's a boolean
+                keepLooping = boolStack.top() == "true";
+                boolStack.pop();
+            } else {
+                keepLooping = valueStack.top() != 0;
+                valueStack.pop();
+            }
+
+            if (p_node.getAssign() != NULL) // User entered their own condition
+                p_node.getAssign()->Accept(*this);
+            else {                            // No user condition specified, we keep looping
+                boolStack.push("true");
+            }
+
+            if (keepLooping) { // If code still active after check, trigger block statements
+                p_node.getBlock()->Accept(*this);
+            }
+        }
     }
 
-    // Todo make sure the function being called is given correct parameters as declared.  Make sure it's also already declared
     bool functionActive = false;
     std::queue<std::string> paramQueue;
     virtual void Visit(AST::FunctionCall& p_node) override {
-        // Verify function exists
-        if (ST->Lookup(p_node.getName()) == "") {
-            std::string errorText = "No function with name '" + p_node.getName() + "' was found.";
-            Error (errorText);
-            return;
-        }
-
         // Locate and setup required function
         AST::FunctionDeclare *pFunc = nullptr;
         // Find required function declaration
@@ -248,9 +366,7 @@ public:
         if (!pFunc) {
             std::string errorText = "Error locating declared function with name " + p_node.getName();
             Error(errorText);
-            return;
         }
-
 
         // Register and update the params in a new scope
         ST->Push();
@@ -274,71 +390,52 @@ public:
         functionActive = false;
         // Terminate Function Call Scope
         ST->Pop();
-
-        // Verify passed parameters conform with formal structure
-        p_node.getParams()->Accept(*this);
     }
 
     virtual void Visit(AST::FunctionDeclare& p_node) override {
-        if (ST->Insert(p_node.getName(), p_node.getType())) {
-            p_node.getParams()->Accept(*this);
-            p_node.getBlock()->Accept(*this);
-
-            if (p_node.getType() != typeStack.top()) {
-                Error("Function return type is incorrect!");
-                return;
-            } else {
-                typeStack.pop();
-            }
-
-            // Keep track of this declared function to run it when called.
-            AST::FunctionDeclare newNode = p_node;
-            functionList->push_back(&newNode);
-        } else {
-            hasErrored = true;
-        }
+        // Keep track of this declared function to run it when called.
+        AST::FunctionDeclare newNode = p_node;
+        functionList->push_back(&newNode);
     }
 
+    // This only gets called if we're calling a function to get name and types
     virtual void Visit(AST::FormalParams& p_node) override {
+        // Populate paramQueue
         for (auto *param : *p_node.getParams()) {
-            if (hasErrored) return;
             param->Accept(*this);
         }
     }
 
+    // This only gets called if we're running a function to get name and types
     virtual void Visit(AST::FormalParam& p_node) override {
         // Insert a type : name of variable to track it, provided we're running a function, not just declaring it
         if (functionActive)
-            paramQueue.push(p_node.getType());
-        else // Just run through semantic analysis of a normal declaration
-            if (!ST->Insert(p_node.getName(),p_node.getType()))
-                hasErrored = true;
+            paramQueue.push(p_node.getType() + ":" + p_node.getName());
     }
 
     virtual void Visit(AST::SimpleParams& p_node) override {
+        // Populate SymbolTable with matching parameter values
         for (auto *param : *p_node.getParams()) {
-            if (hasErrored) return;
             param->Accept(*this);
         }
     }
 
     virtual void Visit(AST::SimpleParam& p_node) override {
-        // Run the expression contained to generate type on stack
+        // Run the expression contained to generate value on stacks
         p_node.getExpr()->Accept(*this);
 
         if (paramQueue.size() == 0) {
             Error("PARAM QUEUE IS EMPTY!!!");
-            return;
         }
         // Determine what variable type and name we need
-        std::string paramType = paramQueue.front(); paramQueue.pop();
-
-        // Match the type
-        if (paramType == typeStack.top()) {
-            typeStack.pop();
-        } else {
-            Error ("Incorrect Function Call Parameter Type!");
-            return;
+        std::string param = paramQueue.front(); paramQueue.pop();
+        auto paramParts = split(param,":");
+        if (paramParts[0] == "int" || paramParts[0] == "float") {
+            ST->Insert(paramParts[1],std::to_string(valueStack.top()));
+            valueStack.pop();
+        } else if (paramParts[0] == "bool") {
+            ST->Insert(paramParts[1],boolStack.top());
+            boolStack.pop();
         }
     }
 
@@ -348,34 +445,23 @@ public:
 
     void Error(std::string str) {
         hasErrored=true;
-        std::cout << "[ERROR]: " << str << std::endl;
         std::cerr << "[ERROR]: " << str << std::endl;
     }
 
-    void CompareTopStackTypes() {
-        if (hasErrored)
-            return;
-        std::string pType2 = typeStack.top(); typeStack.pop();
-        std::string pType1 = typeStack.top(); typeStack.pop();
-
-        if (pType1 != pType2) {
-            std::string errorText = "Type mismatch! Expected: " + pType1 + "; Found: " + pType2;
-            Error(errorText);
-        } else {
-            std::cout << "Types Matched" << std::endl;
+    std::vector<std::string> split(const std::string& str, const std::string& delim)
+    {
+        std::vector<std::string> tokens;
+        size_t prev = 0, pos = 0;
+        do
+        {
+            pos = str.find(delim, prev);
+            if (pos == std::string::npos) pos = str.length();
+            std::string token = str.substr(prev, pos-prev);
+            tokens.push_back(token);
+            prev = pos + delim.length();
         }
-    }
-
-    void ValidateVarDeclareType() {
-        if (typeStack.top() == "int" || typeStack.top() == "float") {
-            std::cout << "Valid var declare type" << std::endl;
-            typeStack.pop();
-        } else {
-            std::string errorText = "Type mismatch! Expected 'float' or 'int' but instead got " + typeStack.top();
-            Error(errorText);
-        }
-
+        while (pos < str.length() && prev < str.length());
+        return tokens;
     }
 };
-
-#endif //COMPILER_SEMANTICANALYSISVISITOR_H
+#endif //COMPILER_INTERPRETERVISITOR_H

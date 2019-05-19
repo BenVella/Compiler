@@ -22,6 +22,7 @@ namespace AST {
         Statement *getVar() const { return _var; }
         Expr *getExpr() const { return _expr; }
         Statement *getAssign() const { return _assign; }
+        Statement *getBlock() const { return _block; }
     };
 }
 

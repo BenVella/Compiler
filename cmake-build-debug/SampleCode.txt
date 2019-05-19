@@ -1,2 +1,15 @@
-var a : float = 2;
-try(a);
+fn Pow (x:float,n:int) : float {
+    var y : float = 1.0;
+    if (n > 0) {
+        for (;n>0; n=n-1) {
+            y = y * x;
+        }
+    } else {
+        for (;n<0;n=n+1) {
+            y=y/x;
+        }
+    }
+    return y;
+}
+
+Pow(2,3);

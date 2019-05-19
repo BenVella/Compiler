@@ -5,6 +5,7 @@
 #include "Parser.h"
 #include "Visitor/PrintXMLVisitor.h"
 #include "Visitor/SemanticAnalysisVisitor.h"
+#include "Visitor/InterpreterVisitor.h"
 
 typedef std::map<std::string, AST::Var> VarTable;
 
@@ -41,9 +42,16 @@ int main() {
     }
     if (visitor1->hasErrored)
         std::cerr << "SEMANTIC ANALYSIS FAILED!" << std::endl;
-    else
+    else {
         std::cout << "Semantic Analysis Successful." << std::endl;
 
+        // Carry out interpretation since Analysis was successful
+        auto *visitor2 = new InterpreterVisitor();
+
+        for (auto *stmt : *progResult->main_impl) {
+            stmt->Accept(*visitor2);
+        }
+    }
     return 0;
 }
 

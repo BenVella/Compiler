@@ -630,7 +630,7 @@ AST::Statement* Parser::ParseSingleFormalParam() {
 
 
 AST::Statement* Parser::ParseSimpleParams() {
-    auto* pParams = new AST::FormalParams();
+    auto* pParams = new AST::SimpleParams();
     while (true){
         if (auto* pSingle = ParseSingleSimpleParam()) {
             pParams->addParam(pSingle);
@@ -646,10 +646,6 @@ AST::Statement* Parser::ParseSimpleParams() {
 }
 
 AST::Statement* Parser::ParseSingleSimpleParam() {
-    if (!isToken(Lexer::TOK_ID)) {
-        Error ("Expecting identifier for new Parameter");   // This might not be in Error, simply no more params to parse
-        return nullptr;
-    }
     if (AST::Expr *pExpr = ParseExpr()) {
         return new AST::SimpleParam(pExpr);
     } else {
