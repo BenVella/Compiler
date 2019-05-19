@@ -116,10 +116,10 @@ public:
             p_node.getVar().get()->Accept(*this); // Set var type
             if (boolOrVal) {
                 ST->Insert(p_node.getName(),boolStack.top());
-                boolStack.pop();
+                //boolStack.pop();
             } else {
                 ST->Insert(p_node.getName(),std::to_string(valueStack.top()));
-                valueStack.pop();
+                //valueStack.pop();
             }
         } else {
             std::string errorText = "Var '" + p_node.getName() + "' not found!";
@@ -359,8 +359,10 @@ public:
         AST::FunctionDeclare *pFunc = nullptr;
         // Find required function declaration
         for (auto tempFunc : *functionList) {
-            if (tempFunc->getName() == p_node.getName()) // got it!
+            if (tempFunc->getName() == p_node.getName()) { // got it!
                 pFunc = tempFunc;
+                break;
+            }
         }
 
         if (!pFunc) {
@@ -394,8 +396,7 @@ public:
 
     virtual void Visit(AST::FunctionDeclare& p_node) override {
         // Keep track of this declared function to run it when called.
-        AST::FunctionDeclare newNode = p_node;
-        functionList->push_back(&newNode);
+        functionList->push_back(&p_node);
     }
 
     // This only gets called if we're calling a function to get name and types

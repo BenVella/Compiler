@@ -134,42 +134,42 @@ public:
         p_node.get_pArg1()->Accept(*this);
         p_node.get_pArg2()->Accept(*this);
 
-        CompareTopStackTypes();
+        CompareBinTopStackTypes();
     }
 
     virtual void Visit(AST::ExprBinOpSub& p_node) override {
         p_node.get_pArg1()->Accept(*this);
         p_node.get_pArg2()->Accept(*this);
 
-        CompareTopStackTypes();
+        CompareBinTopStackTypes();
     }
 
     virtual void Visit(AST::ExprBinOpMul& p_node) override {
         p_node.get_pArg1()->Accept(*this);
         p_node.get_pArg2()->Accept(*this);
 
-        CompareTopStackTypes();
+        CompareBinTopStackTypes();
     }
 
     virtual void Visit(AST::ExprBinOpDiv& p_node) override {
         p_node.get_pArg1()->Accept(*this);
         p_node.get_pArg2()->Accept(*this);
 
-        CompareTopStackTypes();
+        CompareBinTopStackTypes();
     }
 
     virtual void Visit(AST::ExprBinOpSmaller& p_node) override {
         p_node.get_pArg1()->Accept(*this);
         p_node.get_pArg2()->Accept(*this);
 
-        CompareTopStackTypes();
+        CompareBinTopStackTypes();
     }
 
     virtual void Visit(AST::ExprBinOpGreater& p_node) override {
         p_node.get_pArg1()->Accept(*this);
         p_node.get_pArg2()->Accept(*this);
 
-        CompareTopStackTypes();
+        CompareBinTopStackTypes();
     }
 
     virtual void Visit(AST::ExprUnOpNeg& p_node) override {
@@ -195,6 +195,7 @@ public:
 
     virtual void Visit(AST::Print& p_node) override {
         p_node.getExpr()->Accept(*this);
+        typeStack.pop();
     }
 
     virtual void Visit(AST::Return& p_node) override {
@@ -203,6 +204,7 @@ public:
 
     virtual void Visit(AST::If& p_node) override {
         p_node.getExpr()->Accept(*this);
+        typeStack.pop();
         p_node.getBlock1()->Accept(*this);
         if (p_node.getBlock2() != NULL)
             p_node.getBlock2()->Accept(*this);
@@ -241,8 +243,10 @@ public:
         AST::FunctionDeclare *pFunc = nullptr;
         // Find required function declaration
         for (auto tempFunc : *functionList) {
-            if (tempFunc->getName() == p_node.getName()) // got it!
+            if (tempFunc->getName() == p_node.getName()) {// got it!
                 pFunc = tempFunc;
+                break;
+            }
         }
 
         if (!pFunc) {
@@ -274,9 +278,6 @@ public:
         functionActive = false;
         // Terminate Function Call Scope
         ST->Pop();
-
-        // Verify passed parameters conform with formal structure
-        p_node.getParams()->Accept(*this);
     }
 
     virtual void Visit(AST::FunctionDeclare& p_node) override {
@@ -292,8 +293,7 @@ public:
             }
 
             // Keep track of this declared function to run it when called.
-            AST::FunctionDeclare newNode = p_node;
-            functionList->push_back(&newNode);
+            functionList->push_back(&p_node);
         } else {
             hasErrored = true;
         }
@@ -352,7 +352,7 @@ public:
         std::cerr << "[ERROR]: " << str << std::endl;
     }
 
-    void CompareTopStackTypes() {
+    void CompareBinTopStackTypes() {
         if (hasErrored)
             return;
         std::string pType2 = typeStack.top(); typeStack.pop();
@@ -363,6 +363,7 @@ public:
             Error(errorText);
         } else {
             std::cout << "Types Matched" << std::endl;
+            typeStack.push(pType1); // Push it back as overall type
         }
     }
 
