@@ -33,11 +33,16 @@ int main() {
 
 
     // VISITOR - SemanticAnalysisVisitor
-    std::cout << "Semantic Pass" << std::endl;
+    std::cout << "Semantic Analysis Start" << std::endl;
     auto *visitor1 = new SemanticAnalysisVisitor();
     for (auto* stmt : *progResult->main_impl) {
-        stmt->Accept(*visitor1);
+        if (!visitor1->hasErrored)
+            stmt->Accept(*visitor1);
     }
+    if (visitor1->hasErrored)
+        std::cerr << "SEMANTIC ANALYSIS FAILED!" << std::endl;
+    else
+        std::cout << "Semantic Analysis Successful." << std::endl;
 
     return 0;
 }

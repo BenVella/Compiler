@@ -28,8 +28,10 @@
 #include "ASTNode/ASTStatementNode/For.h"
 #include "ASTNode/ASTStatementNode/FunctionCall.h"
 #include "ASTNode/ASTStatementNode/FunctionDeclare.h"
-#include "ASTNode/ASTStatementNode/Param.h"
-#include "ASTNode/ASTStatementNode/Params.h"
+#include "ASTNode/ASTStatementNode/FormalParam.h"
+#include "ASTNode/ASTStatementNode/FormalParams.h"
+#include "ASTNode/ASTStatementNode/SimpleParam.h"
+#include "ASTNode/ASTStatementNode/SimpleParams.h"
 
 Parser::Parser(Lexer * p_lexer, VarTable &p_varTable): _lexer(p_lexer), _varTable(p_varTable) {
     nextToken();
@@ -99,7 +101,7 @@ AST::Statement * Parser::ParseStatement() {
             node = ParseFunctionDeclaration();
             break;
         case Lexer::TOK_OPEN_SCOPE:
-            node = ParseFunctionDeclaration();
+            node = ParseBlockStatement();
         default:
             break;
     }
@@ -509,17 +511,17 @@ AST::Statement* Parser::ParseForStatement() {
 }
 
 AST::Statement* Parser::ParseFunctionCall(const std::string& pName) {
-    // Handle Params
-    nextToken(); // skip ' = '
-    auto *pParams = ParseParams();
+    // Handle FormalParams
+    nextToken(); // skip ' ( '
+    auto *pParams = ParseSimpleParams();
 
-    nextToken();
     if (!isToken(Lexer::TOK_PUNC) || _currentToken.id_name != ")") {
         Error ("Expecting Close Parenthesis for FunctionDeclare Call");
         return nullptr;
     }
 
-    nextToken(); // Consume delimeter
+    nextToken(); // Consume ' ) '
+    nextToken(); // Consume ' ; '
     return new AST::FunctionCall(pName,pParams);
 }
 
@@ -538,7 +540,7 @@ AST::Statement* Parser::ParseFunctionDeclaration() {
     }
 
     nextToken();
-    auto *pParams = ParseParams();
+    auto *pParams = ParseFormalParams();
 
     if (!isToken(Lexer::TOK_PUNC) || _currentToken.id_name != ")") {
         Error ("Expecting Close Parenthesis for FunctionDeclare Delcaration");
@@ -577,10 +579,10 @@ AST::Statement* Parser::ParseFunctionDeclaration() {
     }
 }
 
-AST::Statement* Parser::ParseParams() {
-    auto* pParams = new AST::Params();
+AST::Statement* Parser::ParseFormalParams() {
+    auto* pParams = new AST::FormalParams();
     while (true){
-        if (auto* pSingle = ParseSingleParam()) {
+        if (auto* pSingle = ParseSingleFormalParam()) {
             pParams->addParam(pSingle);
 
             if (!isToken(Lexer::TOK_PUNC) || _currentToken.id_name!= ",") {
@@ -593,7 +595,7 @@ AST::Statement* Parser::ParseParams() {
     return pParams;
 }
 
-AST::Statement* Parser::ParseSingleParam() {
+AST::Statement* Parser::ParseSingleFormalParam() {
     if (!isToken(Lexer::TOK_ID)) {
         Error ("Expecting identifier for new Parameter");   // This might not be in Error, simply no more params to parse
         return nullptr;
@@ -623,7 +625,37 @@ AST::Statement* Parser::ParseSingleParam() {
             return nullptr;
     }
     nextToken(); //Consume pType tokekn
-    return new AST::Param(pName,pType);
+    return new AST::FormalParam(pName,pType);
+}
+
+
+AST::Statement* Parser::ParseSimpleParams() {
+    auto* pParams = new AST::FormalParams();
+    while (true){
+        if (auto* pSingle = ParseSingleSimpleParam()) {
+            pParams->addParam(pSingle);
+
+            if (!isToken(Lexer::TOK_PUNC) || _currentToken.id_name!= ",") {
+                break;
+            } else {
+                nextToken(); // Consume ' , ' and loop again
+            }
+        }
+    }
+    return pParams;
+}
+
+AST::Statement* Parser::ParseSingleSimpleParam() {
+    if (!isToken(Lexer::TOK_ID)) {
+        Error ("Expecting identifier for new Parameter");   // This might not be in Error, simply no more params to parse
+        return nullptr;
+    }
+    if (AST::Expr *pExpr = ParseExpr()) {
+        return new AST::SimpleParam(pExpr);
+    } else {
+        Error ("Expecting a valid expression as function call parameter");
+        return nullptr;
+    }
 }
 
 AST::Statement* Parser::ParseBlockStatement() {

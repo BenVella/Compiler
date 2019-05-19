@@ -30,8 +30,10 @@
 #include "../ASTNode/ASTStatementNode/For.h"
 #include "../ASTNode/ASTStatementNode/FunctionCall.h"
 #include "../ASTNode/ASTStatementNode/FunctionDeclare.h"
-#include "../ASTNode/ASTStatementNode/Param.h"
-#include "../ASTNode/ASTStatementNode/Params.h"
+#include "../ASTNode/ASTStatementNode/FormalParam.h"
+#include "../ASTNode/ASTStatementNode/FormalParams.h"
+#include "../ASTNode/ASTStatementNode/SimpleParam.h"
+#include "../ASTNode/ASTStatementNode/SimpleParams.h"
 
 class SemanticAnalysisVisitor : public Visitor {
     struct SymbolTable {
@@ -50,8 +52,15 @@ class SemanticAnalysisVisitor : public Visitor {
             _currentMap = _scopeVector.back();
         }
 
-        void Insert(std::string p_name, std::string p_type) {
-            _currentMap->insert(std::make_pair(p_name,p_type));
+        bool Insert(std::string p_name, std::string p_type) {
+            if (_currentMap->find(p_name) == _currentMap->end()) {
+                _currentMap->insert(std::make_pair(p_name, p_type));
+                return true;
+            }
+            else {
+                std::cerr << "Element already declared in Symbol Table!" << std::endl;
+                return false;
+            }
         }
 
         // Returns type if found, empty if not
@@ -60,7 +69,7 @@ class SemanticAnalysisVisitor : public Visitor {
                 if (_scopeVector[i]->find(p_name) == _scopeVector[i]->end()) {
                     // No match yet
                 } else {
-                    return _scopeVector[i]->find(p_name)->first; // return var name
+                    return _scopeVector[i]->find(p_name)->second; // return var type
                 }
             }
             std::cerr << "Type name " << p_name << " not found in all of stack" << std::endl;
@@ -76,9 +85,11 @@ class SemanticAnalysisVisitor : public Visitor {
     SymbolTable *ST;
     std::stack<std::string> typeStack;
 public:
+    bool hasErrored;
     SemanticAnalysisVisitor() {
         ST = new SymbolTable();
         ST->Push();
+        hasErrored = false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -97,12 +108,19 @@ public:
 
     virtual void Visit(AST::ExprVar& p_node) override {
         if (ST->Lookup(p_node.getName()) == "") {
-            std::cout << "VAR \"" << p_node.getName() << "\" NOT FOUND" << std::endl;
+            std::string errorText = "Var '" + p_node.getName() + "' not found in SymbolTable!";
+            Error(errorText);
         } else {
-            std::cout << "Var exists" << std::endl;
-            if (p_node.getVar().get() != NULL) {
-                p_node.getVar().get()->Accept(*this); // Set var type
+            std::cout << "Checking Var \"" << p_node.getName() << "\"" << std::endl;
+            if (ST->Lookup(p_node.getName()) != "") {
+                typeStack.push(ST->Lookup(p_node.getName()));
+            } else {
+                std::string errorText = "Var '" + p_node.getName() + "' not found in SymbolTable!";
+                Error(errorText);
             }
+            /*if (p_node.getVar().get() != NULL) {
+                p_node.getVar().get()->Accept(*this); // Set var type
+            }*/
         }
     }
 
@@ -171,9 +189,12 @@ public:
     }
 
     virtual void Visit(AST::VarDeclare& p_node) override {
-        ST->Insert(p_node.getName(),p_node.getType());
-        p_node.getExpr()->Accept(*this);
-        ValidateVarDeclareType(); // Ensure float or int and pop it
+        if (ST->Insert(p_node.getName(),p_node.getType())) {
+            p_node.getExpr()->Accept(*this);
+            ValidateVarDeclareType(); // Ensure float or int and pop it
+        } else {
+            hasErrored = true;
+        }
     }
 
     virtual void Visit(AST::Print& p_node) override {
@@ -192,9 +213,11 @@ public:
     }
 
     virtual void Visit(AST::Block& p_node) override {
+        ST->Push();
         for (auto *stmt : *p_node.getStatements()) {
             stmt->Accept(*this);
         }
+        ST->Pop();
     }
 
     virtual void Visit(AST::For& p_node) override {
@@ -212,27 +235,47 @@ public:
     }
 
     virtual void Visit(AST::FunctionDeclare& p_node) override {
-        ST->Insert(p_node.getName(), p_node.getType());
-        p_node.getParams()->Accept(*this);
-        p_node.getBlock()->Accept(*this);
+        if (ST->Insert(p_node.getName(), p_node.getType())) {
+            p_node.getParams()->Accept(*this);
+            p_node.getBlock()->Accept(*this);
+        } else {
+            hasErrored = true;
+        }
     }
 
-    virtual void Visit(AST::Params& p_node) override {
+    virtual void Visit(AST::FormalParams& p_node) override {
         for (auto *param : *p_node.getParams()) {
             param->Accept(*this);
         }
     }
 
-    virtual void Visit(AST::Param& p_node) override {
-        ST->Insert(p_node.getName(),p_node.getType());
+    virtual void Visit(AST::FormalParam& p_node) override {
+        if (!ST->Insert(p_node.getName(),p_node.getType()))
+            hasErrored = true;
     }
 
-    /// HELPER METHODS
+    virtual void Visit(AST::SimpleParams& p_node) override {
+        for (auto *param : *p_node.getParams()) {
+            param->Accept(*this);
+        }
+    }
+
+    virtual void Visit(AST::SimpleParam& p_node) override {
+        p_node.getExpr()->Accept(*this);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////// HELPER METHODS ////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////
+
     void Error(std::string str) {
+        hasErrored=true;
         std::cerr << "[ERROR]: " << str << std::endl;
     }
 
     void CompareTopStackTypes() {
+        if (hasErrored)
+            return;
         std::string pType2 = typeStack.top(); typeStack.pop();
         std::string pType1 = typeStack.top(); typeStack.pop();
 

@@ -142,6 +142,12 @@
 		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/For.h">
 			<Option target="Compiler"/>
 		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/FormalParam.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/FormalParams.h">
+			<Option target="Compiler"/>
+		</Unit>
 		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/FunctionCall.h">
 			<Option target="Compiler"/>
 		</Unit>
@@ -149,12 +155,6 @@
 			<Option target="Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/If.h">
-			<Option target="Compiler"/>
-		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/Param.h">
-			<Option target="Compiler"/>
-		</Unit>
-		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/Params.h">
 			<Option target="Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/bennv/CLionProjects/Compiler/ASTNode/ASTStatementNode/Print.h">

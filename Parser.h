@@ -49,16 +49,15 @@ private:
     AST::Statement* ParseBlockStatement();
     AST::Statement* ParseFunctionCall(const std::string& pName);
     AST::Statement* ParseFunctionDeclaration();
-    AST::Statement* ParseParams();
-    AST::Statement* ParseSingleParam();
+    AST::Statement* ParseFormalParams();
+    AST::Statement* ParseSingleFormalParam();
+    AST::Statement* ParseSimpleParams();
+    AST::Statement* ParseSingleSimpleParam();
     AST::Statement* ParseIdentifierStatement();
-
-    // FunctionDeclare Parsing
-    AST::FunctionDeclare* ParseFunctionPrototype();
 
 public:
     static AST::Program* Parse(Lexer *p_lexer, VarTable& varTable);
-    virtual ~Parser() {}
+    virtual ~Parser() = default;
 };
 
 #endif //COMPILER_PARSER_H

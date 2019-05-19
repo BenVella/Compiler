@@ -28,8 +28,10 @@ namespace AST {
     class For;
     class FunctionCall;
     class FunctionDeclare;
-    class Param;
-    class Params;
+    class FormalParam;
+    class FormalParams;
+    class SimpleParam;
+    class SimpleParams;
 }
 
 class Visitor {
@@ -56,8 +58,10 @@ public:
     virtual void Visit (AST::For& e) = 0;
     virtual void Visit (AST::FunctionCall& e) = 0;
     virtual void Visit (AST::FunctionDeclare& e) = 0;
-    virtual void Visit (AST::Param& e) = 0;
-    virtual void Visit (AST::Params& e) = 0;
+    virtual void Visit (AST::FormalParam& e) = 0;
+    virtual void Visit (AST::FormalParams& e) = 0;
+    virtual void Visit (AST::SimpleParam& e) = 0;
+    virtual void Visit (AST::SimpleParams& e) = 0;
 };
 
 #endif //COMPILER_VISITOR_H

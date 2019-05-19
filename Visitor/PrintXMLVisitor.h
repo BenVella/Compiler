@@ -27,8 +27,10 @@
 #include "../ASTNode/ASTStatementNode/For.h"
 #include "../ASTNode/ASTStatementNode/FunctionCall.h"
 #include "../ASTNode/ASTStatementNode/FunctionDeclare.h"
-#include "../ASTNode/ASTStatementNode/Param.h"
-#include "../ASTNode/ASTStatementNode/Params.h"
+#include "../ASTNode/ASTStatementNode/FormalParam.h"
+#include "../ASTNode/ASTStatementNode/FormalParams.h"
+#include "../ASTNode/ASTStatementNode/SimpleParam.h"
+#include "../ASTNode/ASTStatementNode/SimpleParams.h"
 
 
 class PrintXMLVisitor : public Visitor {
@@ -239,23 +241,45 @@ public:
         std::cout << indentTabs() << "</FunctionDeclare>" << std::endl;
     }
 
-    virtual void Visit(AST::Params& p_node) override {
-        std::cout << indentTabs() << "<Params>" << std::endl;
+    virtual void Visit(AST::FormalParams& p_node) override {
+        std::cout << indentTabs() << "<FormalParams>" << std::endl;
         m_indent++;
         for (auto *param : *p_node.getParams()) {
             param->Accept(*this);
         }
         m_indent--;
-        std::cout << indentTabs() << "</Params>" << std::endl;
+        std::cout << indentTabs() << "</FormalParams>" << std::endl;
     }
 
-    virtual void Visit(AST::Param& p_node) override {
-        std::cout << indentTabs() << "<Param>" << std::endl;
+    virtual void Visit(AST::FormalParam& p_node) override {
+        std::cout << indentTabs() << "<FormalParam>" << std::endl;
         m_indent++;
         std::cout << indentTabs() << "<Identifier>" << p_node.getName() << "</Identifier>" << std::endl;
         std::cout << indentTabs() << "<Type>" << p_node.getType() << "</Type>" << std::endl;
         m_indent--;
-        std::cout << indentTabs() << "</Param>" << std::endl;
+        std::cout << indentTabs() << "</FormalParam>" << std::endl;
+    }
+
+    virtual void Visit(AST::SimpleParams& p_node) override {
+        std::cout << indentTabs() << "<SimpleParams>" << std::endl;
+        m_indent++;
+        for (auto *param : *p_node.getParams()) {
+            param->Accept(*this);
+        }
+        m_indent--;
+        std::cout << indentTabs() << "</SimpleParams>" << std::endl;
+    }
+
+    virtual void Visit(AST::SimpleParam& p_node) override {
+        std::cout << indentTabs() << "<SimpleParam>" << std::endl;
+        m_indent++;
+        std::cout << indentTabs() << "<Expression>" << std::endl;
+        m_indent++;
+        p_node.getExpr()->Accept(*this);
+        m_indent--;
+        std::cout<< indentTabs() << "</Expression>" << std::endl;
+        m_indent--;
+        std::cout << indentTabs() << "</SimpleParam>" << std::endl;
     }
 };
 #endif //COMPILER_PRINTINFOVISITOR_H

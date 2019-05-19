@@ -4,20 +4,20 @@
 // Created by bennet.vella on 26/04/2019.
 //
 
-#ifndef COMPILER_PARAM_H
-#define COMPILER_PARAM_H
+#ifndef COMPILER_FORMALPARAM_H
+#define COMPILER_FORMALPARAM_H
 
 #include <string>
 #include "Statement.h"
 
 namespace AST {
-    class Param : public Statement {
+    class FormalParam : public Statement {
     private:
         std::string _name;
         std::string _type;
 
     public:
-        Param(std::string _name, std::string _type) : _name(std::move(_name)), _type(std::move(_type)) {}
+        FormalParam(std::string _name, std::string _type) : _name(std::move(_name)), _type(std::move(_type)) {}
 
         void Accept(Visitor& v) override { v.Visit(*this); };
 
@@ -26,4 +26,4 @@ namespace AST {
     };
 }
 
-#endif //COMPILER_PARAM_H
+#endif //COMPILER_FORMALPARAM_H

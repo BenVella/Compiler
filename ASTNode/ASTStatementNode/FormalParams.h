@@ -2,22 +2,22 @@
 // Created by bennet.vella on 26/04/2019.
 //
 
-#ifndef COMPILER_PARAMS_H
-#define COMPILER_PARAMS_H
+#ifndef COMPILER_FORMALPARAMS_H
+#define COMPILER_FORMALPARAMS_H
 
 #include <vector>
 #include "Statement.h"
 
 namespace AST {
-    class Params : public Statement {
+    class FormalParams : public Statement {
     private:
         std::vector<Statement *> *_params;
     public:
-        Params(std::vector<Statement *> *_params) : _params(_params) {}
-        Params() {
+        FormalParams(std::vector<Statement *> *_params) : _params(_params) {}
+        FormalParams() {
             _params = new std::vector<Statement *>();
         }
-        ~Params() override = default;
+        ~FormalParams() override = default;
 
         void Accept(Visitor& v) override { v.Visit(*this); };
 
@@ -29,4 +29,4 @@ namespace AST {
     };
 }
 
-#endif //COMPILER_PARAMS_H
+#endif //COMPILER_FORMALPARAMS_H
