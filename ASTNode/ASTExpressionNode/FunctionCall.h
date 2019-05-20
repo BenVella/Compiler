@@ -6,10 +6,9 @@
 #define COMPILER_FUNCTIONCALL_H
 
 #include <string>
-#include "Statement.h"
 
 namespace AST {
-    class FunctionCall : public Statement {
+    class FunctionCall : public Expr {
     private:
         std::string _name;
         Statement*_params;

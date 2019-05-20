@@ -5,6 +5,7 @@
 #include "Parser.h"
 #include "Visitor/PrintXMLVisitor.h"
 #include "Visitor/SemanticAnalysisVisitor.h"
+#include "Visitor/InterpreterVisitor.h"
 
 typedef std::map<std::string, AST::Var> VarTable;
 
@@ -21,24 +22,49 @@ int main() {
     Lexer* newLexer = new Lexer (fileName);
     VarTable varTable;
 
-    // Standard Parser Evaluation TODO Uncomment if you want Parser operation
+    // Standard Parser Evaluation
     AST::Program* progResult = Parser::Parse(newLexer, varTable);
 
     // Uncomment for Printing XML
     // VISITOR - PrintXMLVisitor
-    /*PrintXMLVisitor visitor;
+    PrintXMLVisitor xmlVisitor;
     for (auto* stmt : *progResult->main_impl) {
-        stmt->Accept(visitor);
-    }*/
-
-
-    // VISITOR - SemanticAnalysisVisitor
-    std::cout << "Semantic Pass" << std::endl;
-    auto *visitor1 = new SemanticAnalysisVisitor();
-    for (auto* stmt : *progResult->main_impl) {
-        stmt->Accept(*visitor1);
+        stmt->Accept(xmlVisitor);
     }
 
+    // Uncomment for Semantic Analysis
+    // VISITOR - SemanticAnalysisVisitor
+    std::cout << "Semantic Analysis Start" << std::endl;
+    auto *semanticVisitor = new SemanticAnalysisVisitor();
+    for (auto* stmt : *progResult->main_impl) {
+        if (!semanticVisitor->hasErrored)
+            stmt->Accept(*semanticVisitor);
+    }
+    if (semanticVisitor->hasErrored) {
+        std::cerr << "SEMANTIC ANALYSIS FAILED!" << std::endl;
+        std::cout << "SEMANTIC ANALYSIS FAILED!" << std::endl;
+    } else {
+        std::cout << "Semantic Analysis Successful" << std::endl;
+        std::cout << "============================" << std::endl << std::endl;
+        std::cout << "Beginning Interpretation" << std::endl;
+        std::cout << "------------------------" << std::endl;
+
+        // Uncomment for Interpretation
+        // Carry out Interpretation since Analysis was successful
+        auto *interpreterVisitor = new InterpreterVisitor();
+
+        for (auto *stmt : *progResult->main_impl) {
+            if (!interpreterVisitor->hasErrored)
+                stmt->Accept(*interpreterVisitor);
+        }
+        if (interpreterVisitor->hasErrored) {
+            std::cerr << "INTERPRETATION FAILED!" << std::endl;
+            std::cout << "INTERPRETATION FAILED!" << std::endl;
+        } else {
+            std::cout << "Interpretation Complete" << std::endl;
+            std::cout << "=======================" << std::endl;
+        }
+    }
     return 0;
 }
 

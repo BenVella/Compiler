@@ -11,3 +11,5 @@ fn Pow(x:float, n:int) :  float {
 	}
 	return y;
 }
+
+print Pow(2.0,3);

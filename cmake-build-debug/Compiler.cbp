@@ -122,6 +122,9 @@
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Expr.h">
 			<Option target="Compiler"/>
 		</Unit>
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/FunctionCall.h">
+			<Option target="Compiler"/>
+		</Unit>
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTExpressionNode/Unary/ExprUnOp.h">
 			<Option target="Compiler"/>
 		</Unit>
@@ -140,19 +143,16 @@
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/For.h">
 			<Option target="Compiler"/>
 		</Unit>
-		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/FunctionCall.h">
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/FormalParam.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/FormalParams.h">
 			<Option target="Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/FunctionDeclare.h">
 			<Option target="Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/If.h">
-			<Option target="Compiler"/>
-		</Unit>
-		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/Param.h">
-			<Option target="Compiler"/>
-		</Unit>
-		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/Params.h">
 			<Option target="Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/ASTNode/ASTStatementNode/Print.h">
@@ -183,6 +183,9 @@
 			<Option target="Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Util.h">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Visitor/InterpreterVisitor.h">
 			<Option target="Compiler"/>
 		</Unit>
 		<Unit filename="C:/Users/bennet.vella/Desktop/Compiler/Visitor/PrintXMLVisitor.h">
