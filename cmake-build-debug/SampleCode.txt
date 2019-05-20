@@ -1,3 +1,5 @@
+//Test IF, For
+
 fn Pow (x:float,n:int) : float {
     var y : float = 1.0;
     if (n > 0) {
@@ -12,4 +14,4 @@ fn Pow (x:float,n:int) : float {
     return y;
 }
 
-Pow(2,3);
+Pow(2.0,3);
