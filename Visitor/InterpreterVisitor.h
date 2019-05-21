@@ -81,6 +81,7 @@ class InterpreterVisitor : public Visitor {
 
         void Pop () {
             _scopeVector.pop_back();
+            delete _currentMap;
             _currentMap = _scopeVector.back();
         }
 
@@ -90,7 +91,7 @@ class InterpreterVisitor : public Visitor {
 
         // Returns value if found, empty if not
         std::string Lookup (const std::string& p_name) {
-            for (int i = 0; i < _scopeVector.size(); i++) {
+            for (int i = _scopeVector.size()-1; i >= 0; i--) {
                 if (_scopeVector[i]->find(p_name) == _scopeVector[i]->end()) {
                     // No match yet
                 } else {

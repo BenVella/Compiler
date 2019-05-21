@@ -47,7 +47,7 @@ private:
     AST::Statement* ParseForStatement();
     AST::Statement* ParseStatement();
     AST::Statement* ParseBlockStatement();
-    AST::Statement * ParseFunctionCall(const std::string& pName);
+    AST::Statement* ParseFunctionCall(const std::string& pName);
     AST::Statement* ParseFunctionDeclaration();
     AST::Statement* ParseFormalParams();
     AST::Statement* ParseSingleFormalParam();
